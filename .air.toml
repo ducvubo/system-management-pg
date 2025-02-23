@@ -1,0 +1,15 @@
+root = "."  # Thư mục gốc của dự án
+tmp_dir = "tmp"
+
+[build]
+bin = "tmp/main.exe"
+cmd = "go build -o tmp/main.exe ./cmd/server"
+
+
+[log]
+  level = "debug"
+
+[watcher]
+  paths = ["."]
+  exts = [".go", ".tmpl", ".html"]
+  ignore_dirs = ["tmp", "vendor", "node_modules"]

@@ -1,0 +1,70 @@
+version: '3.9'
+
+services:
+
+  kafka:
+    image: 'bitnami/kafka:3.5'
+    container_name: kafka_container
+    environment:
+      KAFKA_ENABLE_KRAFT: yes
+      KAFKA_CFG_NODE_ID: 1
+      KAFKA_CFG_PROCESS_ROLES: controller,broker
+      KAFKA_CFG_LISTENERS: PLAINTEXT://:9094,CONTROLLER://:9095
+      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://192.168.1.115:19094
+      KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      KAFKA_CFG_CONTROLLER_QUORUM_VOTERS: 1@pre_kafka_container:9093
+      KAFKA_CFG_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_HEAP_OPTS: -Xmx512M -Xms256M
+      KAFKA_KRAFT_CLUSTER_ID: aF3+zO7$wT1~yY1?cC7,qW
+      ALLOW_PLAINTEXT_LISTENER: yes
+      KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE: true
+      KAFKA_BROKER_ID: 1
+    ports:
+      - "19094:9094"
+      - "19095:9095"
+    volumes:
+      - ./kafka/broker1:/bitnami/kafka:rw
+  # zookeeper:
+  #   image: 'bitnami/zookeeper:3.8'
+  #   container_name: pre_zookeeper_container
+  #   environment:
+  #     ZOOKEEPER_CLIENT_PORT: 2181
+  #     ZOOKEEPER_TICK_TIME: 2000
+  #   ports:
+  #     - "2181:2181"
+  #   volumes:
+  #     - ./zookeeper/data:/bitnami/zookeeper
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka-ui_container
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka_container:9094
+    ports:
+      - "9090:8080"
+    depends_on:
+      - kafka
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_container
+    environment:
+      MYSQL_ROOT_PASSWORD: root1234
+      MYSQL_DATABASE: shopdevgo
+      MYSQL_PASSWORD: root1234
+    ports:
+      - "33306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init:/docker-entrypoint-initdb.d
+
+  redis:
+    image: redis:7.0
+    container_name: redis_container
+    ports:
+      - "6331:6379"
+    volumes:
+      - redis_data:/data
+volumes:
+  mysql_data:
+  redis_data:
