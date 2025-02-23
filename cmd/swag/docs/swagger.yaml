@@ -1,0 +1,428 @@
+basePath: /api/v1
+definitions:
+  model.CreateUserManagementAccountDto:
+    properties:
+      us_email:
+        type: string
+      us_id:
+        type: string
+      us_pass:
+        maxLength: 32
+        minLength: 8
+        type: string
+    required:
+    - us_email
+    - us_id
+    - us_pass
+    type: object
+  model.CreateUserManagementProfileDto:
+    properties:
+      us_address:
+        type: string
+      us_avatar:
+        type: string
+      us_birthday:
+        type: string
+      us_gender:
+        type: string
+      us_name:
+        type: string
+      us_phone:
+        type: string
+    required:
+    - us_address
+    - us_avatar
+    - us_birthday
+    - us_gender
+    - us_name
+    - us_phone
+    type: object
+  model.LoginUserManagementAccountDto:
+    properties:
+      us_email:
+        type: string
+      us_pass:
+        maxLength: 32
+        minLength: 8
+        type: string
+    required:
+    - us_email
+    - us_pass
+    type: object
+  model.SaveSystemParameterDto:
+    properties:
+      sys_para_description:
+        type: string
+      sys_para_id:
+        type: string
+      sys_para_value:
+        type: string
+    required:
+    - sys_para_description
+    - sys_para_id
+    - sys_para_value
+    type: object
+  model.UpdateUserManagementProfileDto:
+    properties:
+      us_address:
+        type: string
+      us_avatar:
+        type: string
+      us_birthday:
+        type: string
+      us_gender:
+        type: string
+      us_id:
+        type: string
+      us_name:
+        type: string
+      us_phone:
+        type: string
+    required:
+    - us_address
+    - us_avatar
+    - us_birthday
+    - us_gender
+    - us_id
+    - us_name
+    - us_phone
+    type: object
+  response.ResponseData:
+    properties:
+      code:
+        description: status code
+        type: integer
+      data:
+        description: dữ liệu trả về
+      error:
+        description: dữ liệu lỗi
+      message:
+        description: thông báo lỗi
+      statusCode:
+        description: HTTP status code
+        type: integer
+    type: object
+host: localhost:13000
+info:
+  contact:
+    email: tipsgo@gmail.com
+    name: TEAM TIPSGO
+    url: github.com/anonystick/go-ecommerce-backend-go
+  description: This is a sample server celler server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: github.com/anonystick/go-ecommerce-backend-go
+  title: API Documentation Ecommerce Backend SHOPDEVGO
+  version: 1.0.0
+paths:
+  /system-parameter:
+    get:
+      consumes:
+      - application/json
+      description: GetAllSystemParameter
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: GetAllSystemParameter
+      tags:
+      - System Parameter
+  /system-parameter/{sysParaID}:
+    get:
+      consumes:
+      - application/json
+      description: GetSystemParameter
+      parameters:
+      - description: sysParaID
+        in: path
+        name: sysParaID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: GetSystemParameter
+      tags:
+      - System Parameter
+  /system-parameter/save:
+    post:
+      consumes:
+      - application/json
+      description: SaveSystemParameterDto
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.SaveSystemParameterDto'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: SaveSystemParameterDto
+      tags:
+      - System Parameter
+  /user-management-account:
+    post:
+      consumes:
+      - application/json
+      description: CreateUserManagementAccount
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.CreateUserManagementAccountDto'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: CreateUserManagementAccount
+      tags:
+      - User Management Account
+  /user-management-account/login:
+    post:
+      consumes:
+      - application/json
+      description: LoginUserManagementAccount
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.LoginUserManagementAccountDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: LoginUserManagementAccount
+      tags:
+      - User Management Account
+  /user-management-account/profile:
+    get:
+      consumes:
+      - application/json
+      description: GetProfileUser
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: GetProfileUser
+      tags:
+      - User Management Account
+  /user-management-account/refresh-token:
+    post:
+      consumes:
+      - application/json
+      description: RefreshToken
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: RefreshToken
+      tags:
+      - User Management Account
+  /user-management-profile:
+    get:
+      consumes:
+      - application/json
+      description: GetAllUserManagementProfile
+      parameters:
+      - description: pageIndex
+        in: query
+        name: pageIndex
+        type: integer
+      - description: pageSize
+        in: query
+        name: pageSize
+        type: integer
+      - description: usName
+        in: query
+        name: usName
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: GetAllUserManagementProfile
+      tags:
+      - User Management Profile
+    patch:
+      consumes:
+      - application/json
+      description: UpdateUserManagementProfile
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdateUserManagementProfileDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: UpdateUserManagementProfile
+      tags:
+      - User Management Profile
+    post:
+      consumes:
+      - application/json
+      description: CreateUserManagementProfile
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.CreateUserManagementProfileDto'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: CreateUserManagementProfile
+      tags:
+      - User Management Profile
+  /user-management-profile/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: DeleteUserManagementProfile
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: DeleteUserManagementProfile
+      tags:
+      - User Management Profile
+    get:
+      consumes:
+      - application/json
+      description: FindUserManagementProfile
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: FindUserManagementProfile
+      tags:
+      - User Management Profile
+  /user-management-profile/recycle:
+    get:
+      consumes:
+      - application/json
+      description: GetAllUserManagementProfileRecycle
+      parameters:
+      - description: pageIndex
+        in: query
+        name: pageIndex
+        type: integer
+      - description: pageSize
+        in: query
+        name: pageSize
+        type: integer
+      - description: usName
+        in: query
+        name: usName
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: GetAllUserManagementProfileRecycle
+      tags:
+      - User Management Profile
+  /user-management-profile/restore/{id}:
+    patch:
+      consumes:
+      - application/json
+      description: RestoreUserManagementProfile
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: RestoreUserManagementProfile
+      tags:
+      - User Management Profile
+security:
+- ClientIDAuth: []
+- AccessTokenAuth: []
+- RefreshTokenAuth: []
+securityDefinitions:
+  AccessTokenAuth:
+    in: header
+    name: x-at-tk
+    type: apiKey
+  ClientIDAuth:
+    in: header
+    name: id_user_guest
+    type: apiKey
+  RefreshTokenAuth:
+    in: header
+    name: x-rf-tk
+    type: apiKey
+swagger: "2.0"
