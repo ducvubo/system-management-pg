@@ -6,7 +6,12 @@ toolchain go1.22.6
 
 require github.com/swaggo/gin-swagger v1.6.0
 
-require github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
+require (
+	github.com/cloudinary/cloudinary-go/v2 v2.9.1 // indirect
+	github.com/creasty/defaults v1.7.0 // indirect
+	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
+	github.com/gorilla/schema v1.4.1 // indirect
+)
 
 require (
 	filippo.io/edwards25519 v1.1.0 // indirect

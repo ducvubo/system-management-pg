@@ -46,6 +46,9 @@ func InitRouter() *gin.Engine {
 	{
 		routers.RouterGroupApp.SystemParameter.InitSystemParameterRouter(MainGroup)
 	}
+	{
+		routers.RouterGroupApp.Upload.InitUploadRouter(MainGroup)
+	}
 
 	return r
 }

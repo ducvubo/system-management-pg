@@ -113,6 +113,56 @@ const docTemplate = `{
                 }
             }
         },
+        "/upload": {
+            "post": {
+                "description": "Upload an image file to Cloudinary with a specified folder from header",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "File Upload"
+                ],
+                "summary": "Upload a file to Cloudinary",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "File to upload (jpg, jpeg, png, gif)",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Folder name in Cloudinary (optional)",
+                        "name": "folder",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Upload successful with file URL",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid file or request",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    },
+                    "500": {
+                        "description": "Server or Cloudinary error",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
         "/user-management-account": {
             "post": {
                 "description": "CreateUserManagementAccount",

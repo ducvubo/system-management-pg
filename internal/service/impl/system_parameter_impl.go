@@ -5,7 +5,7 @@ import (
 	"database/sql"
 	"fmt"
 	"net/http"
-	consts "system-management-pg/internal/const"
+	// consts "system-management-pg/internal/const"
 	"system-management-pg/internal/database"
 	"system-management-pg/internal/model"
 )
@@ -22,11 +22,11 @@ func NewSystemParameterImpl(r *database.Queries) *sSystemParameter {
 
 func (s *sSystemParameter) SaveSystemParameter(ctx context.Context, saveSystemParameterDto *model.SaveSystemParameterDto, User *model.UserManagementProfileOutput) (err error, statusCode int) {
 
-	_, exists := consts.GetSystemParameter(saveSystemParameterDto.SysParaID)
+	// _, exists := consts.GetSystemParameter(saveSystemParameterDto.SysParaID)
 
-	if !exists {
-		return fmt.Errorf("Tham số không tồn tại"), http.StatusNotFound
-	}
+	// if exists {
+	// 	return fmt.Errorf("Tham số không tồn tại"), http.StatusNotFound
+	// }
 
 	_, err = s.r.SaveSystemParameter(ctx, database.SaveSystemParameterParams{
 		SysParaID:            saveSystemParameterDto.SysParaID,
@@ -43,15 +43,15 @@ func (s *sSystemParameter) SaveSystemParameter(ctx context.Context, saveSystemPa
 		return fmt.Errorf("Lưu tham số không thành công"), http.StatusInternalServerError
 	}
 
-	return nil, http.StatusOK
+	return nil, http.StatusCreated
 }
 
 func (s *sSystemParameter) GetSystemParameter(ctx context.Context, sysParaID string) (out *model.SaveSystemParameterDto, err error, statusCode int) {
-	_, exists := consts.GetSystemParameter(sysParaID)
+	// _, exists := consts.GetSystemParameter(sysParaID)
 
-	if !exists {
-		return nil, fmt.Errorf("Tham số không tồn tại"), http.StatusBadRequest
-	}
+	// if !exists {
+	// 	return nil, fmt.Errorf("Tham số không tồn tại"), http.StatusBadRequest
+	// }
 
 	systemParameter, err := s.r.GetSystemParameter(ctx, sysParaID)
 	if err != nil {
