@@ -55,9 +55,9 @@ func AuthenMiddlewareUserManagement() gin.HandlerFunc {
 			return
 		}
 
-		clientId := auth.GetClientId(ctx)
+		clientId, valid := auth.ExtractTokenFromKeyHeader(ctx, "id_user_guest")
 		fmt.Println("clientId: ", clientId)
-		if clientId == "" {
+		if !valid {
 			ctx.AbortWithStatusJSON(401, gin.H{"code": 40003, "error": "invalid token3", "description": ""})
 			return
 		}

@@ -1,6 +1,7 @@
 package usermanagement
 
 import (
+	"fmt"
 	"system-management-pg/internal/model"
 	"system-management-pg/internal/service"
 	"system-management-pg/internal/utils/auth"
@@ -60,9 +61,10 @@ func (c *cUserManagementAccount) LoginUserManagementAccount(ctx *gin.Context) {
 		return
 	}
 
-	clientId := auth.GetClientId(ctx)
-	if clientId == "" {
-		response.ErrorResponse(ctx, 401, "Thất bại", nil)
+	clientId, valid := auth.ExtractTokenFromKeyHeader(ctx, "id_user_guest")
+	fmt.Println("clientId: ", clientId)
+	if !valid {
+		ctx.AbortWithStatusJSON(401, gin.H{"code": 40003, "error": "invalid token3", "description": ""})
 		return
 	}
 	data, err, statusCode := service.UserManagementAccount().LoginUserManagementAccount(ctx, &params, clientId)
