@@ -48,43 +48,43 @@ func AuthenMiddlewareUserManagement() gin.HandlerFunc {
 		}
 		refreshToken, valid := auth.ExtractTokenFromKeyHeader(ctx, "x-rf-tk")
 		if !valid {
-			ctx.AbortWithStatusJSON(401, gin.H{"code": 40001, "err": "Unauthorized2", "description": ""})
+			ctx.AbortWithStatusJSON(401, gin.H{"code": 40002, "err": "Unauthorized2", "description": ""})
 			return
 		}
 
 		clientId := ctx.GetHeader("id_user_guest")
 		if clientId == "" {
-			ctx.AbortWithStatusJSON(401, gin.H{"code": 40001, "err": "invalid token3", "description": ""})
+			ctx.AbortWithStatusJSON(401, gin.H{"code": 40003, "err": "invalid token3", "description": ""})
 			return
 		}
 
 		userSession, err, statusCode := service.UserManagementAccount().FindUserSessionBySessionIdAndRefreshToken(ctx, clientId, refreshToken)
 		if err != nil {
-			ctx.AbortWithStatusJSON(statusCode, gin.H{"code": 40001, "err": "invalid token4", "description": ""})
+			ctx.AbortWithStatusJSON(statusCode, gin.H{"code": 40004, "err": "invalid token4", "description": ""})
 			return
 		}
 
 		_, err = auth.VerifyToken(accessToken, userSession.UssKeyAt)
 		if err != nil {
-			ctx.AbortWithStatusJSON(401, gin.H{"code": 40001, "err": "invalid token5", "description": ""})
+			ctx.AbortWithStatusJSON(401, gin.H{"code": 40005, "err": "invalid token5", "description": ""})
 			return
 		}
 		_, err = auth.VerifyToken(refreshToken, userSession.UssKeyRf)
 		if err != nil {
-			ctx.AbortWithStatusJSON(401, gin.H{"code": 40001, "err": "invalid token6", "description": ""})
+			ctx.AbortWithStatusJSON(401, gin.H{"code": 40006, "err": "invalid token6", "description": ""})
 			return
 		}
 
 		userProfile, err, statusCode := service.UserManagementProfile().FindUserManagementProfile(ctx, userSession.UsaID)
 		if err != nil {
-			ctx.AbortWithStatusJSON(401, gin.H{"code": 40001, "err": "invalid token7", "description": ""})
+			ctx.AbortWithStatusJSON(401, gin.H{"code": 40007, "err": "invalid token7", "description": ""})
 			return
 		}
 
 		userAccount, err, statusCode := service.UserManagementAccount().FindUserAccountById(ctx, userSession.UsaID)
 
 		if err != nil {
-			ctx.AbortWithStatusJSON(401, gin.H{"code": 40001, "err": "invalid token8", "description": ""})
+			ctx.AbortWithStatusJSON(401, gin.H{"code": 40008, "err": "invalid token8", "description": ""})
 			return
 		}
 
