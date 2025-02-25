@@ -27,3 +27,8 @@ func ExtractTokenFromKeyHeader(c *gin.Context, key string) (string, bool) {
 	}
 	return "", false
 }
+
+func GetClientId(c *gin.Context) string {
+	authHeader := c.GetHeader("id_user_guest")
+	return authHeader
+}

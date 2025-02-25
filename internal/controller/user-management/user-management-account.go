@@ -3,6 +3,7 @@ package usermanagement
 import (
 	"system-management-pg/internal/model"
 	"system-management-pg/internal/service"
+	"system-management-pg/internal/utils/auth"
 	"system-management-pg/internal/utils/context"
 	"system-management-pg/internal/utils/validator"
 	"system-management-pg/pkg/response"
@@ -59,7 +60,7 @@ func (c *cUserManagementAccount) LoginUserManagementAccount(ctx *gin.Context) {
 		return
 	}
 
-	clientId := ctx.GetHeader("id_user_guest")
+	clientId := auth.GetClientId(ctx)
 	if clientId == "" {
 		response.ErrorResponse(ctx, 401, "Thất bại", nil)
 		return
