@@ -2,6 +2,7 @@ package middlewares
 
 import (
 	"context"
+	"fmt"
 	"log"
 
 	"system-management-pg/internal/model"
@@ -19,14 +20,14 @@ func AuthenMiddleware() gin.HandlerFunc {
 		// check headers authorization
 		jwtToken, valid := auth.ExtractBearerToken(c)
 		if !valid {
-			c.AbortWithStatusJSON(401, gin.H{"code": 40001, "err": "Unauthorized", "description": ""})
+			c.AbortWithStatusJSON(401, gin.H{"code": 40001, "error": "Unauthorized", "description": ""})
 			return
 		}
 
 		// validate jwt token by subject
 		claims, err := auth.VerifyTokenSubject(jwtToken)
 		if err != nil {
-			c.AbortWithStatusJSON(401, gin.H{"code": 40001, "err": "invalid token", "description": ""})
+			c.AbortWithStatusJSON(401, gin.H{"code": 40001, "error": "invalid token", "description": ""})
 			return
 		}
 		// update claims to context
@@ -43,48 +44,49 @@ func AuthenMiddlewareUserManagement() gin.HandlerFunc {
 		log.Println(" uri request: ", uri)
 		accessToken, valid := auth.ExtractTokenFromKeyHeader(ctx, "x-at-tk")
 		if !valid {
-			ctx.AbortWithStatusJSON(401, gin.H{"code": 40001, "err": "Unauthorized1", "description": ""})
+			ctx.AbortWithStatusJSON(401, gin.H{"code": 40001, "error": "Unauthorized1", "description": ""})
 			return
 		}
 		refreshToken, valid := auth.ExtractTokenFromKeyHeader(ctx, "x-rf-tk")
 		if !valid {
-			ctx.AbortWithStatusJSON(401, gin.H{"code": 40002, "err": "Unauthorized2", "description": ""})
+			ctx.AbortWithStatusJSON(401, gin.H{"code": 40002, "error": "Unauthorized2", "description": ""})
 			return
 		}
 
 		clientId := ctx.GetHeader("id_user_guest")
+		fmt.Println("clientId: ", clientId)
 		if clientId == "" {
-			ctx.AbortWithStatusJSON(401, gin.H{"code": 40003, "err": "invalid token3", "description": ""})
+			ctx.AbortWithStatusJSON(401, gin.H{"code": 40003, "error": "invalid token3", "description": ""})
 			return
 		}
 
 		userSession, err, statusCode := service.UserManagementAccount().FindUserSessionBySessionIdAndRefreshToken(ctx, clientId, refreshToken)
 		if err != nil {
-			ctx.AbortWithStatusJSON(statusCode, gin.H{"code": 40004, "err": "invalid token4", "description": ""})
+			ctx.AbortWithStatusJSON(statusCode, gin.H{"code": 40004, "error": "invalid token4", "description": ""})
 			return
 		}
 
 		_, err = auth.VerifyToken(accessToken, userSession.UssKeyAt)
 		if err != nil {
-			ctx.AbortWithStatusJSON(401, gin.H{"code": 40005, "err": "invalid token5", "description": ""})
+			ctx.AbortWithStatusJSON(401, gin.H{"code": 40005, "error": "invalid token5", "description": ""})
 			return
 		}
 		_, err = auth.VerifyToken(refreshToken, userSession.UssKeyRf)
 		if err != nil {
-			ctx.AbortWithStatusJSON(401, gin.H{"code": 40006, "err": "invalid token6", "description": ""})
+			ctx.AbortWithStatusJSON(401, gin.H{"code": 40006, "error": "invalid token6", "description": ""})
 			return
 		}
 
 		userProfile, err, statusCode := service.UserManagementProfile().FindUserManagementProfile(ctx, userSession.UsaID)
 		if err != nil {
-			ctx.AbortWithStatusJSON(401, gin.H{"code": 40007, "err": "invalid token7", "description": ""})
+			ctx.AbortWithStatusJSON(401, gin.H{"code": 40007, "error": "invalid token7", "description": ""})
 			return
 		}
 
 		userAccount, err, statusCode := service.UserManagementAccount().FindUserAccountById(ctx, userSession.UsaID)
 
 		if err != nil {
-			ctx.AbortWithStatusJSON(401, gin.H{"code": 40008, "err": "invalid token8", "description": ""})
+			ctx.AbortWithStatusJSON(401, gin.H{"code": 40008, "error": "invalid token8", "description": ""})
 			return
 		}
 
