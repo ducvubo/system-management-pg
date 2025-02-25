@@ -61,8 +61,8 @@ func (c *cUserManagementAccount) LoginUserManagementAccount(ctx *gin.Context) {
 
 	clientId := ctx.GetHeader("id_user_guest")
 	if clientId == "" {
-		// response.ErrorResponse(ctx, 401, "Thất bại", nil)
-		// return
+		response.ErrorResponse(ctx, 401, "Thất bại", nil)
+		return
 	}
 	data, err, statusCode := service.UserManagementAccount().LoginUserManagementAccount(ctx, &params, clientId)
 	if err != nil {
