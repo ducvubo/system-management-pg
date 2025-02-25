@@ -43,11 +43,13 @@ func AuthenMiddlewareUserManagement() gin.HandlerFunc {
 		uri := ctx.Request.URL.Path
 		log.Println(" uri request: ", uri)
 		accessToken, valid := auth.ExtractTokenFromKeyHeader(ctx, "x-at-tk")
+		fmt.Println("accessToken: ", accessToken)
 		if !valid {
 			ctx.AbortWithStatusJSON(401, gin.H{"code": 40001, "error": "Unauthorized1", "description": ""})
 			return
 		}
 		refreshToken, valid := auth.ExtractTokenFromKeyHeader(ctx, "x-rf-tk")
+		fmt.Println("refreshToken: ", refreshToken)
 		if !valid {
 			ctx.AbortWithStatusJSON(401, gin.H{"code": 40002, "error": "Unauthorized2", "description": ""})
 			return
