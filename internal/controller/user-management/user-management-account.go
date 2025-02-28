@@ -99,7 +99,7 @@ func (c *cUserManagementAccount) GetProfileUser(ctx *gin.Context) {
 // @Success      200  {object}  response.ResponseData
 // @Router       /user-management-account/refresh-token [post]
 func (c *cUserManagementAccount) RefreshToken(ctx *gin.Context) {
-	clientId := ctx.GetHeader("id_user_guest")
+	clientId := ctx.GetHeader("x-cl-id")
 	var params model.RefreshTokenInput
 
 	if !validator.BindAndValidate(ctx, &params) {

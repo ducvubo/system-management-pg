@@ -9,14 +9,14 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
-// @title           API Documentation Ecommerce Backend SHOPDEVGO
+// @title           API Documentation System Management
 // @version         1.0.0
 // @description     This is a sample server celler server.
-// @termsOfService  github.com/anonystick/go-ecommerce-backend-go
+// @termsOfService  https://github.com/ducvubo
 
 // @contact.name   TEAM TIPSGO
-// @contact.url    github.com/anonystick/go-ecommerce-backend-go
-// @contact.email  tipsgo@gmail.com
+// @contact.url    https://github.com/ducvubo
+// @contact.email  vminhduc8@gmail.com
 
 // @license.name  Apache 2.0
 // @license.url   http://www.apache.org/licenses/LICENSE-2.0.html
