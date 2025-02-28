@@ -9,11 +9,11 @@ const docTemplate = `{
     "info": {
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
-        "termsOfService": "github.com/anonystick/go-ecommerce-backend-go",
+        "termsOfService": "https://github.com/ducvubo",
         "contact": {
-            "name": "TEAM TIPSGO",
-            "url": "github.com/anonystick/go-ecommerce-backend-go",
-            "email": "tipsgo@gmail.com"
+            "name": "Vũ Đức Bo",
+            "url": "https://github.com/ducvubo",
+            "email": "vminhduc8@gmail.com"
         },
         "license": {
             "name": "Apache 2.0",
@@ -115,7 +115,7 @@ const docTemplate = `{
         },
         "/upload": {
             "post": {
-                "description": "Upload an image file to Cloudinary with a specified folder from header",
+                "description": "Upload an image file to Cloudinary with a specified folder from header and return original and transformed URLs",
                 "consumes": [
                     "multipart/form-data"
                 ],
@@ -143,9 +143,21 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "Upload successful with file URL",
+                        "description": "Upload successful with original and transformed file URLs",
                         "schema": {
-                            "$ref": "#/definitions/response.ResponseData"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.ResponseData"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/upload.ImageResponse"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     },
                     "400": {
@@ -667,6 +679,17 @@ const docTemplate = `{
                     "type": "integer"
                 }
             }
+        },
+        "upload.ImageResponse": {
+            "type": "object",
+            "properties": {
+                "image_cloud": {
+                    "type": "string"
+                },
+                "image_custom": {
+                    "type": "string"
+                }
+            }
         }
     },
     "securityDefinitions": {
@@ -702,10 +725,10 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0.0",
-	Host:             "localhost:13000",
+	Host:             "system.management.pg.taphoaictu.id.vn",
 	BasePath:         "/api/v1",
 	Schemes:          []string{},
-	Title:            "API Documentation Ecommerce Backend SHOPDEVGO",
+	Title:            "API Documentation System Management",
 	Description:      "This is a sample server celler server.",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,

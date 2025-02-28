@@ -2,12 +2,12 @@
     "swagger": "2.0",
     "info": {
         "description": "This is a sample server celler server.",
-        "title": "API Documentation Ecommerce Backend SHOPDEVGO",
-        "termsOfService": "github.com/anonystick/go-ecommerce-backend-go",
+        "title": "API Documentation System Management",
+        "termsOfService": "https://github.com/ducvubo",
         "contact": {
-            "name": "TEAM TIPSGO",
-            "url": "github.com/anonystick/go-ecommerce-backend-go",
-            "email": "tipsgo@gmail.com"
+            "name": "Vũ Đức Bo",
+            "url": "https://github.com/ducvubo",
+            "email": "vminhduc8@gmail.com"
         },
         "license": {
             "name": "Apache 2.0",
@@ -15,7 +15,7 @@
         },
         "version": "1.0.0"
     },
-    "host": "localhost:13000",
+    "host": "system.management.pg.taphoaictu.id.vn",
     "basePath": "/api/v1",
     "paths": {
         "/system-parameter": {
@@ -109,7 +109,7 @@
         },
         "/upload": {
             "post": {
-                "description": "Upload an image file to Cloudinary with a specified folder from header",
+                "description": "Upload an image file to Cloudinary with a specified folder from header and return original and transformed URLs",
                 "consumes": [
                     "multipart/form-data"
                 ],
@@ -137,9 +137,21 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Upload successful with file URL",
+                        "description": "Upload successful with original and transformed file URLs",
                         "schema": {
-                            "$ref": "#/definitions/response.ResponseData"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.ResponseData"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/upload.ImageResponse"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     },
                     "400": {
@@ -659,6 +671,17 @@
                 "statusCode": {
                     "description": "HTTP status code",
                     "type": "integer"
+                }
+            }
+        },
+        "upload.ImageResponse": {
+            "type": "object",
+            "properties": {
+                "image_cloud": {
+                    "type": "string"
+                },
+                "image_custom": {
+                    "type": "string"
                 }
             }
         }

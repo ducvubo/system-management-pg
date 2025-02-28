@@ -102,18 +102,25 @@ definitions:
         description: HTTP status code
         type: integer
     type: object
-host: localhost:13000
+  upload.ImageResponse:
+    properties:
+      image_cloud:
+        type: string
+      image_custom:
+        type: string
+    type: object
+host: system.management.pg.taphoaictu.id.vn
 info:
   contact:
-    email: tipsgo@gmail.com
-    name: TEAM TIPSGO
-    url: github.com/anonystick/go-ecommerce-backend-go
+    email: vminhduc8@gmail.com
+    name: Vũ Đức Bo
+    url: https://github.com/ducvubo
   description: This is a sample server celler server.
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  termsOfService: github.com/anonystick/go-ecommerce-backend-go
-  title: API Documentation Ecommerce Backend SHOPDEVGO
+  termsOfService: https://github.com/ducvubo
+  title: API Documentation System Management
   version: 1.0.0
 paths:
   /system-parameter:
@@ -179,7 +186,7 @@ paths:
       consumes:
       - multipart/form-data
       description: Upload an image file to Cloudinary with a specified folder from
-        header
+        header and return original and transformed URLs
       parameters:
       - description: File to upload (jpg, jpeg, png, gif)
         in: formData
@@ -194,9 +201,14 @@ paths:
       - application/json
       responses:
         "200":
-          description: Upload successful with file URL
+          description: Upload successful with original and transformed file URLs
           schema:
-            $ref: '#/definitions/response.ResponseData'
+            allOf:
+            - $ref: '#/definitions/response.ResponseData'
+            - properties:
+                data:
+                  $ref: '#/definitions/upload.ImageResponse'
+              type: object
         "400":
           description: Invalid file or request
           schema:

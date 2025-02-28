@@ -14,16 +14,16 @@ import (
 // @description     This is a sample server celler server.
 // @termsOfService  https://github.com/ducvubo
 
-// @contact.name   TEAM TIPSGO
+// @contact.name   Vũ Đức Bo
 // @contact.url    https://github.com/ducvubo
 // @contact.email  vminhduc8@gmail.com
 
 // @license.name  Apache 2.0
 // @license.url   http://www.apache.org/licenses/LICENSE-2.0.html
 
-// @host      localhost:13000
+// @host      system.management.pg.taphoaictu.id.vn
 // @BasePath  /api/v1
-// @schema http
+// @schema https
 
 // @securityDefinitions.apikey  ClientIDAuth
 // @in                          header
