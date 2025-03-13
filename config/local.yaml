@@ -2,10 +2,10 @@ server:
   port: 13000
   mode: "dev"
 mysql:
-  host: mysql-39588c9a-vminhduc8-88ed.a.aivencloud.com
-  port: 13890
-  username: avnadmin
-  password: AVNS_nejNZ1u-tCiAtEqOUdh
+  host: 160.191.51.57
+  port: 3316
+  username: root
+  password: Duc17052003*
   dbname: SystemManagementPG
   maxIdleConns: 10
   maxOpenConns: 100

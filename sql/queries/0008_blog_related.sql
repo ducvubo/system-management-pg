@@ -5,7 +5,7 @@ SELECT
 FROM blog_related
 WHERE bl_id = ?;
 
--- name: CreateRelatedBlog :exec
+-- name: CreateRelatedBlog :execresult
 INSERT INTO blog_related (
     bl_id,
     bl_rlt_id

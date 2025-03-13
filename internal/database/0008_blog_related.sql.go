@@ -7,9 +7,10 @@ package database
 
 import (
 	"context"
+	"database/sql"
 )
 
-const createRelatedBlog = `-- name: CreateRelatedBlog :exec
+const createRelatedBlog = `-- name: CreateRelatedBlog :execresult
 INSERT INTO blog_related (
     bl_id,
     bl_rlt_id
@@ -24,9 +25,8 @@ type CreateRelatedBlogParams struct {
 	BlRltID string
 }
 
-func (q *Queries) CreateRelatedBlog(ctx context.Context, arg CreateRelatedBlogParams) error {
-	_, err := q.db.ExecContext(ctx, createRelatedBlog, arg.BlID, arg.BlRltID)
-	return err
+func (q *Queries) CreateRelatedBlog(ctx context.Context, arg CreateRelatedBlogParams) (sql.Result, error) {
+	return q.db.ExecContext(ctx, createRelatedBlog, arg.BlID, arg.BlRltID)
 }
 
 const deleteRelatedBlog = `-- name: DeleteRelatedBlog :exec

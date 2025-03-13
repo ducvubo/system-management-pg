@@ -90,7 +90,7 @@ func (s *sCategoryBlog) UpdateStatusCategoryBlog(ctx context.Context, updateStat
 	return nil, http.StatusCreated
 }
 
-func (s *sCategoryBlog) FindCategoryBlogById(ctx context.Context, catBlId string, User *model.UserManagementProfileOutput) (out *model.CategoryBlogOutput, err error, statusCode int) {
+func (s *sCategoryBlog) FindCategoryBlogById(ctx context.Context, catBlId string) (out *model.CategoryBlogOutput, err error, statusCode int) {
 	Cat, err := s.r.GetCategoryBlog(ctx, catBlId)
 	if err != nil {
 		return nil, fmt.Errorf("failed to get category blog: %w", err), http.StatusBadRequest
@@ -105,7 +105,7 @@ func (s *sCategoryBlog) FindCategoryBlogById(ctx context.Context, catBlId string
 	}, nil, http.StatusOK
 }
 
-func (s *sCategoryBlog) GetAllCategoryBlog(ctx context.Context, Limit int32, Offset int32, isDeleted int32,CatName string, User *model.UserManagementProfileOutput) (out response.ModelPagination[[]*model.CategoryBlogOutput], err error, statusCode int) {
+func (s *sCategoryBlog) GetAllCategoryBlog(ctx context.Context, Limit int32, Offset int32, isDeleted int32,CatName string) (out response.ModelPagination[[]*model.CategoryBlogOutput], err error, statusCode int) {
 	Cat, err := s.r.GetListCategoryBlog(ctx, database.GetListCategoryBlogParams{
 		Limit: Limit,
 		Offset: Offset,
