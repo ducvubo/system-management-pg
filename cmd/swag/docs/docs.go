@@ -24,6 +24,508 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/blog": {
+            "get": {
+                "description": "GetAllBlog",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Blog"
+                ],
+                "summary": "GetAllBlog",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "pageIndex",
+                        "name": "pageIndex",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "pageSize",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "blTitle",
+                        "name": "blTitle",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "CreateBlogDto",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Blog"
+                ],
+                "summary": "CreateBlogDto",
+                "parameters": [
+                    {
+                        "description": "payload",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.CreateBlogDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "UpdateBlogDto",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Blog"
+                ],
+                "summary": "UpdateBlogDto",
+                "parameters": [
+                    {
+                        "description": "payload",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateBlogDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/blog/category/{catBlId}": {
+            "get": {
+                "description": "GetBlogByCatBlId",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Blog"
+                ],
+                "summary": "GetBlogByCatBlId",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "catBlId",
+                        "name": "catBlId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/blog/restore/{id}": {
+            "patch": {
+                "description": "RestoreBlog",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Blog"
+                ],
+                "summary": "RestoreBlog",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/blog/status": {
+            "patch": {
+                "description": "UpdateStatusBlogDto",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Blog"
+                ],
+                "summary": "UpdateStatusBlogDto",
+                "parameters": [
+                    {
+                        "description": "payload",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateStatusBlogDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/blog/{id}": {
+            "get": {
+                "description": "FindBlogById",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Blog"
+                ],
+                "summary": "FindBlogById",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "DeleteBlog",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Blog"
+                ],
+                "summary": "DeleteBlog",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/category-blog": {
+            "get": {
+                "description": "GetAllCategoryBlog",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Category Blog"
+                ],
+                "summary": "GetAllCategoryBlog",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "pageIndex",
+                        "name": "pageIndex",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "pageSize",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "catName",
+                        "name": "catName",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "CreateCategoryBlogDto",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Category Blog"
+                ],
+                "summary": "CreateCategoryBlogDto",
+                "parameters": [
+                    {
+                        "description": "payload",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.CreateCategoryBlogDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "UpdateCategoryBlogDto",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Category Blog"
+                ],
+                "summary": "UpdateCategoryBlogDto",
+                "parameters": [
+                    {
+                        "description": "payload",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateCategoryBlogDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/category-blog/restore/{catBlId}": {
+            "patch": {
+                "description": "RestoreCategoryBlog",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Category Blog"
+                ],
+                "summary": "RestoreCategoryBlog",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "catBlId",
+                        "name": "catBlId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/category-blog/status": {
+            "patch": {
+                "description": "UpdateStatusCategoryBlogDto",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Category Blog"
+                ],
+                "summary": "UpdateStatusCategoryBlogDto",
+                "parameters": [
+                    {
+                        "description": "payload",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateStatusCategoryBlogDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/category-blog/{catBlId}": {
+            "get": {
+                "description": "FindCategoryBlogById",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Category Blog"
+                ],
+                "summary": "FindCategoryBlogById",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "catBlId",
+                        "name": "catBlId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "DeleteCategoryBlog",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Category Blog"
+                ],
+                "summary": "DeleteCategoryBlog",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "catBlId",
+                        "name": "catBlId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
         "/system-parameter": {
             "get": {
                 "description": "GetAllSystemParameter",
@@ -535,6 +1037,90 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "model.BlogNote": {
+            "type": "object",
+            "required": [
+                "bl_content"
+            ],
+            "properties": {
+                "bl_content": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.BlogRelated": {
+            "type": "object",
+            "required": [
+                "bl_rlt_id"
+            ],
+            "properties": {
+                "bl_rlt_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.CreateBlogDto": {
+            "type": "object",
+            "required": [
+                "bl_content",
+                "bl_description",
+                "bl_image",
+                "bl_title",
+                "bl_type",
+                "cat_bl_id"
+            ],
+            "properties": {
+                "bl_content": {
+                    "type": "string"
+                },
+                "bl_description": {
+                    "type": "string"
+                },
+                "bl_image": {
+                    "type": "string"
+                },
+                "bl_title": {
+                    "type": "string"
+                },
+                "bl_type": {
+                    "type": "integer"
+                },
+                "blog_note": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.BlogNote"
+                    }
+                },
+                "blog_related": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.BlogRelated"
+                    }
+                },
+                "cat_bl_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.CreateCategoryBlogDto": {
+            "type": "object",
+            "required": [
+                "cat_bl_description",
+                "cat_bl_name",
+                "cat_bl_order"
+            ],
+            "properties": {
+                "cat_bl_description": {
+                    "type": "string"
+                },
+                "cat_bl_name": {
+                    "type": "string"
+                },
+                "cat_bl_order": {
+                    "type": "integer"
+                }
+            }
+        },
         "model.CreateUserManagementAccountDto": {
             "type": "object",
             "required": [
@@ -620,6 +1206,102 @@ const docTemplate = `{
                 },
                 "sys_para_value": {
                     "type": "string"
+                }
+            }
+        },
+        "model.UpdateBlogDto": {
+            "type": "object",
+            "required": [
+                "bl_content",
+                "bl_description",
+                "bl_id",
+                "bl_image",
+                "bl_title",
+                "cat_bl_id"
+            ],
+            "properties": {
+                "bl_content": {
+                    "type": "string"
+                },
+                "bl_description": {
+                    "type": "string"
+                },
+                "bl_id": {
+                    "type": "string"
+                },
+                "bl_image": {
+                    "type": "string"
+                },
+                "bl_title": {
+                    "type": "string"
+                },
+                "blog_note": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.BlogNote"
+                    }
+                },
+                "blog_related": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.BlogRelated"
+                    }
+                },
+                "cat_bl_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.UpdateCategoryBlogDto": {
+            "type": "object",
+            "required": [
+                "cat_bl_description",
+                "cat_bl_id",
+                "cat_bl_name",
+                "cat_bl_order"
+            ],
+            "properties": {
+                "cat_bl_description": {
+                    "type": "string"
+                },
+                "cat_bl_id": {
+                    "type": "string"
+                },
+                "cat_bl_name": {
+                    "type": "string"
+                },
+                "cat_bl_order": {
+                    "type": "integer"
+                }
+            }
+        },
+        "model.UpdateStatusBlogDto": {
+            "type": "object",
+            "required": [
+                "bl_id",
+                "bl_status"
+            ],
+            "properties": {
+                "bl_id": {
+                    "type": "string"
+                },
+                "bl_status": {
+                    "type": "integer"
+                }
+            }
+        },
+        "model.UpdateStatusCategoryBlogDto": {
+            "type": "object",
+            "required": [
+                "cat_bl_id",
+                "cat_bl_status"
+            ],
+            "properties": {
+                "cat_bl_id": {
+                    "type": "string"
+                },
+                "cat_bl_status": {
+                    "type": "integer"
                 }
             }
         },
@@ -725,7 +1407,7 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0.0",
-	Host:             "system.management.pg.taphoaictu.id.vn",
+	Host:             "localhost:13000",
 	BasePath:         "/api/v1",
 	Schemes:          []string{},
 	Title:            "API Documentation System Management",

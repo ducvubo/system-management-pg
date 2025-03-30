@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"system-management-pg/global"
+
 	"github.com/redis/go-redis/v9"
 	"go.uber.org/zap"
 )
@@ -18,7 +19,7 @@ func InitRedis() {
 		Password: r.Password, // no password set
 		DB:       r.Database, // use default DB
 		Username : r.User,
-		PoolSize: 10,         //
+		PoolSize: 1000,         //
 	})
 
 	_, err := rdb.Ping(ctx).Result()

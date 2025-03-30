@@ -19,8 +19,8 @@ func Run() *gin.Engine {
 	InitMysql()
 	InitMysqlC()
 	InitServiceInterface()
-	// InitRedis()
-	// InitKafka()
+	InitRedis()
+	InitKafka()
 	r := InitRouter()
 	return r
 	// r.Run(":8002")
