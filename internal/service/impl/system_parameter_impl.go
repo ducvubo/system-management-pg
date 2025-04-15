@@ -96,11 +96,6 @@ func (s *sSystemParameter) SaveSystemParameter(ctx context.Context, saveSystemPa
 
 
 func (s *sSystemParameter) GetSystemParameter(ctx context.Context, sysParaID string) (out *model.SaveSystemParameterDto, err error, statusCode int) {
-	// _, exists := consts.GetSystemParameter(sysParaID)
-
-	// if !exists {
-	// 	return nil, fmt.Errorf("Tham số không tồn tại"), http.StatusBadRequest
-	// }
 
 	systemParameter, err := s.r.GetSystemParameter(ctx, sysParaID)
 	if err != nil {
@@ -128,7 +123,6 @@ func (s *sSystemParameter) GetAllSystemParameter(ctx context.Context) (out []*mo
 		return nil, fmt.Errorf("lỗi khi truy vấn cache: %v", err), http.StatusInternalServerError
 	}
 
-	// Nếu không có cache, lấy từ DB
 	systemParameters, err := s.r.GetAllSystemParameters(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("Lấy tham số không thành công"), http.StatusBadRequest

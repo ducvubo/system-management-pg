@@ -54,64 +54,6 @@ func (ns NullPreGoAccUserTwoFactor9999TwoFactorAuthType) Value() (driver.Value, 
 	return string(ns.PreGoAccUserTwoFactor9999TwoFactorAuthType), nil
 }
 
-// blog
-type Blog struct {
-	BlID          string
-	CatBlID       string
-	BlTitle       string
-	BlDescription sql.NullString
-	BlSlug        string
-	BlImage       sql.NullString
-	BlContent     string
-	// 0: Bản nháp, 1: chờ duyệt, 2: Từ chối duyệt, 3 đợi xuất bản, 4: lên lịch xuất bản, 5: Đã xuất bản, 6: Không xuất bản
-	BlStatus sql.NullInt32
-	// 0: Bài viết, 1: Video, 3: Ảnh
-	BlType              sql.NullInt32
-	BlView              sql.NullInt32
-	BlPublishedTime     sql.NullTime
-	BlPublishedSchedule sql.NullTime
-	Createdat           sql.NullTime
-	Updatedat           sql.NullTime
-	Deletedat           sql.NullTime
-	Createdby           sql.NullString
-	Updatedby           sql.NullString
-	Deletedby           sql.NullString
-	// 0: chưa xóa, 1: đã xóa
-	Isdeleted sql.NullInt32
-}
-
-// blog_note
-type BlogNote struct {
-	BlNoteID  string
-	BlID      string
-	BlContent string
-}
-
-// blog_related
-type BlogRelated struct {
-	BlID    string
-	BlRltID string
-}
-
-// category_blog
-type CategoryBlog struct {
-	CatBlID          string
-	CatBlName        string
-	CatBlDescription sql.NullString
-	CatBlSlug        string
-	CatBlOrder       sql.NullInt32
-	// 0: inactive, 1: active
-	CatBlStatus sql.NullInt32
-	Createdat   sql.NullTime
-	Updatedat   sql.NullTime
-	Deletedat   sql.NullTime
-	Createdby   sql.NullString
-	Updatedby   sql.NullString
-	Deletedby   sql.NullString
-	// 0: chưa xóa, 1: đã xóa
-	Isdeleted sql.NullInt32
-}
-
 // pre_go_acc_user_base_9999
 type PreGoAccUserBase9999 struct {
 	UserID         int32

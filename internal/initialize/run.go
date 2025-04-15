@@ -16,7 +16,7 @@ func Run() *gin.Engine {
 	fmt.Println("Loading configuration mysql", m.Username, m.Password)
 	InitLogger()
 	global.Logger.Info("Config Log ok!!", zap.String("ok", "success"))
-	InitMysql()
+	// InitMysql()
 	InitMysqlC()
 	InitServiceInterface()
 	InitRedis()

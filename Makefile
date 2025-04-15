@@ -1,4 +1,4 @@
-GOOSE_DBSTRING ?= "avnadmin:AVNS_nejNZ1u-tCiAtEqOUdh@tcp(mysql-39588c9a-vminhduc8-88ed.a.aivencloud.com:13890)/SystemManagementPG"
+GOOSE_DBSTRING ?= "root:Duc17052003*@tcp(160.187.229.179:3316)/SystemManagementPG"
 GOOSE_MIGRATION_DIR ?= sql/schema
 GOOSE_DRIVER ?= mysql
 

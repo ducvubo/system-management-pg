@@ -5,6 +5,7 @@ import (
 
 	"system-management-pg/pkg/logger"
 	"system-management-pg/pkg/setting"
+
 	"github.com/redis/go-redis/v9"
 	"github.com/segmentio/kafka-go"
 	"gorm.io/gorm"
@@ -18,10 +19,3 @@ var (
 	Mdbc          *sql.DB
 	KafkaProducer *kafka.Writer
 )
-
-/*
-Config
-REdis
-Mysql
-...
-*/
