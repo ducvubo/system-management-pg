@@ -194,3 +194,64 @@ type UserManagementSession struct {
 	Createdby     sql.NullString
 	Updatedby     sql.NullString
 }
+
+// user_pato_account
+type UserPatoAccount struct {
+	UsaPtID              string
+	UsaPtEmail           string
+	UsaPtSalt            string
+	UsaPtPassword        string
+	UsaPtActiveTime      sql.NullTime
+	UsaPtLockedTime      sql.NullTime
+	UsaPtRecoverPassTime sql.NullTime
+	UsaPtVerifyTime      sql.NullTime
+	UsaPtVerifyCode      sql.NullString
+	UsaPtRecoverPassCode sql.NullString
+	// 0: kích hoạt
+	UsaPtActive sql.NullInt32
+	UsaPtLocked sql.NullInt32
+	Createdat   sql.NullTime
+	Updatedat   sql.NullTime
+	Deletedat   sql.NullTime
+	Createdby   sql.NullString
+	Updatedby   sql.NullString
+	Deletedby   sql.NullString
+	// 0: chưa xóa, 1: đã xóa
+	Isdeleted sql.NullInt32
+}
+
+// user_pato_profile
+type UserPatoProfile struct {
+	UsPtID       string
+	UsPtName     sql.NullString
+	UsPtAvatar   sql.NullString
+	UsPtPhone    sql.NullString
+	UsPtGender   sql.NullString
+	UsPtAddress  sql.NullString
+	UsPtBirthday sql.NullTime
+	Createdat    sql.NullTime
+	Updatedat    sql.NullTime
+	Deletedat    sql.NullTime
+	Createdby    sql.NullString
+	Updatedby    sql.NullString
+	Deletedby    sql.NullString
+	// 0: chưa xóa, 1: đã xóa
+	Isdeleted sql.NullInt32
+}
+
+// user_pato_session
+type UserPatoSession struct {
+	UssPtID         string
+	UsaPtID         string
+	UssPtRf         string
+	UssPtKeyAt      string
+	UssPtKeyRf      string
+	UssPtClientID   string
+	UssPtLoginTime  time.Time
+	UssPtLogoutTime sql.NullTime
+	Createdat       sql.NullTime
+	Updatedat       sql.NullTime
+	Deletedat       sql.NullTime
+	Createdby       sql.NullString
+	Updatedby       sql.NullString
+}
