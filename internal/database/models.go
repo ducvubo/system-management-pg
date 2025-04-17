@@ -197,7 +197,7 @@ type UserManagementSession struct {
 
 // user_pato_account
 type UserPatoAccount struct {
-	UsaPtID              string
+	UsaPtID              int32
 	UsaPtEmail           string
 	UsaPtSalt            string
 	UsaPtPassword        string
@@ -207,22 +207,25 @@ type UserPatoAccount struct {
 	UsaPtVerifyTime      sql.NullTime
 	UsaPtVerifyCode      sql.NullString
 	UsaPtRecoverPassCode sql.NullString
-	// 0: kích hoạt
+	// 0: kích hoạt, 1: chưa kích hoạt
 	UsaPtActive sql.NullInt32
+	// 0: chưa khóa, 1: đã khóa
 	UsaPtLocked sql.NullInt32
-	Createdat   sql.NullTime
-	Updatedat   sql.NullTime
-	Deletedat   sql.NullTime
-	Createdby   sql.NullString
-	Updatedby   sql.NullString
-	Deletedby   sql.NullString
+	// 0: system, 1: facebook, 2: google, 3: apple
+	UsaPtType sql.NullString
+	Createdat sql.NullTime
+	Updatedat sql.NullTime
+	Deletedat sql.NullTime
+	Createdby sql.NullString
+	Updatedby sql.NullString
+	Deletedby sql.NullString
 	// 0: chưa xóa, 1: đã xóa
 	Isdeleted sql.NullInt32
 }
 
 // user_pato_profile
 type UserPatoProfile struct {
-	UsPtID       string
+	UsPtID       int32
 	UsPtName     sql.NullString
 	UsPtAvatar   sql.NullString
 	UsPtPhone    sql.NullString
@@ -242,7 +245,7 @@ type UserPatoProfile struct {
 // user_pato_session
 type UserPatoSession struct {
 	UssPtID         string
-	UsaPtID         string
+	UsaPtID         int32
 	UssPtRf         string
 	UssPtKeyAt      string
 	UssPtKeyRf      string

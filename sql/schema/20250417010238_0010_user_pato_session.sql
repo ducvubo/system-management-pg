@@ -2,7 +2,7 @@
 -- +goose StatementBegin
 CREATE TABLE IF NOT EXISTS `user_pato_session`(
     `uss_pt_id` CHAR(36) NOT NULL PRIMARY KEY,
-    `usa_pt_id` CHAR(36) NOT NULL,
+    `usa_pt_id` INT NOT NULL,
     `uss_pt_rf` TEXT NOT NULL,
     `uss_pt_key_at` TEXT NOT NULL,
     `uss_pt_key_rf` TEXT NOT NULL,

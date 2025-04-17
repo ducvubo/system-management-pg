@@ -1,7 +1,7 @@
 -- +goose Up
 -- +goose StatementBegin
 CREATE TABLE IF NOT EXISTS `user_pato_profile`(
-    `us_pt_id` CHAR(36) NOT NULL,
+    `us_pt_id` INT NOT NULL AUTO_INCREMENT,
     `us_pt_name` VARCHAR(255) NULL,
     `us_pt_avatar` TEXT NULL,
     `us_pt_phone` VARCHAR(255) NULL,

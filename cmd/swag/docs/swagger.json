@@ -526,9 +526,160 @@
                     }
                 }
             }
+        },
+        "/user-pato-account/activate-account": {
+            "post": {
+                "description": "ActivateAccount",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User Pato Account"
+                ],
+                "summary": "ActivateAccount",
+                "parameters": [
+                    {
+                        "description": "payload",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.ActiveAccountDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/user-pato-account/login": {
+            "post": {
+                "description": "Login",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User Pato Account"
+                ],
+                "summary": "Login",
+                "parameters": [
+                    {
+                        "description": "payload",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.LoginUserPatoAccountDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/user-pato-account/register": {
+            "post": {
+                "description": "CreateUserPatoAccount",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User Pato Account"
+                ],
+                "summary": "CreateUserPatoAccount",
+                "parameters": [
+                    {
+                        "description": "payload",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.RegisterUserPatoAccountDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/user-pato-account/resend-otp": {
+            "post": {
+                "description": "ResendOtp",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User Pato Account"
+                ],
+                "summary": "ResendOtp",
+                "parameters": [
+                    {
+                        "description": "payload",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.ResendOtpDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "model.ActiveAccountDto": {
+            "type": "object",
+            "required": [
+                "us_pt_email",
+                "us_pt_otp"
+            ],
+            "properties": {
+                "us_pt_email": {
+                    "type": "string"
+                },
+                "us_pt_otp": {
+                    "type": "integer"
+                }
+            }
+        },
         "model.CreateUserManagementAccountDto": {
             "type": "object",
             "required": [
@@ -595,6 +746,59 @@
                     "type": "string",
                     "maxLength": 32,
                     "minLength": 8
+                }
+            }
+        },
+        "model.LoginUserPatoAccountDto": {
+            "type": "object",
+            "required": [
+                "us_pt_email",
+                "us_pt_pass"
+            ],
+            "properties": {
+                "us_pt_email": {
+                    "type": "string"
+                },
+                "us_pt_pass": {
+                    "type": "string",
+                    "maxLength": 32,
+                    "minLength": 8
+                }
+            }
+        },
+        "model.RegisterUserPatoAccountDto": {
+            "type": "object",
+            "required": [
+                "url_redirect",
+                "us_pt_email",
+                "us_pt_pass"
+            ],
+            "properties": {
+                "url_redirect": {
+                    "type": "string"
+                },
+                "us_pt_email": {
+                    "type": "string"
+                },
+                "us_pt_pass": {
+                    "type": "string",
+                    "maxLength": 32,
+                    "minLength": 8
+                }
+            }
+        },
+        "model.ResendOtpDto": {
+            "type": "object",
+            "required": [
+                "url_redirect",
+                "us_pt_email"
+            ],
+            "properties": {
+                "url_redirect": {
+                    "type": "string"
+                },
+                "us_pt_email": {
+                    "type": "string"
                 }
             }
         },

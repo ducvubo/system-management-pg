@@ -61,6 +61,9 @@ func InitRouter() *gin.Engine {
 	{
 		routers.RouterGroupApp.Upload.InitUploadRouter(MainGroup)
 	}
+	{
+		routers.RouterGroupApp.UserPatoAccount.InitUserPatoAccountRouter(MainGroup)
+	}
 
 	return r
 }

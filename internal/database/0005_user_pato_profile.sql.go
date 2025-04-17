@@ -12,199 +12,29 @@ import (
 
 const createUserPatoProfile = `-- name: CreateUserPatoProfile :execresult
 INSERT INTO user_pato_profile (
-    us_pt_id, us_pt_name, us_pt_avatar, us_pt_phone, us_pt_gender, us_pt_address, us_pt_birthday, createdBy, createdAt, updatedAt
+     us_pt_name, us_pt_avatar, us_pt_phone,
+    us_pt_gender, us_pt_address, us_pt_birthday, createdAt
 ) VALUES (
-    ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW()
+ ?, ?, ?, ?, ?, ?, NOW()
 )
 `
 
 type CreateUserPatoProfileParams struct {
-	UsPtID       string
 	UsPtName     sql.NullString
 	UsPtAvatar   sql.NullString
 	UsPtPhone    sql.NullString
 	UsPtGender   sql.NullString
 	UsPtAddress  sql.NullString
 	UsPtBirthday sql.NullTime
-	Createdby    sql.NullString
 }
 
 func (q *Queries) CreateUserPatoProfile(ctx context.Context, arg CreateUserPatoProfileParams) (sql.Result, error) {
 	return q.db.ExecContext(ctx, createUserPatoProfile,
-		arg.UsPtID,
 		arg.UsPtName,
 		arg.UsPtAvatar,
 		arg.UsPtPhone,
 		arg.UsPtGender,
 		arg.UsPtAddress,
 		arg.UsPtBirthday,
-		arg.Createdby,
 	)
-}
-
-const deleteUserPatoProfile = `-- name: DeleteUserPatoProfile :exec
-UPDATE user_pato_profile
-SET isDeleted = 1, deletedAt = NOW(), deletedBy = ?
-WHERE us_pt_id = ?
-`
-
-type DeleteUserPatoProfileParams struct {
-	Deletedby sql.NullString
-	UsPtID    string
-}
-
-func (q *Queries) DeleteUserPatoProfile(ctx context.Context, arg DeleteUserPatoProfileParams) error {
-	_, err := q.db.ExecContext(ctx, deleteUserPatoProfile, arg.Deletedby, arg.UsPtID)
-	return err
-}
-
-const getListUserPatoProfile = `-- name: GetListUserPatoProfile :many
-WITH total_count AS (
-    SELECT COUNT(*) AS total FROM user_pato_profile WHERE user_pato_profile.isDeleted = ? AND user_pato_profile.us_pt_name LIKE ?
-)
-SELECT 
-    us_pt_id, us_pt_name, us_pt_avatar, us_pt_phone, us_pt_gender, us_pt_address, us_pt_birthday,
-    (SELECT total FROM total_count) AS total_items,
-    CEIL((SELECT total FROM total_count) / CAST(? AS FLOAT)) AS total_pages
-FROM user_pato_profile
-WHERE user_pato_profile.isDeleted = ? AND user_pato_profile.us_pt_name LIKE ?
-LIMIT ? OFFSET ?
-`
-
-type GetListUserPatoProfileParams struct {
-	Isdeleted   sql.NullInt32
-	UsPtName    sql.NullString
-	Column3     float64
-	Isdeleted_2 sql.NullInt32
-	UsPtName_2  sql.NullString
-	Limit       int32
-	Offset      int32
-}
-
-type GetListUserPatoProfileRow struct {
-	UsPtID       string
-	UsPtName     sql.NullString
-	UsPtAvatar   sql.NullString
-	UsPtPhone    sql.NullString
-	UsPtGender   sql.NullString
-	UsPtAddress  sql.NullString
-	UsPtBirthday sql.NullTime
-	TotalItems   int64
-	TotalPages   int32
-}
-
-func (q *Queries) GetListUserPatoProfile(ctx context.Context, arg GetListUserPatoProfileParams) ([]GetListUserPatoProfileRow, error) {
-	rows, err := q.db.QueryContext(ctx, getListUserPatoProfile,
-		arg.Isdeleted,
-		arg.UsPtName,
-		arg.Column3,
-		arg.Isdeleted_2,
-		arg.UsPtName_2,
-		arg.Limit,
-		arg.Offset,
-	)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-	var items []GetListUserPatoProfileRow
-	for rows.Next() {
-		var i GetListUserPatoProfileRow
-		if err := rows.Scan(
-			&i.UsPtID,
-			&i.UsPtName,
-			&i.UsPtAvatar,
-			&i.UsPtPhone,
-			&i.UsPtGender,
-			&i.UsPtAddress,
-			&i.UsPtBirthday,
-			&i.TotalItems,
-			&i.TotalPages,
-		); err != nil {
-			return nil, err
-		}
-		items = append(items, i)
-	}
-	if err := rows.Close(); err != nil {
-		return nil, err
-	}
-	if err := rows.Err(); err != nil {
-		return nil, err
-	}
-	return items, nil
-}
-
-const getUserPatoProfile = `-- name: GetUserPatoProfile :one
-SELECT us_pt_id, us_pt_name, us_pt_avatar, us_pt_phone, us_pt_gender, us_pt_address, us_pt_birthday, isDeleted
-FROM user_pato_profile
-WHERE us_pt_id = ?
-`
-
-type GetUserPatoProfileRow struct {
-	UsPtID       string
-	UsPtName     sql.NullString
-	UsPtAvatar   sql.NullString
-	UsPtPhone    sql.NullString
-	UsPtGender   sql.NullString
-	UsPtAddress  sql.NullString
-	UsPtBirthday sql.NullTime
-	Isdeleted    sql.NullInt32
-}
-
-func (q *Queries) GetUserPatoProfile(ctx context.Context, usPtID string) (GetUserPatoProfileRow, error) {
-	row := q.db.QueryRowContext(ctx, getUserPatoProfile, usPtID)
-	var i GetUserPatoProfileRow
-	err := row.Scan(
-		&i.UsPtID,
-		&i.UsPtName,
-		&i.UsPtAvatar,
-		&i.UsPtPhone,
-		&i.UsPtGender,
-		&i.UsPtAddress,
-		&i.UsPtBirthday,
-		&i.Isdeleted,
-	)
-	return i, err
-}
-
-const restoreUserPatoProfile = `-- name: RestoreUserPatoProfile :exec
-UPDATE user_pato_profile
-SET isDeleted = 0, deletedAt = NULL, deletedBy = NULL
-WHERE us_pt_id = ?
-`
-
-func (q *Queries) RestoreUserPatoProfile(ctx context.Context, usPtID string) error {
-	_, err := q.db.ExecContext(ctx, restoreUserPatoProfile, usPtID)
-	return err
-}
-
-const updateUserPatoProfile = `-- name: UpdateUserPatoProfile :exec
-UPDATE user_pato_profile
-SET us_pt_name = ?, us_pt_avatar = ?, us_pt_phone = ?, us_pt_gender = ?, us_pt_address = ?, us_pt_birthday = ?, updatedAt = NOW(), updatedBy = ?
-WHERE us_pt_id = ?
-`
-
-type UpdateUserPatoProfileParams struct {
-	UsPtName     sql.NullString
-	UsPtAvatar   sql.NullString
-	UsPtPhone    sql.NullString
-	UsPtGender   sql.NullString
-	UsPtAddress  sql.NullString
-	UsPtBirthday sql.NullTime
-	Updatedby    sql.NullString
-	UsPtID       string
-}
-
-func (q *Queries) UpdateUserPatoProfile(ctx context.Context, arg UpdateUserPatoProfileParams) error {
-	_, err := q.db.ExecContext(ctx, updateUserPatoProfile,
-		arg.UsPtName,
-		arg.UsPtAvatar,
-		arg.UsPtPhone,
-		arg.UsPtGender,
-		arg.UsPtAddress,
-		arg.UsPtBirthday,
-		arg.Updatedby,
-		arg.UsPtID,
-	)
-	return err
 }

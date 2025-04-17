@@ -17,5 +17,5 @@ func InitServiceInterface() {
 	service.InitUserManagementProfile(impl.NewUserManagementProfileImpl(queries))
 	service.InitUserManagementAccount(impl.NewUserManagementAccountImpl(queries))
 	service.InitSystemParameter(impl.NewSystemParameterImpl(queries))
-
+	service.InitUserPatoAccount(impl.NewUserPatoAccountImpl(queries))
 }

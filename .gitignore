@@ -3,3 +3,4 @@ cmd/cli
 config/production.yaml
 tmp
 cmd/server/tmp
+dev.001.log

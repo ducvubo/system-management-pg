@@ -10,23 +10,39 @@ import (
 	"database/sql"
 )
 
+const activeUserPatoAccount = `-- name: ActiveUserPatoAccount :exec
+UPDATE user_pato_account
+SET usa_pt_active_time = NOW(),usa_pt_active = 0, updatedAt = NOW(), updatedBy = ?
+WHERE usa_pt_id = ?
+`
+
+type ActiveUserPatoAccountParams struct {
+	Updatedby sql.NullString
+	UsaPtID   int32
+}
+
+func (q *Queries) ActiveUserPatoAccount(ctx context.Context, arg ActiveUserPatoAccountParams) error {
+	_, err := q.db.ExecContext(ctx, activeUserPatoAccount, arg.Updatedby, arg.UsaPtID)
+	return err
+}
+
 const createUserPatoAccount = `-- name: CreateUserPatoAccount :execresult
 INSERT INTO user_pato_account (
-    usa_pt_id, usa_pt_email, usa_pt_password, usa_pt_salt, usa_pt_active_time, usa_pt_active, usa_pt_locked, createdBy, createdAt
+    usa_pt_id, usa_pt_email, usa_pt_password, usa_pt_salt, usa_pt_type,
+    usa_pt_active, usa_pt_locked,createdAt
 ) VALUES (
-    ?, ?, ?, ?, ?, ?, ?, ?, NOW()
+    ?, ?, ?, ?, ?, ?, ?,  NOW()
 )
 `
 
 type CreateUserPatoAccountParams struct {
-	UsaPtID         string
-	UsaPtEmail      string
-	UsaPtPassword   string
-	UsaPtSalt       string
-	UsaPtActiveTime sql.NullTime
-	UsaPtActive     sql.NullInt32
-	UsaPtLocked     sql.NullInt32
-	Createdby       sql.NullString
+	UsaPtID       int32
+	UsaPtEmail    string
+	UsaPtPassword string
+	UsaPtSalt     string
+	UsaPtType     sql.NullString
+	UsaPtActive   sql.NullInt32
+	UsaPtLocked   sql.NullInt32
 }
 
 func (q *Queries) CreateUserPatoAccount(ctx context.Context, arg CreateUserPatoAccountParams) (sql.Result, error) {
@@ -35,21 +51,25 @@ func (q *Queries) CreateUserPatoAccount(ctx context.Context, arg CreateUserPatoA
 		arg.UsaPtEmail,
 		arg.UsaPtPassword,
 		arg.UsaPtSalt,
-		arg.UsaPtActiveTime,
+		arg.UsaPtType,
 		arg.UsaPtActive,
 		arg.UsaPtLocked,
-		arg.Createdby,
 	)
 }
 
-const findUserPatoAccountByEmail = `-- name: FindUserPatoAccountByEmail :one
+const findUserPatoAccountByEmailAndType = `-- name: FindUserPatoAccountByEmailAndType :one
 SELECT usa_pt_id, usa_pt_email, usa_pt_password, usa_pt_salt, usa_pt_active_time, usa_pt_locked_time, usa_pt_recover_pass_time, usa_pt_verify_time, usa_pt_verify_code, usa_pt_recover_pass_code, usa_pt_active, usa_pt_locked
 FROM user_pato_account
-WHERE usa_pt_email = ?
+WHERE usa_pt_email = ? AND usa_pt_type = ?
 `
 
-type FindUserPatoAccountByEmailRow struct {
-	UsaPtID              string
+type FindUserPatoAccountByEmailAndTypeParams struct {
+	UsaPtEmail string
+	UsaPtType  sql.NullString
+}
+
+type FindUserPatoAccountByEmailAndTypeRow struct {
+	UsaPtID              int32
 	UsaPtEmail           string
 	UsaPtPassword        string
 	UsaPtSalt            string
@@ -63,50 +83,9 @@ type FindUserPatoAccountByEmailRow struct {
 	UsaPtLocked          sql.NullInt32
 }
 
-func (q *Queries) FindUserPatoAccountByEmail(ctx context.Context, usaPtEmail string) (FindUserPatoAccountByEmailRow, error) {
-	row := q.db.QueryRowContext(ctx, findUserPatoAccountByEmail, usaPtEmail)
-	var i FindUserPatoAccountByEmailRow
-	err := row.Scan(
-		&i.UsaPtID,
-		&i.UsaPtEmail,
-		&i.UsaPtPassword,
-		&i.UsaPtSalt,
-		&i.UsaPtActiveTime,
-		&i.UsaPtLockedTime,
-		&i.UsaPtRecoverPassTime,
-		&i.UsaPtVerifyTime,
-		&i.UsaPtVerifyCode,
-		&i.UsaPtRecoverPassCode,
-		&i.UsaPtActive,
-		&i.UsaPtLocked,
-	)
-	return i, err
-}
-
-const findUserPatoAccountById = `-- name: FindUserPatoAccountById :one
-SELECT usa_pt_id, usa_pt_email, usa_pt_password, usa_pt_salt, usa_pt_active_time, usa_pt_locked_time, usa_pt_recover_pass_time, usa_pt_verify_time, usa_pt_verify_code, usa_pt_recover_pass_code, usa_pt_active, usa_pt_locked
-FROM user_pato_account
-WHERE usa_pt_id = ?
-`
-
-type FindUserPatoAccountByIdRow struct {
-	UsaPtID              string
-	UsaPtEmail           string
-	UsaPtPassword        string
-	UsaPtSalt            string
-	UsaPtActiveTime      sql.NullTime
-	UsaPtLockedTime      sql.NullTime
-	UsaPtRecoverPassTime sql.NullTime
-	UsaPtVerifyTime      sql.NullTime
-	UsaPtVerifyCode      sql.NullString
-	UsaPtRecoverPassCode sql.NullString
-	UsaPtActive          sql.NullInt32
-	UsaPtLocked          sql.NullInt32
-}
-
-func (q *Queries) FindUserPatoAccountById(ctx context.Context, usaPtID string) (FindUserPatoAccountByIdRow, error) {
-	row := q.db.QueryRowContext(ctx, findUserPatoAccountById, usaPtID)
-	var i FindUserPatoAccountByIdRow
+func (q *Queries) FindUserPatoAccountByEmailAndType(ctx context.Context, arg FindUserPatoAccountByEmailAndTypeParams) (FindUserPatoAccountByEmailAndTypeRow, error) {
+	row := q.db.QueryRowContext(ctx, findUserPatoAccountByEmailAndType, arg.UsaPtEmail, arg.UsaPtType)
+	var i FindUserPatoAccountByEmailAndTypeRow
 	err := row.Scan(
 		&i.UsaPtID,
 		&i.UsaPtEmail,

@@ -1,5 +1,15 @@
 basePath: /api/v1
 definitions:
+  model.ActiveAccountDto:
+    properties:
+      us_pt_email:
+        type: string
+      us_pt_otp:
+        type: integer
+    required:
+    - us_pt_email
+    - us_pt_otp
+    type: object
   model.CreateUserManagementAccountDto:
     properties:
       us_email:
@@ -48,6 +58,43 @@ definitions:
     required:
     - us_email
     - us_pass
+    type: object
+  model.LoginUserPatoAccountDto:
+    properties:
+      us_pt_email:
+        type: string
+      us_pt_pass:
+        maxLength: 32
+        minLength: 8
+        type: string
+    required:
+    - us_pt_email
+    - us_pt_pass
+    type: object
+  model.RegisterUserPatoAccountDto:
+    properties:
+      url_redirect:
+        type: string
+      us_pt_email:
+        type: string
+      us_pt_pass:
+        maxLength: 32
+        minLength: 8
+        type: string
+    required:
+    - url_redirect
+    - us_pt_email
+    - us_pt_pass
+    type: object
+  model.ResendOtpDto:
+    properties:
+      url_redirect:
+        type: string
+      us_pt_email:
+        type: string
+    required:
+    - url_redirect
+    - us_pt_email
     type: object
   model.SaveSystemParameterDto:
     properties:
@@ -454,6 +501,94 @@ paths:
       summary: RestoreUserManagementProfile
       tags:
       - User Management Profile
+  /user-pato-account/activate-account:
+    post:
+      consumes:
+      - application/json
+      description: ActivateAccount
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.ActiveAccountDto'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: ActivateAccount
+      tags:
+      - User Pato Account
+  /user-pato-account/login:
+    post:
+      consumes:
+      - application/json
+      description: Login
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.LoginUserPatoAccountDto'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: Login
+      tags:
+      - User Pato Account
+  /user-pato-account/register:
+    post:
+      consumes:
+      - application/json
+      description: CreateUserPatoAccount
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.RegisterUserPatoAccountDto'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: CreateUserPatoAccount
+      tags:
+      - User Pato Account
+  /user-pato-account/resend-otp:
+    post:
+      consumes:
+      - application/json
+      description: ResendOtp
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.ResendOtpDto'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: ResendOtp
+      tags:
+      - User Pato Account
 security:
 - ClientIDAuth: []
 - AccessTokenAuth: []

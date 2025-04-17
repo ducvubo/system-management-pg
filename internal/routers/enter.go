@@ -6,6 +6,7 @@ import (
 	"system-management-pg/internal/routers/upload"
 	"system-management-pg/internal/routers/user"
 	usermanagement "system-management-pg/internal/routers/user-management"
+	userpato "system-management-pg/internal/routers/user-pato"
 )
 
 type RouterGroup struct {
@@ -15,6 +16,7 @@ type RouterGroup struct {
 	UserManagementAccount usermanagement.UserManagementAccountRouter
 	SystemParameter       systemparameter.SystemParameterRouter
 	Upload                upload.UploadRouter
+	UserPatoAccount       userpato.UserPatoAccountRouter
 }
 
 var RouterGroupApp = new(RouterGroup)
