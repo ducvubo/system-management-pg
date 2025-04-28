@@ -156,7 +156,7 @@ definitions:
       image_custom:
         type: string
     type: object
-host: localhost:13000
+host: system.management.pg.taphoaictu.id.vn
 info:
   contact:
     email: vminhduc8@gmail.com

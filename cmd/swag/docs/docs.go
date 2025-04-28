@@ -929,7 +929,7 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0.0",
-	Host:             "localhost:13000",
+	Host:             "system.management.pg.taphoaictu.id.vn",
 	BasePath:         "/api/v1",
 	Schemes:          []string{},
 	Title:            "API Documentation System Management",
