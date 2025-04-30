@@ -17,6 +17,7 @@ func Run() *gin.Engine {
 	InitLogger()
 	global.Logger.Info("Config Log ok!!", zap.String("ok", "success"))
 	// InitMysql()
+	InitElasticsearch()
 	InitMysqlC()
 	InitServiceInterface()
 	InitRedis()

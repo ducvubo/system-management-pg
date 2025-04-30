@@ -11,6 +11,179 @@ import (
 	"time"
 )
 
+type EquipmentMaintenanceEqpMtnStatus string
+
+const (
+	EquipmentMaintenanceEqpMtnStatusPending    EquipmentMaintenanceEqpMtnStatus = "pending"
+	EquipmentMaintenanceEqpMtnStatusInProgress EquipmentMaintenanceEqpMtnStatus = "in_progress"
+	EquipmentMaintenanceEqpMtnStatusDone       EquipmentMaintenanceEqpMtnStatus = "done"
+	EquipmentMaintenanceEqpMtnStatusRejected   EquipmentMaintenanceEqpMtnStatus = "rejected"
+)
+
+func (e *EquipmentMaintenanceEqpMtnStatus) Scan(src interface{}) error {
+	switch s := src.(type) {
+	case []byte:
+		*e = EquipmentMaintenanceEqpMtnStatus(s)
+	case string:
+		*e = EquipmentMaintenanceEqpMtnStatus(s)
+	default:
+		return fmt.Errorf("unsupported scan type for EquipmentMaintenanceEqpMtnStatus: %T", src)
+	}
+	return nil
+}
+
+type NullEquipmentMaintenanceEqpMtnStatus struct {
+	EquipmentMaintenanceEqpMtnStatus EquipmentMaintenanceEqpMtnStatus
+	Valid                            bool // Valid is true if EquipmentMaintenanceEqpMtnStatus is not NULL
+}
+
+// Scan implements the Scanner interface.
+func (ns *NullEquipmentMaintenanceEqpMtnStatus) Scan(value interface{}) error {
+	if value == nil {
+		ns.EquipmentMaintenanceEqpMtnStatus, ns.Valid = "", false
+		return nil
+	}
+	ns.Valid = true
+	return ns.EquipmentMaintenanceEqpMtnStatus.Scan(value)
+}
+
+// Value implements the driver Valuer interface.
+func (ns NullEquipmentMaintenanceEqpMtnStatus) Value() (driver.Value, error) {
+	if !ns.Valid {
+		return nil, nil
+	}
+	return string(ns.EquipmentMaintenanceEqpMtnStatus), nil
+}
+
+type InternalProposalItnProposalStatus string
+
+const (
+	InternalProposalItnProposalStatusPending  InternalProposalItnProposalStatus = "pending"
+	InternalProposalItnProposalStatusApproved InternalProposalItnProposalStatus = "approved"
+	InternalProposalItnProposalStatusRejected InternalProposalItnProposalStatus = "rejected"
+)
+
+func (e *InternalProposalItnProposalStatus) Scan(src interface{}) error {
+	switch s := src.(type) {
+	case []byte:
+		*e = InternalProposalItnProposalStatus(s)
+	case string:
+		*e = InternalProposalItnProposalStatus(s)
+	default:
+		return fmt.Errorf("unsupported scan type for InternalProposalItnProposalStatus: %T", src)
+	}
+	return nil
+}
+
+type NullInternalProposalItnProposalStatus struct {
+	InternalProposalItnProposalStatus InternalProposalItnProposalStatus
+	Valid                             bool // Valid is true if InternalProposalItnProposalStatus is not NULL
+}
+
+// Scan implements the Scanner interface.
+func (ns *NullInternalProposalItnProposalStatus) Scan(value interface{}) error {
+	if value == nil {
+		ns.InternalProposalItnProposalStatus, ns.Valid = "", false
+		return nil
+	}
+	ns.Valid = true
+	return ns.InternalProposalItnProposalStatus.Scan(value)
+}
+
+// Value implements the driver Valuer interface.
+func (ns NullInternalProposalItnProposalStatus) Value() (driver.Value, error) {
+	if !ns.Valid {
+		return nil, nil
+	}
+	return string(ns.InternalProposalItnProposalStatus), nil
+}
+
+type OperationManualOperaManualStatus string
+
+const (
+	OperationManualOperaManualStatusActive   OperationManualOperaManualStatus = "active"
+	OperationManualOperaManualStatusArchived OperationManualOperaManualStatus = "archived"
+	OperationManualOperaManualStatusDeleted  OperationManualOperaManualStatus = "deleted"
+)
+
+func (e *OperationManualOperaManualStatus) Scan(src interface{}) error {
+	switch s := src.(type) {
+	case []byte:
+		*e = OperationManualOperaManualStatus(s)
+	case string:
+		*e = OperationManualOperaManualStatus(s)
+	default:
+		return fmt.Errorf("unsupported scan type for OperationManualOperaManualStatus: %T", src)
+	}
+	return nil
+}
+
+type NullOperationManualOperaManualStatus struct {
+	OperationManualOperaManualStatus OperationManualOperaManualStatus
+	Valid                            bool // Valid is true if OperationManualOperaManualStatus is not NULL
+}
+
+// Scan implements the Scanner interface.
+func (ns *NullOperationManualOperaManualStatus) Scan(value interface{}) error {
+	if value == nil {
+		ns.OperationManualOperaManualStatus, ns.Valid = "", false
+		return nil
+	}
+	ns.Valid = true
+	return ns.OperationManualOperaManualStatus.Scan(value)
+}
+
+// Value implements the driver Valuer interface.
+func (ns NullOperationManualOperaManualStatus) Value() (driver.Value, error) {
+	if !ns.Valid {
+		return nil, nil
+	}
+	return string(ns.OperationManualOperaManualStatus), nil
+}
+
+type OperationalCostsOperaCostStatus string
+
+const (
+	OperationalCostsOperaCostStatusPending  OperationalCostsOperaCostStatus = "pending"
+	OperationalCostsOperaCostStatusPaid     OperationalCostsOperaCostStatus = "paid"
+	OperationalCostsOperaCostStatusCanceled OperationalCostsOperaCostStatus = "canceled"
+)
+
+func (e *OperationalCostsOperaCostStatus) Scan(src interface{}) error {
+	switch s := src.(type) {
+	case []byte:
+		*e = OperationalCostsOperaCostStatus(s)
+	case string:
+		*e = OperationalCostsOperaCostStatus(s)
+	default:
+		return fmt.Errorf("unsupported scan type for OperationalCostsOperaCostStatus: %T", src)
+	}
+	return nil
+}
+
+type NullOperationalCostsOperaCostStatus struct {
+	OperationalCostsOperaCostStatus OperationalCostsOperaCostStatus
+	Valid                           bool // Valid is true if OperationalCostsOperaCostStatus is not NULL
+}
+
+// Scan implements the Scanner interface.
+func (ns *NullOperationalCostsOperaCostStatus) Scan(value interface{}) error {
+	if value == nil {
+		ns.OperationalCostsOperaCostStatus, ns.Valid = "", false
+		return nil
+	}
+	ns.Valid = true
+	return ns.OperationalCostsOperaCostStatus.Scan(value)
+}
+
+// Value implements the driver Valuer interface.
+func (ns NullOperationalCostsOperaCostStatus) Value() (driver.Value, error) {
+	if !ns.Valid {
+		return nil, nil
+	}
+	return string(ns.OperationalCostsOperaCostStatus), nil
+}
+
 type PreGoAccUserTwoFactor9999TwoFactorAuthType string
 
 const (
@@ -52,6 +225,107 @@ func (ns NullPreGoAccUserTwoFactor9999TwoFactorAuthType) Value() (driver.Value, 
 		return nil, nil
 	}
 	return string(ns.PreGoAccUserTwoFactor9999TwoFactorAuthType), nil
+}
+
+// equipment_maintenance
+type EquipmentMaintenance struct {
+	EqpMtnID               string
+	EqpMtnResID            string
+	EqpMtnName             sql.NullString
+	EqpMtnLocation         sql.NullString
+	EqpMtnIssueDescription sql.NullString
+	EqpMtnReportedBy       sql.NullString
+	EqpMtnPerformedBy      sql.NullString
+	EqpMtnDateReported     time.Time
+	EqpMtnDateFixed        sql.NullTime
+	EqpMtnCost             sql.NullString
+	EqpMtnNote             sql.NullString
+	// pending, in_progress, done, rejected
+	EqpMtnStatus NullEquipmentMaintenanceEqpMtnStatus
+	Createdat    sql.NullTime
+	Updatedat    sql.NullTime
+	Deletedat    sql.NullTime
+	Createdby    sql.NullString
+	Updatedby    sql.NullString
+	Deletedby    sql.NullString
+	// 0: chưa xóa, 1: đã xóa
+	Isdeleted sql.NullInt32
+}
+
+// internal_note
+type InternalNote struct {
+	ItnNoteID      string
+	ItnNoteResID   string
+	ItnNoteTitle   sql.NullString
+	ItnNoteContent sql.NullString
+	ItnNoteType    sql.NullString
+	Createdat      sql.NullTime
+	Updatedat      sql.NullTime
+	Deletedat      sql.NullTime
+	Createdby      sql.NullString
+	Updatedby      sql.NullString
+	Deletedby      sql.NullString
+	// 0: chưa xóa, 1: đã xóa
+	Isdeleted sql.NullInt32
+}
+
+// internal_proposal
+type InternalProposal struct {
+	ItnProposalID      string
+	ItnProposalResID   string
+	ItnProposalTitle   sql.NullString
+	ItnProposalContent sql.NullString
+	ItnProposalType    sql.NullString
+	// Trạng thái đề xuất
+	ItnProposalStatus NullInternalProposalItnProposalStatus
+	Createdat         sql.NullTime
+	Updatedat         sql.NullTime
+	Deletedat         sql.NullTime
+	Createdby         sql.NullString
+	Updatedby         sql.NullString
+	Deletedby         sql.NullString
+	// 0: chưa xóa, 1: đã xóa
+	Isdeleted sql.NullInt32
+}
+
+// operation_manual
+type OperationManual struct {
+	OperaManualID      string
+	OperaManuaResID    string
+	OperaManualTitle   string
+	OperaManualContent string
+	OperaManualType    string
+	// Trạng thái tài liệu
+	OperaManualStatus NullOperationManualOperaManualStatus
+	Note              sql.NullString
+	Createdat         sql.NullTime
+	Updatedat         sql.NullTime
+	Deletedat         sql.NullTime
+	Createdby         sql.NullString
+	Updatedby         sql.NullString
+	Deletedby         sql.NullString
+	// 0: chưa xóa, 1: đã xóa
+	Isdeleted sql.NullInt32
+}
+
+// operational_costs
+type OperationalCost struct {
+	OperaCostID          string
+	OperaCostResID       string
+	OperaCostType        string
+	OperaCostAmount      string
+	OperaCostDescription sql.NullString
+	OperaCostDate        time.Time
+	// Trạng thái chi phí
+	OperaCostStatus NullOperationalCostsOperaCostStatus
+	Createdat       sql.NullTime
+	Updatedat       sql.NullTime
+	Deletedat       sql.NullTime
+	Createdby       sql.NullString
+	Updatedby       sql.NullString
+	Deletedby       sql.NullString
+	// 0: chưa xóa, 1: đã xóa
+	Isdeleted sql.NullInt32
 }
 
 // pre_go_acc_user_base_9999

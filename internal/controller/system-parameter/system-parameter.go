@@ -1,10 +1,8 @@
 package systemparameter
 
 import (
-	"system-management-pg/internal/model"
 	"system-management-pg/internal/service"
 	"system-management-pg/internal/utils/context"
-	"system-management-pg/internal/utils/validator"
 	"system-management-pg/pkg/response"
 
 	"github.com/gin-gonic/gin"
@@ -24,22 +22,27 @@ type cSystemParameter struct{}
 // @Success      201  {object}  response.ResponseData
 // @Router       /system-parameter/save [post]
 func (c *cSystemParameter) SaveSystemParameterDto(ctx *gin.Context) {
-	var params model.SaveSystemParameterDto
-
-	if !validator.BindAndValidate(ctx, &params) {
+	account := context.GetAccoutFromCtx(ctx)
+	if account == nil {
+		response.ErrorResponse(ctx, 401, "Không tìm thấy thông tin người dùng", nil)
 		return
 	}
+	// var params model.SaveSystemParameterDto
 
-	User := context.GetUserProfileFromCtx(ctx)
-	if User == nil {
-		response.ErrorResponse(ctx, 401, "Thất bại", nil)
-	}
-	err, statusCode := service.SystemParameter().SaveSystemParameter(ctx, &params, User)
-	if err != nil {
-		response.ErrorResponse(ctx, statusCode, "Đã có lỗi xảy ra", err.Error())
-		return
-	}
-	response.SuccessResponse(ctx, statusCode, "Tạo mới thành công", nil)
+	// if !validator.BindAndValidate(ctx, &params) {
+	// 	return
+	// }
+
+	// User := context.GetUserProfileFromCtx(ctx)
+	// if User == nil {
+	// 	response.ErrorResponse(ctx, 401, "Thất bại", nil)
+	// }
+	// err, statusCode := service.SystemParameter().SaveSystemParameter(ctx, &params, User)
+	// if err != nil {
+	// 	response.ErrorResponse(ctx, statusCode, "Đã có lỗi xảy ra", err.Error())
+	// 	return
+	// }
+	response.SuccessResponse(ctx, 200, "Tạo mới thành công", nil)
 }
 
 // GetSystemParameter

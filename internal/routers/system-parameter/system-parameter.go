@@ -19,7 +19,7 @@ func (pr *SystemParameterRouter) InitSystemParameterRouter(Router *gin.RouterGro
 	}
 
 	systemParameterPrivate := Router.Group("/system-parameter")
-	systemParameterPrivate.Use(middlewares.AuthenMiddlewareUserManagement())
+	systemParameterPrivate.Use(middlewares.AuthenMiddlewareAccount())
 	{
 		systemParameterPrivate.POST("/save", parameter.SystemParameter.SaveSystemParameterDto)
 	}

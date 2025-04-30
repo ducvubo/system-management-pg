@@ -10,6 +10,56 @@ definitions:
     - us_pt_email
     - us_pt_otp
     type: object
+  model.CreateEquipmentMaintenanceDto:
+    properties:
+      eqp_mtn_cost:
+        type: integer
+      eqp_mtn_date_fixed:
+        type: string
+      eqp_mtn_date_reported:
+        type: string
+      eqp_mtn_issue_description:
+        type: string
+      eqp_mtn_location:
+        type: string
+      eqp_mtn_name:
+        type: string
+      eqp_mtn_note:
+        type: string
+      eqp_mtn_performed_by:
+        type: string
+      eqp_mtn_reported_by:
+        type: string
+    required:
+    - eqp_mtn_date_reported
+    - eqp_mtn_name
+    type: object
+  model.CreateInternalNoteDto:
+    properties:
+      itn_note_content:
+        type: string
+      itn_note_title:
+        type: string
+      itn_note_type:
+        type: string
+    required:
+    - itn_note_content
+    - itn_note_title
+    - itn_note_type
+    type: object
+  model.CreateInternalProposalDto:
+    properties:
+      itn_proposal_content:
+        type: string
+      itn_proposal_title:
+        type: string
+      itn_proposal_type:
+        type: string
+    required:
+    - itn_proposal_content
+    - itn_proposal_title
+    - itn_proposal_type
+    type: object
   model.CreateUserManagementAccountDto:
     properties:
       us_email:
@@ -109,6 +159,86 @@ definitions:
     - sys_para_id
     - sys_para_value
     type: object
+  model.UpdateEquipmentMaintenanceDto:
+    properties:
+      eqp_mtn_cost:
+        type: integer
+      eqp_mtn_date_fixed:
+        type: string
+      eqp_mtn_date_reported:
+        type: string
+      eqp_mtn_id:
+        type: string
+      eqp_mtn_issue_description:
+        type: string
+      eqp_mtn_location:
+        type: string
+      eqp_mtn_name:
+        type: string
+      eqp_mtn_note:
+        type: string
+      eqp_mtn_performed_by:
+        type: string
+      eqp_mtn_reported_by:
+        type: string
+    required:
+    - eqp_mtn_date_reported
+    - eqp_mtn_id
+    - eqp_mtn_name
+    type: object
+  model.UpdateEquipmentMaintenanceStatusDto:
+    properties:
+      eqp_mtn_id:
+        type: string
+      eqp_mtn_status:
+        description: 'ENUM: pending, in_progress, done, rejected'
+        type: string
+    required:
+    - eqp_mtn_id
+    - eqp_mtn_status
+    type: object
+  model.UpdateInternalNoteDto:
+    properties:
+      itn_note_content:
+        type: string
+      itn_note_id:
+        type: string
+      itn_note_title:
+        type: string
+      itn_note_type:
+        type: string
+    required:
+    - itn_note_content
+    - itn_note_id
+    - itn_note_title
+    - itn_note_type
+    type: object
+  model.UpdateInternalProposalDto:
+    properties:
+      itn_proposal_content:
+        type: string
+      itn_proposal_id:
+        type: string
+      itn_proposal_title:
+        type: string
+      itn_proposal_type:
+        type: string
+    required:
+    - itn_proposal_content
+    - itn_proposal_id
+    - itn_proposal_title
+    - itn_proposal_type
+    type: object
+  model.UpdateInternalProposalStatusDto:
+    properties:
+      itn_proposal_id:
+        type: string
+      itn_proposal_status:
+        type: string
+    required:
+    - itn_proposal_id
+    - itn_proposal_status
+    type: object
   model.UpdateUserManagementProfileDto:
     properties:
       us_address:
@@ -170,6 +300,530 @@ info:
   title: API Documentation System Management
   version: 1.0.0
 paths:
+  /equipment-maintenance:
+    get:
+      consumes:
+      - application/json
+      description: GetAllEquipmentMaintenance
+      parameters:
+      - description: pageIndex
+        in: query
+        name: pageIndex
+        type: integer
+      - description: pageSize
+        in: query
+        name: pageSize
+        type: integer
+      - description: EqpMtnName
+        in: query
+        name: EqpMtnName
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: GetAllEquipmentMaintenance
+      tags:
+      - Equipment Maintenance
+    patch:
+      consumes:
+      - application/json
+      description: UpdateEquipmentMaintenance
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdateEquipmentMaintenanceDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: UpdateEquipmentMaintenance
+      tags:
+      - Equipment Maintenance
+    post:
+      consumes:
+      - application/json
+      description: CreateEquipmentMaintenance
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.CreateEquipmentMaintenanceDto'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: CreateEquipmentMaintenance
+      tags:
+      - Equipment Maintenance
+  /equipment-maintenance/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: DeleteEquipmentMaintenance
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: DeleteEquipmentMaintenance
+      tags:
+      - Equipment Maintenance
+    get:
+      consumes:
+      - application/json
+      description: FindEquipmentMaintenance
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: FindEquipmentMaintenance
+      tags:
+      - Equipment Maintenance
+  /equipment-maintenance/recycle:
+    get:
+      consumes:
+      - application/json
+      description: GetAllEquipmentMaintenanceRecycle
+      parameters:
+      - description: pageIndex
+        in: query
+        name: pageIndex
+        type: integer
+      - description: pageSize
+        in: query
+        name: pageSize
+        type: integer
+      - description: EqpMtnName
+        in: query
+        name: EqpMtnName
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: GetAllEquipmentMaintenanceRecycle
+      tags:
+      - Equipment Maintenance
+  /equipment-maintenance/restore/{id}:
+    patch:
+      consumes:
+      - application/json
+      description: RestoreEquipmentMaintenance
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: RestoreEquipmentMaintenance
+      tags:
+      - Equipment Maintenance
+  /equipment-maintenance/update-status:
+    patch:
+      consumes:
+      - application/json
+      description: UpdateEquipmentMaintenanceStatus
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdateEquipmentMaintenanceStatusDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: UpdateEquipmentMaintenanceStatus
+      tags:
+      - Equipment Maintenance
+  /internal-note:
+    get:
+      consumes:
+      - application/json
+      description: GetAllInternalNote
+      parameters:
+      - description: pageIndex
+        in: query
+        name: pageIndex
+        type: integer
+      - description: pageSize
+        in: query
+        name: pageSize
+        type: integer
+      - description: ItnNoteTitle
+        in: query
+        name: ItnNoteTitle
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: GetAllInternalNote
+      tags:
+      - Internal Note
+    patch:
+      consumes:
+      - application/json
+      description: UpdateInternalNote
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdateInternalNoteDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: UpdateInternalNote
+      tags:
+      - Internal Note
+    post:
+      consumes:
+      - application/json
+      description: CreateInternalNote
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.CreateInternalNoteDto'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: CreateInternalNote
+      tags:
+      - Internal Note
+  /internal-note/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: DeleteInternalNote
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: DeleteInternalNote
+      tags:
+      - Internal Note
+    get:
+      consumes:
+      - application/json
+      description: FindInternalNote
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: FindInternalNote
+      tags:
+      - Internal Note
+  /internal-note/recycle:
+    get:
+      consumes:
+      - application/json
+      description: GetAllInternalNoteRecycle
+      parameters:
+      - description: pageIndex
+        in: query
+        name: pageIndex
+        type: integer
+      - description: pageSize
+        in: query
+        name: pageSize
+        type: integer
+      - description: ItnNoteTitle
+        in: query
+        name: ItnNoteTitle
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: GetAllInternalNoteRecycle
+      tags:
+      - Internal Note
+  /internal-note/restore/{id}:
+    patch:
+      consumes:
+      - application/json
+      description: RestoreInternalNote
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: RestoreInternalNote
+      tags:
+      - Internal Note
+  /internal-proposal:
+    get:
+      consumes:
+      - application/json
+      description: GetAllInternalProposal
+      parameters:
+      - description: pageIndex
+        in: query
+        name: pageIndex
+        type: integer
+      - description: pageSize
+        in: query
+        name: pageSize
+        type: integer
+      - description: ItnProposalTitle
+        in: query
+        name: ItnProposalTitle
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: GetAllInternalProposal
+      tags:
+      - Internal Proposal
+    patch:
+      consumes:
+      - application/json
+      description: UpdateInternalProposal
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdateInternalProposalDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: UpdateInternalProposal
+      tags:
+      - Internal Proposal
+    post:
+      consumes:
+      - application/json
+      description: CreateInternalProposal
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.CreateInternalProposalDto'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: CreateInternalProposal
+      tags:
+      - Internal Proposal
+  /internal-proposal/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: DeleteInternalProposal
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: DeleteInternalProposal
+      tags:
+      - Internal Proposal
+    get:
+      consumes:
+      - application/json
+      description: FindInternalProposal
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: FindInternalProposal
+      tags:
+      - Internal Proposal
+  /internal-proposal/recycle:
+    get:
+      consumes:
+      - application/json
+      description: GetAllInternalProposalRecycle
+      parameters:
+      - description: pageIndex
+        in: query
+        name: pageIndex
+        type: integer
+      - description: pageSize
+        in: query
+        name: pageSize
+        type: integer
+      - description: ItnProposalTitle
+        in: query
+        name: ItnProposalTitle
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: GetAllInternalProposalRecycle
+      tags:
+      - Internal Proposal
+  /internal-proposal/restore/{id}:
+    patch:
+      consumes:
+      - application/json
+      description: RestoreInternalProposal
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: RestoreInternalProposal
+      tags:
+      - Internal Proposal
+  /internal-proposal/update-status:
+    patch:
+      consumes:
+      - application/json
+      description: UpdateInternalProposalStatus
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdateInternalProposalStatusDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: UpdateInternalProposalStatus
+      tags:
+      - Internal Proposal
   /system-parameter:
     get:
       consumes:

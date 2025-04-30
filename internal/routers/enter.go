@@ -1,6 +1,9 @@
 package routers
 
 import (
+	equipmentmaintenance "system-management-pg/internal/routers/equipment-maintenance"
+	internalnote "system-management-pg/internal/routers/internal-note"
+	internalproposal "system-management-pg/internal/routers/internal-proposal"
 	"system-management-pg/internal/routers/manage"
 	systemparameter "system-management-pg/internal/routers/system-parameter"
 	"system-management-pg/internal/routers/upload"
@@ -17,6 +20,9 @@ type RouterGroup struct {
 	SystemParameter       systemparameter.SystemParameterRouter
 	Upload                upload.UploadRouter
 	UserPatoAccount       userpato.UserPatoAccountRouter
+	InternalNote 	      internalnote.InternalNoteRouter
+	InternalProposal      internalproposal.InternalProposalRouter
+	EquipmentMaintenance  equipmentmaintenance.EquipmentMaintenanceRouter
 }
 
 var RouterGroupApp = new(RouterGroup)

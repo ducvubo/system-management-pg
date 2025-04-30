@@ -64,6 +64,15 @@ func InitRouter() *gin.Engine {
 	{
 		routers.RouterGroupApp.UserPatoAccount.InitUserPatoAccountRouter(MainGroup)
 	}
+	{
+		routers.RouterGroupApp.InternalNote.InitInternalNoteRouter(MainGroup)
+	}
+	{
+		routers.RouterGroupApp.InternalProposal.InitInternalProposalRouter(MainGroup)
+	}
+	{
+		routers.RouterGroupApp.EquipmentMaintenance.InitEquipmentMaintenanceRouter(MainGroup)
+	}
 
 	return r
 }

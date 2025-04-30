@@ -54,3 +54,14 @@ func GetUserProfileFromCtx(ctx *gin.Context) *model.UserManagementProfileOutput 
 	}
 	return userProfile
 }
+
+func GetAccoutFromCtx(c *gin.Context) *model.Account {
+    account, exists := c.Get("account")
+    if !exists {
+        return nil
+    }
+    if acc, ok := account.(*model.Account); ok {
+        return acc
+    }
+    return nil
+}

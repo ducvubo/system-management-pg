@@ -7,7 +7,7 @@
       "request": "launch",
       "mode": "debug",
       "program": "${workspaceFolder}/cmd/server/main.go",
-      "cwd": "${workspaceFolder}", // Đặt thư mục làm việc về root của project
+      "cwd": "${workspaceFolder}",
       "console": "integratedTerminal"
     }
   ]

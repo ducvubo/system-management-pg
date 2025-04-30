@@ -24,6 +24,806 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/equipment-maintenance": {
+            "get": {
+                "description": "GetAllEquipmentMaintenance",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Equipment Maintenance"
+                ],
+                "summary": "GetAllEquipmentMaintenance",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "pageIndex",
+                        "name": "pageIndex",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "pageSize",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "EqpMtnName",
+                        "name": "EqpMtnName",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "CreateEquipmentMaintenance",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Equipment Maintenance"
+                ],
+                "summary": "CreateEquipmentMaintenance",
+                "parameters": [
+                    {
+                        "description": "payload",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.CreateEquipmentMaintenanceDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "UpdateEquipmentMaintenance",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Equipment Maintenance"
+                ],
+                "summary": "UpdateEquipmentMaintenance",
+                "parameters": [
+                    {
+                        "description": "payload",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateEquipmentMaintenanceDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/equipment-maintenance/recycle": {
+            "get": {
+                "description": "GetAllEquipmentMaintenanceRecycle",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Equipment Maintenance"
+                ],
+                "summary": "GetAllEquipmentMaintenanceRecycle",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "pageIndex",
+                        "name": "pageIndex",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "pageSize",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "EqpMtnName",
+                        "name": "EqpMtnName",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/equipment-maintenance/restore/{id}": {
+            "patch": {
+                "description": "RestoreEquipmentMaintenance",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Equipment Maintenance"
+                ],
+                "summary": "RestoreEquipmentMaintenance",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/equipment-maintenance/update-status": {
+            "patch": {
+                "description": "UpdateEquipmentMaintenanceStatus",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Equipment Maintenance"
+                ],
+                "summary": "UpdateEquipmentMaintenanceStatus",
+                "parameters": [
+                    {
+                        "description": "payload",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateEquipmentMaintenanceStatusDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/equipment-maintenance/{id}": {
+            "get": {
+                "description": "FindEquipmentMaintenance",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Equipment Maintenance"
+                ],
+                "summary": "FindEquipmentMaintenance",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "DeleteEquipmentMaintenance",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Equipment Maintenance"
+                ],
+                "summary": "DeleteEquipmentMaintenance",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/internal-note": {
+            "get": {
+                "description": "GetAllInternalNote",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Internal Note"
+                ],
+                "summary": "GetAllInternalNote",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "pageIndex",
+                        "name": "pageIndex",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "pageSize",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "ItnNoteTitle",
+                        "name": "ItnNoteTitle",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "CreateInternalNote",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Internal Note"
+                ],
+                "summary": "CreateInternalNote",
+                "parameters": [
+                    {
+                        "description": "payload",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.CreateInternalNoteDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "UpdateInternalNote",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Internal Note"
+                ],
+                "summary": "UpdateInternalNote",
+                "parameters": [
+                    {
+                        "description": "payload",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateInternalNoteDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/internal-note/recycle": {
+            "get": {
+                "description": "GetAllInternalNoteRecycle",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Internal Note"
+                ],
+                "summary": "GetAllInternalNoteRecycle",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "pageIndex",
+                        "name": "pageIndex",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "pageSize",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "ItnNoteTitle",
+                        "name": "ItnNoteTitle",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/internal-note/restore/{id}": {
+            "patch": {
+                "description": "RestoreInternalNote",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Internal Note"
+                ],
+                "summary": "RestoreInternalNote",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/internal-note/{id}": {
+            "get": {
+                "description": "FindInternalNote",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Internal Note"
+                ],
+                "summary": "FindInternalNote",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "DeleteInternalNote",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Internal Note"
+                ],
+                "summary": "DeleteInternalNote",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/internal-proposal": {
+            "get": {
+                "description": "GetAllInternalProposal",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Internal Proposal"
+                ],
+                "summary": "GetAllInternalProposal",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "pageIndex",
+                        "name": "pageIndex",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "pageSize",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "ItnProposalTitle",
+                        "name": "ItnProposalTitle",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "CreateInternalProposal",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Internal Proposal"
+                ],
+                "summary": "CreateInternalProposal",
+                "parameters": [
+                    {
+                        "description": "payload",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.CreateInternalProposalDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "UpdateInternalProposal",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Internal Proposal"
+                ],
+                "summary": "UpdateInternalProposal",
+                "parameters": [
+                    {
+                        "description": "payload",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateInternalProposalDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/internal-proposal/recycle": {
+            "get": {
+                "description": "GetAllInternalProposalRecycle",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Internal Proposal"
+                ],
+                "summary": "GetAllInternalProposalRecycle",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "pageIndex",
+                        "name": "pageIndex",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "pageSize",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "ItnProposalTitle",
+                        "name": "ItnProposalTitle",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/internal-proposal/restore/{id}": {
+            "patch": {
+                "description": "RestoreInternalProposal",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Internal Proposal"
+                ],
+                "summary": "RestoreInternalProposal",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/internal-proposal/update-status": {
+            "patch": {
+                "description": "UpdateInternalProposalStatus",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Internal Proposal"
+                ],
+                "summary": "UpdateInternalProposalStatus",
+                "parameters": [
+                    {
+                        "description": "payload",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateInternalProposalStatusDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/internal-proposal/{id}": {
+            "get": {
+                "description": "FindInternalProposal",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Internal Proposal"
+                ],
+                "summary": "FindInternalProposal",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "DeleteInternalProposal",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Internal Proposal"
+                ],
+                "summary": "DeleteInternalProposal",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
         "/system-parameter": {
             "get": {
                 "description": "GetAllSystemParameter",
@@ -686,6 +1486,80 @@ const docTemplate = `{
                 }
             }
         },
+        "model.CreateEquipmentMaintenanceDto": {
+            "type": "object",
+            "required": [
+                "eqp_mtn_date_reported",
+                "eqp_mtn_name"
+            ],
+            "properties": {
+                "eqp_mtn_cost": {
+                    "type": "integer"
+                },
+                "eqp_mtn_date_fixed": {
+                    "type": "string"
+                },
+                "eqp_mtn_date_reported": {
+                    "type": "string"
+                },
+                "eqp_mtn_issue_description": {
+                    "type": "string"
+                },
+                "eqp_mtn_location": {
+                    "type": "string"
+                },
+                "eqp_mtn_name": {
+                    "type": "string"
+                },
+                "eqp_mtn_note": {
+                    "type": "string"
+                },
+                "eqp_mtn_performed_by": {
+                    "type": "string"
+                },
+                "eqp_mtn_reported_by": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.CreateInternalNoteDto": {
+            "type": "object",
+            "required": [
+                "itn_note_content",
+                "itn_note_title",
+                "itn_note_type"
+            ],
+            "properties": {
+                "itn_note_content": {
+                    "type": "string"
+                },
+                "itn_note_title": {
+                    "type": "string"
+                },
+                "itn_note_type": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.CreateInternalProposalDto": {
+            "type": "object",
+            "required": [
+                "itn_proposal_content",
+                "itn_proposal_title",
+                "itn_proposal_type"
+            ],
+            "properties": {
+                "itn_proposal_content": {
+                    "type": "string"
+                },
+                "itn_proposal_title": {
+                    "type": "string"
+                },
+                "itn_proposal_type": {
+                    "type": "string"
+                }
+            }
+        },
         "model.CreateUserManagementAccountDto": {
             "type": "object",
             "required": [
@@ -823,6 +1697,123 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "sys_para_value": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.UpdateEquipmentMaintenanceDto": {
+            "type": "object",
+            "required": [
+                "eqp_mtn_date_reported",
+                "eqp_mtn_id",
+                "eqp_mtn_name"
+            ],
+            "properties": {
+                "eqp_mtn_cost": {
+                    "type": "integer"
+                },
+                "eqp_mtn_date_fixed": {
+                    "type": "string"
+                },
+                "eqp_mtn_date_reported": {
+                    "type": "string"
+                },
+                "eqp_mtn_id": {
+                    "type": "string"
+                },
+                "eqp_mtn_issue_description": {
+                    "type": "string"
+                },
+                "eqp_mtn_location": {
+                    "type": "string"
+                },
+                "eqp_mtn_name": {
+                    "type": "string"
+                },
+                "eqp_mtn_note": {
+                    "type": "string"
+                },
+                "eqp_mtn_performed_by": {
+                    "type": "string"
+                },
+                "eqp_mtn_reported_by": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.UpdateEquipmentMaintenanceStatusDto": {
+            "type": "object",
+            "required": [
+                "eqp_mtn_id",
+                "eqp_mtn_status"
+            ],
+            "properties": {
+                "eqp_mtn_id": {
+                    "type": "string"
+                },
+                "eqp_mtn_status": {
+                    "description": "ENUM: pending, in_progress, done, rejected",
+                    "type": "string"
+                }
+            }
+        },
+        "model.UpdateInternalNoteDto": {
+            "type": "object",
+            "required": [
+                "itn_note_content",
+                "itn_note_id",
+                "itn_note_title",
+                "itn_note_type"
+            ],
+            "properties": {
+                "itn_note_content": {
+                    "type": "string"
+                },
+                "itn_note_id": {
+                    "type": "string"
+                },
+                "itn_note_title": {
+                    "type": "string"
+                },
+                "itn_note_type": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.UpdateInternalProposalDto": {
+            "type": "object",
+            "required": [
+                "itn_proposal_content",
+                "itn_proposal_id",
+                "itn_proposal_title",
+                "itn_proposal_type"
+            ],
+            "properties": {
+                "itn_proposal_content": {
+                    "type": "string"
+                },
+                "itn_proposal_id": {
+                    "type": "string"
+                },
+                "itn_proposal_title": {
+                    "type": "string"
+                },
+                "itn_proposal_type": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.UpdateInternalProposalStatusDto": {
+            "type": "object",
+            "required": [
+                "itn_proposal_id",
+                "itn_proposal_status"
+            ],
+            "properties": {
+                "itn_proposal_id": {
+                    "type": "string"
+                },
+                "itn_proposal_status": {
                     "type": "string"
                 }
             }
