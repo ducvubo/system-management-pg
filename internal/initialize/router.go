@@ -73,6 +73,12 @@ func InitRouter() *gin.Engine {
 	{
 		routers.RouterGroupApp.EquipmentMaintenance.InitEquipmentMaintenanceRouter(MainGroup)
 	}
+	{
+		routers.RouterGroupApp.OperationManual.InitOperationManualRouter(MainGroup)
+	}
+	{
+		routers.RouterGroupApp.OperationalCosts.InitOperationalCostsRouter(MainGroup)
+	}
 
 	return r
 }

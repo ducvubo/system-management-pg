@@ -60,6 +60,37 @@ definitions:
     - itn_proposal_title
     - itn_proposal_type
     type: object
+  model.CreateOperationManualDto:
+    properties:
+      opera_manual_content:
+        type: string
+      opera_manual_note:
+        type: string
+      opera_manual_title:
+        type: string
+      opera_manual_type:
+        type: string
+    required:
+    - opera_manual_content
+    - opera_manual_title
+    - opera_manual_type
+    type: object
+  model.CreateOperationalCostsDto:
+    properties:
+      opera_cost_amount:
+        type: integer
+      opera_cost_date:
+        type: string
+      opera_cost_description:
+        type: string
+      opera_cost_type:
+        type: string
+    required:
+    - opera_cost_amount
+    - opera_cost_date
+    - opera_cost_description
+    - opera_cost_type
+    type: object
   model.CreateUserManagementAccountDto:
     properties:
       us_email:
@@ -238,6 +269,65 @@ definitions:
     required:
     - itn_proposal_id
     - itn_proposal_status
+    type: object
+  model.UpdateOperationManualDto:
+    properties:
+      opera_manual_content:
+        type: string
+      opera_manual_id:
+        type: string
+      opera_manual_note:
+        type: string
+      opera_manual_title:
+        type: string
+      opera_manual_type:
+        type: string
+    required:
+    - opera_manual_content
+    - opera_manual_id
+    - opera_manual_note
+    - opera_manual_title
+    - opera_manual_type
+    type: object
+  model.UpdateOperationManualStatusDto:
+    properties:
+      opera_manual_id:
+        type: string
+      opera_manual_status:
+        type: string
+    required:
+    - opera_manual_id
+    - opera_manual_status
+    type: object
+  model.UpdateOperationalCostsDto:
+    properties:
+      opera_cost_amount:
+        type: integer
+      opera_cost_date:
+        type: string
+      opera_cost_description:
+        type: string
+      opera_cost_id:
+        type: string
+      opera_cost_type:
+        type: string
+    required:
+    - opera_cost_amount
+    - opera_cost_date
+    - opera_cost_description
+    - opera_cost_id
+    - opera_cost_type
+    type: object
+  model.UpdateOperationalCostsStatusDto:
+    properties:
+      opera_cost_id:
+        type: string
+      opera_cost_status:
+        description: 'ENUM: pending, in_progress, done, rejected'
+        type: string
+    required:
+    - opera_cost_id
+    - opera_cost_status
     type: object
   model.UpdateUserManagementProfileDto:
     properties:
@@ -824,6 +914,370 @@ paths:
       summary: UpdateInternalProposalStatus
       tags:
       - Internal Proposal
+  /operation-manual:
+    get:
+      consumes:
+      - application/json
+      description: GetAllOperationManual
+      parameters:
+      - description: pageIndex
+        in: query
+        name: pageIndex
+        type: integer
+      - description: pageSize
+        in: query
+        name: pageSize
+        type: integer
+      - description: OperaManualTitle
+        in: query
+        name: OperaManualTitle
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: GetAllOperationManual
+      tags:
+      - Operation Manual
+    patch:
+      consumes:
+      - application/json
+      description: UpdateOperationManual
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdateOperationManualDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: UpdateOperationManual
+      tags:
+      - Operation Manual
+    post:
+      consumes:
+      - application/json
+      description: CreateOperationManual
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.CreateOperationManualDto'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: CreateOperationManual
+      tags:
+      - Operation Manual
+  /operation-manual/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: DeleteOperationManual
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: DeleteOperationManual
+      tags:
+      - Operation Manual
+    get:
+      consumes:
+      - application/json
+      description: FindOperationManual
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: FindOperationManual
+      tags:
+      - Operation Manual
+  /operation-manual/recycle:
+    get:
+      consumes:
+      - application/json
+      description: GetAllOperationManualRecycle
+      parameters:
+      - description: pageIndex
+        in: query
+        name: pageIndex
+        type: integer
+      - description: pageSize
+        in: query
+        name: pageSize
+        type: integer
+      - description: OperaManualTitle
+        in: query
+        name: OperaManualTitle
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: GetAllOperationManualRecycle
+      tags:
+      - Operation Manual
+  /operation-manual/restore/{id}:
+    patch:
+      consumes:
+      - application/json
+      description: RestoreOperationManual
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: RestoreOperationManual
+      tags:
+      - Operation Manual
+  /operation-manual/update-status:
+    patch:
+      consumes:
+      - application/json
+      description: UpdateOperationManualStatus
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdateOperationManualStatusDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: UpdateOperationManualStatus
+      tags:
+      - Operation Manual
+  /operational-costs:
+    get:
+      consumes:
+      - application/json
+      description: GetAllOperationalCosts
+      parameters:
+      - description: pageIndex
+        in: query
+        name: pageIndex
+        type: integer
+      - description: pageSize
+        in: query
+        name: pageSize
+        type: integer
+      - description: OperaCostType
+        in: query
+        name: OperaCostType
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: GetAllOperationalCosts
+      tags:
+      - Operational Costs
+    patch:
+      consumes:
+      - application/json
+      description: UpdateOperationalCosts
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdateOperationalCostsDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: UpdateOperationalCosts
+      tags:
+      - Operational Costs
+    post:
+      consumes:
+      - application/json
+      description: CreateOperationalCosts
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.CreateOperationalCostsDto'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: CreateOperationalCosts
+      tags:
+      - Operational Costs
+  /operational-costs/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: DeleteOperationalCosts
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: DeleteOperationalCosts
+      tags:
+      - Operational Costs
+    get:
+      consumes:
+      - application/json
+      description: FindOperationalCosts
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: FindOperationalCosts
+      tags:
+      - Operational Costs
+  /operational-costs/recycle:
+    get:
+      consumes:
+      - application/json
+      description: GetAllOperationalCostsRecycle
+      parameters:
+      - description: pageIndex
+        in: query
+        name: pageIndex
+        type: integer
+      - description: pageSize
+        in: query
+        name: pageSize
+        type: integer
+      - description: OperaCostType
+        in: query
+        name: OperaCostType
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: GetAllOperationalCostsRecycle
+      tags:
+      - Operational Costs
+  /operational-costs/restore/{id}:
+    patch:
+      consumes:
+      - application/json
+      description: RestoreOperationalCosts
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: RestoreOperationalCosts
+      tags:
+      - Operational Costs
+  /operational-costs/update-status:
+    patch:
+      consumes:
+      - application/json
+      description: UpdateOperationalCostsStatus
+      parameters:
+      - description: payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdateOperationalCostsStatusDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ResponseData'
+      summary: UpdateOperationalCostsStatus
+      tags:
+      - Operational Costs
   /system-parameter:
     get:
       consumes:

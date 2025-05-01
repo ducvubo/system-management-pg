@@ -1,20 +1,20 @@
 -- name: CreateOperationManual :execresult
 INSERT INTO operation_manual (
-    opera_manual_id,opera_manua_res_id, opera_manual_title, opera_manual_content, opera_manual_type, opera_manual_status, note,
+    opera_manual_id,opera_manua_res_id, opera_manual_title, opera_manual_content, opera_manual_type,opera_manual_note,
     createdBy, createdAt, updatedAt
 ) VALUES (
-    ?, ?,?, ?, ?, ?, ?, ?, NOW(), NOW()
+    ?, ?,?, ?, ?, ?, ?, NOW(), NOW()
 );
 
 -- name: GetOperationManual :one
 SELECT opera_manual_id, opera_manual_title, opera_manual_content, opera_manual_type,
-       opera_manual_status, note, isDeleted
+        opera_manual_note, isDeleted
 FROM operation_manual
 WHERE opera_manual_id = ? AND opera_manua_res_id = ?;
 
 -- name: UpdateOperationManual :exec
 UPDATE operation_manual
-SET opera_manual_title = ?, opera_manual_content = ?, opera_manual_type = ?, note = ?,
+SET opera_manual_title = ?, opera_manual_content = ?, opera_manual_type = ?, opera_manual_note = ?,
     updatedAt = NOW(), updatedBy = ?
 WHERE opera_manual_id = ? AND opera_manua_res_id = ?;
 
@@ -39,7 +39,7 @@ WITH total_count AS (
     WHERE operation_manual.isDeleted = ? AND operation_manual.opera_manual_title LIKE ? AND operation_manual.opera_manua_res_id = ?
 )
 SELECT 
-    opera_manual_id, opera_manual_title, opera_manual_type, opera_manual_status, note,
+    opera_manual_id, opera_manual_title,opera_manual_content, opera_manual_type, opera_manual_status, opera_manual_note,
     (SELECT total FROM total_count) AS total_items,
     COALESCE(CEIL((SELECT total FROM total_count) / NULLIF(CAST(? AS FLOAT), 0)), 0) AS total_pages
 FROM operation_manual

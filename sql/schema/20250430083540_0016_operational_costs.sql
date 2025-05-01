@@ -3,8 +3,8 @@
 CREATE TABLE IF NOT EXISTS `operational_costs` (
     `opera_cost_id` CHAR(36) NOT NULL,
     `opera_cost_res_id` CHAR(24) NOT NULL,
-    `opera_cost_type` VARCHAR(100) NOT NULL,
-    `opera_cost_amount` DECIMAL(10,2) NOT NULL,
+    `opera_cost_type` TEXT NOT NULL,
+    `opera_cost_amount` DECIMAL(38,0) NOT NULL,
     `opera_cost_description` TEXT NULL,
     `opera_cost_date` DATE NOT NULL,
     `opera_cost_status` ENUM('pending', 'paid', 'canceled') DEFAULT 'pending' COMMENT 'Trạng thái chi phí',

@@ -824,6 +824,562 @@ const docTemplate = `{
                 }
             }
         },
+        "/operation-manual": {
+            "get": {
+                "description": "GetAllOperationManual",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Operation Manual"
+                ],
+                "summary": "GetAllOperationManual",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "pageIndex",
+                        "name": "pageIndex",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "pageSize",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "OperaManualTitle",
+                        "name": "OperaManualTitle",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "CreateOperationManual",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Operation Manual"
+                ],
+                "summary": "CreateOperationManual",
+                "parameters": [
+                    {
+                        "description": "payload",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.CreateOperationManualDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "UpdateOperationManual",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Operation Manual"
+                ],
+                "summary": "UpdateOperationManual",
+                "parameters": [
+                    {
+                        "description": "payload",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateOperationManualDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/operation-manual/recycle": {
+            "get": {
+                "description": "GetAllOperationManualRecycle",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Operation Manual"
+                ],
+                "summary": "GetAllOperationManualRecycle",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "pageIndex",
+                        "name": "pageIndex",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "pageSize",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "OperaManualTitle",
+                        "name": "OperaManualTitle",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/operation-manual/restore/{id}": {
+            "patch": {
+                "description": "RestoreOperationManual",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Operation Manual"
+                ],
+                "summary": "RestoreOperationManual",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/operation-manual/update-status": {
+            "patch": {
+                "description": "UpdateOperationManualStatus",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Operation Manual"
+                ],
+                "summary": "UpdateOperationManualStatus",
+                "parameters": [
+                    {
+                        "description": "payload",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateOperationManualStatusDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/operation-manual/{id}": {
+            "get": {
+                "description": "FindOperationManual",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Operation Manual"
+                ],
+                "summary": "FindOperationManual",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "DeleteOperationManual",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Operation Manual"
+                ],
+                "summary": "DeleteOperationManual",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/operational-costs": {
+            "get": {
+                "description": "GetAllOperationalCosts",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Operational Costs"
+                ],
+                "summary": "GetAllOperationalCosts",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "pageIndex",
+                        "name": "pageIndex",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "pageSize",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "OperaCostType",
+                        "name": "OperaCostType",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "CreateOperationalCosts",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Operational Costs"
+                ],
+                "summary": "CreateOperationalCosts",
+                "parameters": [
+                    {
+                        "description": "payload",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.CreateOperationalCostsDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "UpdateOperationalCosts",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Operational Costs"
+                ],
+                "summary": "UpdateOperationalCosts",
+                "parameters": [
+                    {
+                        "description": "payload",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateOperationalCostsDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/operational-costs/recycle": {
+            "get": {
+                "description": "GetAllOperationalCostsRecycle",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Operational Costs"
+                ],
+                "summary": "GetAllOperationalCostsRecycle",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "pageIndex",
+                        "name": "pageIndex",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "pageSize",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "OperaCostType",
+                        "name": "OperaCostType",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/operational-costs/restore/{id}": {
+            "patch": {
+                "description": "RestoreOperationalCosts",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Operational Costs"
+                ],
+                "summary": "RestoreOperationalCosts",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/operational-costs/update-status": {
+            "patch": {
+                "description": "UpdateOperationalCostsStatus",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Operational Costs"
+                ],
+                "summary": "UpdateOperationalCostsStatus",
+                "parameters": [
+                    {
+                        "description": "payload",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateOperationalCostsStatusDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/operational-costs/{id}": {
+            "get": {
+                "description": "FindOperationalCosts",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Operational Costs"
+                ],
+                "summary": "FindOperationalCosts",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "DeleteOperationalCosts",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Operational Costs"
+                ],
+                "summary": "DeleteOperationalCosts",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
         "/system-parameter": {
             "get": {
                 "description": "GetAllSystemParameter",
@@ -1560,6 +2116,51 @@ const docTemplate = `{
                 }
             }
         },
+        "model.CreateOperationManualDto": {
+            "type": "object",
+            "required": [
+                "opera_manual_content",
+                "opera_manual_title",
+                "opera_manual_type"
+            ],
+            "properties": {
+                "opera_manual_content": {
+                    "type": "string"
+                },
+                "opera_manual_note": {
+                    "type": "string"
+                },
+                "opera_manual_title": {
+                    "type": "string"
+                },
+                "opera_manual_type": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.CreateOperationalCostsDto": {
+            "type": "object",
+            "required": [
+                "opera_cost_amount",
+                "opera_cost_date",
+                "opera_cost_description",
+                "opera_cost_type"
+            ],
+            "properties": {
+                "opera_cost_amount": {
+                    "type": "integer"
+                },
+                "opera_cost_date": {
+                    "type": "string"
+                },
+                "opera_cost_description": {
+                    "type": "string"
+                },
+                "opera_cost_type": {
+                    "type": "string"
+                }
+            }
+        },
         "model.CreateUserManagementAccountDto": {
             "type": "object",
             "required": [
@@ -1814,6 +2415,91 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "itn_proposal_status": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.UpdateOperationManualDto": {
+            "type": "object",
+            "required": [
+                "opera_manual_content",
+                "opera_manual_id",
+                "opera_manual_note",
+                "opera_manual_title",
+                "opera_manual_type"
+            ],
+            "properties": {
+                "opera_manual_content": {
+                    "type": "string"
+                },
+                "opera_manual_id": {
+                    "type": "string"
+                },
+                "opera_manual_note": {
+                    "type": "string"
+                },
+                "opera_manual_title": {
+                    "type": "string"
+                },
+                "opera_manual_type": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.UpdateOperationManualStatusDto": {
+            "type": "object",
+            "required": [
+                "opera_manual_id",
+                "opera_manual_status"
+            ],
+            "properties": {
+                "opera_manual_id": {
+                    "type": "string"
+                },
+                "opera_manual_status": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.UpdateOperationalCostsDto": {
+            "type": "object",
+            "required": [
+                "opera_cost_amount",
+                "opera_cost_date",
+                "opera_cost_description",
+                "opera_cost_id",
+                "opera_cost_type"
+            ],
+            "properties": {
+                "opera_cost_amount": {
+                    "type": "integer"
+                },
+                "opera_cost_date": {
+                    "type": "string"
+                },
+                "opera_cost_description": {
+                    "type": "string"
+                },
+                "opera_cost_id": {
+                    "type": "string"
+                },
+                "opera_cost_type": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.UpdateOperationalCostsStatusDto": {
+            "type": "object",
+            "required": [
+                "opera_cost_id",
+                "opera_cost_status"
+            ],
+            "properties": {
+                "opera_cost_id": {
+                    "type": "string"
+                },
+                "opera_cost_status": {
+                    "description": "ENUM: pending, in_progress, done, rejected",
                     "type": "string"
                 }
             }

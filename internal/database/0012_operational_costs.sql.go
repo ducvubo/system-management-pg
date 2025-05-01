@@ -11,63 +11,61 @@ import (
 	"time"
 )
 
-const createOperationalCost = `-- name: CreateOperationalCost :execresult
+const createOperationalCosts = `-- name: CreateOperationalCosts :execresult
 INSERT INTO operational_costs (
     opera_cost_id,opera_cost_res_id, opera_cost_type, opera_cost_amount, opera_cost_description,
-    opera_cost_date, opera_cost_status, createdBy, createdAt, updatedAt
+    opera_cost_date, createdBy, createdAt, updatedAt
 ) VALUES (
-    ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW()
+    ?, ?, ?, ?, ?, ?, ?, NOW(), NOW()
 )
 `
 
-type CreateOperationalCostParams struct {
+type CreateOperationalCostsParams struct {
 	OperaCostID          string
 	OperaCostResID       string
 	OperaCostType        string
 	OperaCostAmount      string
 	OperaCostDescription sql.NullString
 	OperaCostDate        time.Time
-	OperaCostStatus      NullOperationalCostsOperaCostStatus
 	Createdby            sql.NullString
 }
 
-func (q *Queries) CreateOperationalCost(ctx context.Context, arg CreateOperationalCostParams) (sql.Result, error) {
-	return q.db.ExecContext(ctx, createOperationalCost,
+func (q *Queries) CreateOperationalCosts(ctx context.Context, arg CreateOperationalCostsParams) (sql.Result, error) {
+	return q.db.ExecContext(ctx, createOperationalCosts,
 		arg.OperaCostID,
 		arg.OperaCostResID,
 		arg.OperaCostType,
 		arg.OperaCostAmount,
 		arg.OperaCostDescription,
 		arg.OperaCostDate,
-		arg.OperaCostStatus,
 		arg.Createdby,
 	)
 }
 
-const deleteOperationalCost = `-- name: DeleteOperationalCost :exec
+const deleteOperationalCosts = `-- name: DeleteOperationalCosts :exec
 UPDATE operational_costs
 SET isDeleted = 1, deletedAt = NOW(), deletedBy = ?
 WHERE opera_cost_id = ? AND opera_cost_res_id = ?
 `
 
-type DeleteOperationalCostParams struct {
+type DeleteOperationalCostsParams struct {
 	Deletedby      sql.NullString
 	OperaCostID    string
 	OperaCostResID string
 }
 
-func (q *Queries) DeleteOperationalCost(ctx context.Context, arg DeleteOperationalCostParams) error {
-	_, err := q.db.ExecContext(ctx, deleteOperationalCost, arg.Deletedby, arg.OperaCostID, arg.OperaCostResID)
+func (q *Queries) DeleteOperationalCosts(ctx context.Context, arg DeleteOperationalCostsParams) error {
+	_, err := q.db.ExecContext(ctx, deleteOperationalCosts, arg.Deletedby, arg.OperaCostID, arg.OperaCostResID)
 	return err
 }
 
-const getListOperationalCosts = `-- name: GetListOperationalCosts :many
+const getListOperationalCostss = `-- name: GetListOperationalCostss :many
 WITH total_count AS (
     SELECT COUNT(*) AS total FROM operational_costs
     WHERE operational_costs.isDeleted = ? AND operational_costs.opera_cost_type LIKE ? AND operational_costs.opera_cost_res_id = ?
 )
 SELECT 
-    opera_cost_id, opera_cost_type, opera_cost_amount, opera_cost_date, opera_cost_status,
+    opera_cost_id, opera_cost_type, opera_cost_amount, opera_cost_date, opera_cost_status,opera_cost_description,
     (SELECT total FROM total_count) AS total_items,
     COALESCE(CEIL((SELECT total FROM total_count) / NULLIF(CAST(? AS FLOAT), 0)), 0) AS total_pages
 FROM operational_costs
@@ -75,7 +73,7 @@ WHERE operational_costs.isDeleted = ? AND operational_costs.opera_cost_type LIKE
 LIMIT ? OFFSET ?
 `
 
-type GetListOperationalCostsParams struct {
+type GetListOperationalCostssParams struct {
 	Isdeleted        sql.NullInt32
 	OperaCostType    string
 	OperaCostResID   string
@@ -87,18 +85,19 @@ type GetListOperationalCostsParams struct {
 	Offset           int32
 }
 
-type GetListOperationalCostsRow struct {
-	OperaCostID     string
-	OperaCostType   string
-	OperaCostAmount string
-	OperaCostDate   time.Time
-	OperaCostStatus NullOperationalCostsOperaCostStatus
-	TotalItems      int64
-	TotalPages      interface{}
+type GetListOperationalCostssRow struct {
+	OperaCostID          string
+	OperaCostType        string
+	OperaCostAmount      string
+	OperaCostDate        time.Time
+	OperaCostStatus      NullOperationalCostsOperaCostStatus
+	OperaCostDescription sql.NullString
+	TotalItems           int64
+	TotalPages           interface{}
 }
 
-func (q *Queries) GetListOperationalCosts(ctx context.Context, arg GetListOperationalCostsParams) ([]GetListOperationalCostsRow, error) {
-	rows, err := q.db.QueryContext(ctx, getListOperationalCosts,
+func (q *Queries) GetListOperationalCostss(ctx context.Context, arg GetListOperationalCostssParams) ([]GetListOperationalCostssRow, error) {
+	rows, err := q.db.QueryContext(ctx, getListOperationalCostss,
 		arg.Isdeleted,
 		arg.OperaCostType,
 		arg.OperaCostResID,
@@ -113,15 +112,16 @@ func (q *Queries) GetListOperationalCosts(ctx context.Context, arg GetListOperat
 		return nil, err
 	}
 	defer rows.Close()
-	var items []GetListOperationalCostsRow
+	var items []GetListOperationalCostssRow
 	for rows.Next() {
-		var i GetListOperationalCostsRow
+		var i GetListOperationalCostssRow
 		if err := rows.Scan(
 			&i.OperaCostID,
 			&i.OperaCostType,
 			&i.OperaCostAmount,
 			&i.OperaCostDate,
 			&i.OperaCostStatus,
+			&i.OperaCostDescription,
 			&i.TotalItems,
 			&i.TotalPages,
 		); err != nil {
@@ -138,19 +138,19 @@ func (q *Queries) GetListOperationalCosts(ctx context.Context, arg GetListOperat
 	return items, nil
 }
 
-const getOperationalCost = `-- name: GetOperationalCost :one
+const getOperationalCosts = `-- name: GetOperationalCosts :one
 SELECT opera_cost_id, opera_cost_type, opera_cost_amount, opera_cost_description,
        opera_cost_date, opera_cost_status, isDeleted
 FROM operational_costs
 WHERE opera_cost_id = ? AND opera_cost_res_id = ?
 `
 
-type GetOperationalCostParams struct {
+type GetOperationalCostsParams struct {
 	OperaCostID    string
 	OperaCostResID string
 }
 
-type GetOperationalCostRow struct {
+type GetOperationalCostsRow struct {
 	OperaCostID          string
 	OperaCostType        string
 	OperaCostAmount      string
@@ -160,9 +160,9 @@ type GetOperationalCostRow struct {
 	Isdeleted            sql.NullInt32
 }
 
-func (q *Queries) GetOperationalCost(ctx context.Context, arg GetOperationalCostParams) (GetOperationalCostRow, error) {
-	row := q.db.QueryRowContext(ctx, getOperationalCost, arg.OperaCostID, arg.OperaCostResID)
-	var i GetOperationalCostRow
+func (q *Queries) GetOperationalCosts(ctx context.Context, arg GetOperationalCostsParams) (GetOperationalCostsRow, error) {
+	row := q.db.QueryRowContext(ctx, getOperationalCosts, arg.OperaCostID, arg.OperaCostResID)
+	var i GetOperationalCostsRow
 	err := row.Scan(
 		&i.OperaCostID,
 		&i.OperaCostType,
@@ -175,30 +175,30 @@ func (q *Queries) GetOperationalCost(ctx context.Context, arg GetOperationalCost
 	return i, err
 }
 
-const restoreOperationalCost = `-- name: RestoreOperationalCost :exec
+const restoreOperationalCosts = `-- name: RestoreOperationalCosts :exec
 UPDATE operational_costs
 SET isDeleted = 0, deletedAt = NULL, deletedBy = NULL
 WHERE opera_cost_id = ? AND opera_cost_res_id = ?
 `
 
-type RestoreOperationalCostParams struct {
+type RestoreOperationalCostsParams struct {
 	OperaCostID    string
 	OperaCostResID string
 }
 
-func (q *Queries) RestoreOperationalCost(ctx context.Context, arg RestoreOperationalCostParams) error {
-	_, err := q.db.ExecContext(ctx, restoreOperationalCost, arg.OperaCostID, arg.OperaCostResID)
+func (q *Queries) RestoreOperationalCosts(ctx context.Context, arg RestoreOperationalCostsParams) error {
+	_, err := q.db.ExecContext(ctx, restoreOperationalCosts, arg.OperaCostID, arg.OperaCostResID)
 	return err
 }
 
-const updateOperationalCost = `-- name: UpdateOperationalCost :exec
+const updateOperationalCosts = `-- name: UpdateOperationalCosts :exec
 UPDATE operational_costs
 SET opera_cost_type = ?, opera_cost_amount = ?, opera_cost_description = ?, opera_cost_date = ?,
     updatedAt = NOW(), updatedBy = ?
 WHERE opera_cost_id = ? AND opera_cost_res_id = ?
 `
 
-type UpdateOperationalCostParams struct {
+type UpdateOperationalCostsParams struct {
 	OperaCostType        string
 	OperaCostAmount      string
 	OperaCostDescription sql.NullString
@@ -208,8 +208,8 @@ type UpdateOperationalCostParams struct {
 	OperaCostResID       string
 }
 
-func (q *Queries) UpdateOperationalCost(ctx context.Context, arg UpdateOperationalCostParams) error {
-	_, err := q.db.ExecContext(ctx, updateOperationalCost,
+func (q *Queries) UpdateOperationalCosts(ctx context.Context, arg UpdateOperationalCostsParams) error {
+	_, err := q.db.ExecContext(ctx, updateOperationalCosts,
 		arg.OperaCostType,
 		arg.OperaCostAmount,
 		arg.OperaCostDescription,
@@ -221,21 +221,21 @@ func (q *Queries) UpdateOperationalCost(ctx context.Context, arg UpdateOperation
 	return err
 }
 
-const updateOperationalCostStatus = `-- name: UpdateOperationalCostStatus :exec
+const updateOperationalCostsStatus = `-- name: UpdateOperationalCostsStatus :exec
 UPDATE operational_costs
 SET opera_cost_status = ?, updatedAt = NOW(), updatedBy = ?
 WHERE opera_cost_id = ? AND opera_cost_res_id = ?
 `
 
-type UpdateOperationalCostStatusParams struct {
+type UpdateOperationalCostsStatusParams struct {
 	OperaCostStatus NullOperationalCostsOperaCostStatus
 	Updatedby       sql.NullString
 	OperaCostID     string
 	OperaCostResID  string
 }
 
-func (q *Queries) UpdateOperationalCostStatus(ctx context.Context, arg UpdateOperationalCostStatusParams) error {
-	_, err := q.db.ExecContext(ctx, updateOperationalCostStatus,
+func (q *Queries) UpdateOperationalCostsStatus(ctx context.Context, arg UpdateOperationalCostsStatusParams) error {
+	_, err := q.db.ExecContext(ctx, updateOperationalCostsStatus,
 		arg.OperaCostStatus,
 		arg.Updatedby,
 		arg.OperaCostID,

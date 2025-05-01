@@ -103,7 +103,6 @@ type OperationManualOperaManualStatus string
 const (
 	OperationManualOperaManualStatusActive   OperationManualOperaManualStatus = "active"
 	OperationManualOperaManualStatusArchived OperationManualOperaManualStatus = "archived"
-	OperationManualOperaManualStatusDeleted  OperationManualOperaManualStatus = "deleted"
 )
 
 func (e *OperationManualOperaManualStatus) Scan(src interface{}) error {
@@ -292,12 +291,12 @@ type InternalProposal struct {
 type OperationManual struct {
 	OperaManualID      string
 	OperaManuaResID    string
-	OperaManualTitle   string
+	OperaManualTitle   sql.NullString
 	OperaManualContent string
 	OperaManualType    string
 	// Trạng thái tài liệu
 	OperaManualStatus NullOperationManualOperaManualStatus
-	Note              sql.NullString
+	OperaManualNote   sql.NullString
 	Createdat         sql.NullTime
 	Updatedat         sql.NullTime
 	Deletedat         sql.NullTime

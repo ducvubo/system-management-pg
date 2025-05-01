@@ -21,4 +21,6 @@ func InitServiceInterface() {
 	service.InitInternalNote(impl.NewInternalNoteImpl(queries))
 	service.InitInternalProposal(impl.NewInternalProposalImpl(queries))
 	service.InitEquipmentMaintenance(impl.NewEquipmentMaintenanceImpl(queries))
+	service.InitOperationManual(impl.NewOperationManualImpl(queries))
+	service.InitOperationalCosts(impl.NewOperationalCostsImpl(queries))
 }

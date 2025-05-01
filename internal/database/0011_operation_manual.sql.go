@@ -12,21 +12,20 @@ import (
 
 const createOperationManual = `-- name: CreateOperationManual :execresult
 INSERT INTO operation_manual (
-    opera_manual_id,opera_manua_res_id, opera_manual_title, opera_manual_content, opera_manual_type, opera_manual_status, note,
+    opera_manual_id,opera_manua_res_id, opera_manual_title, opera_manual_content, opera_manual_type,opera_manual_note,
     createdBy, createdAt, updatedAt
 ) VALUES (
-    ?, ?,?, ?, ?, ?, ?, ?, NOW(), NOW()
+    ?, ?,?, ?, ?, ?, ?, NOW(), NOW()
 )
 `
 
 type CreateOperationManualParams struct {
 	OperaManualID      string
 	OperaManuaResID    string
-	OperaManualTitle   string
+	OperaManualTitle   sql.NullString
 	OperaManualContent string
 	OperaManualType    string
-	OperaManualStatus  NullOperationManualOperaManualStatus
-	Note               sql.NullString
+	OperaManualNote    sql.NullString
 	Createdby          sql.NullString
 }
 
@@ -37,8 +36,7 @@ func (q *Queries) CreateOperationManual(ctx context.Context, arg CreateOperation
 		arg.OperaManualTitle,
 		arg.OperaManualContent,
 		arg.OperaManualType,
-		arg.OperaManualStatus,
-		arg.Note,
+		arg.OperaManualNote,
 		arg.Createdby,
 	)
 }
@@ -66,7 +64,7 @@ WITH total_count AS (
     WHERE operation_manual.isDeleted = ? AND operation_manual.opera_manual_title LIKE ? AND operation_manual.opera_manua_res_id = ?
 )
 SELECT 
-    opera_manual_id, opera_manual_title, opera_manual_type, opera_manual_status, note,
+    opera_manual_id, opera_manual_title,opera_manual_content, opera_manual_type, opera_manual_status, opera_manual_note,
     (SELECT total FROM total_count) AS total_items,
     COALESCE(CEIL((SELECT total FROM total_count) / NULLIF(CAST(? AS FLOAT), 0)), 0) AS total_pages
 FROM operation_manual
@@ -76,24 +74,25 @@ LIMIT ? OFFSET ?
 
 type GetListOperationManualParams struct {
 	Isdeleted          sql.NullInt32
-	OperaManualTitle   string
+	OperaManualTitle   sql.NullString
 	OperaManuaResID    string
 	Column4            float64
 	Isdeleted_2        sql.NullInt32
-	OperaManualTitle_2 string
+	OperaManualTitle_2 sql.NullString
 	OperaManuaResID_2  string
 	Limit              int32
 	Offset             int32
 }
 
 type GetListOperationManualRow struct {
-	OperaManualID     string
-	OperaManualTitle  string
-	OperaManualType   string
-	OperaManualStatus NullOperationManualOperaManualStatus
-	Note              sql.NullString
-	TotalItems        int64
-	TotalPages        interface{}
+	OperaManualID      string
+	OperaManualTitle   sql.NullString
+	OperaManualContent string
+	OperaManualType    string
+	OperaManualStatus  NullOperationManualOperaManualStatus
+	OperaManualNote    sql.NullString
+	TotalItems         int64
+	TotalPages         interface{}
 }
 
 func (q *Queries) GetListOperationManual(ctx context.Context, arg GetListOperationManualParams) ([]GetListOperationManualRow, error) {
@@ -118,9 +117,10 @@ func (q *Queries) GetListOperationManual(ctx context.Context, arg GetListOperati
 		if err := rows.Scan(
 			&i.OperaManualID,
 			&i.OperaManualTitle,
+			&i.OperaManualContent,
 			&i.OperaManualType,
 			&i.OperaManualStatus,
-			&i.Note,
+			&i.OperaManualNote,
 			&i.TotalItems,
 			&i.TotalPages,
 		); err != nil {
@@ -139,7 +139,7 @@ func (q *Queries) GetListOperationManual(ctx context.Context, arg GetListOperati
 
 const getOperationManual = `-- name: GetOperationManual :one
 SELECT opera_manual_id, opera_manual_title, opera_manual_content, opera_manual_type,
-       opera_manual_status, note, isDeleted
+        opera_manual_note, isDeleted
 FROM operation_manual
 WHERE opera_manual_id = ? AND opera_manua_res_id = ?
 `
@@ -151,11 +151,10 @@ type GetOperationManualParams struct {
 
 type GetOperationManualRow struct {
 	OperaManualID      string
-	OperaManualTitle   string
+	OperaManualTitle   sql.NullString
 	OperaManualContent string
 	OperaManualType    string
-	OperaManualStatus  NullOperationManualOperaManualStatus
-	Note               sql.NullString
+	OperaManualNote    sql.NullString
 	Isdeleted          sql.NullInt32
 }
 
@@ -167,8 +166,7 @@ func (q *Queries) GetOperationManual(ctx context.Context, arg GetOperationManual
 		&i.OperaManualTitle,
 		&i.OperaManualContent,
 		&i.OperaManualType,
-		&i.OperaManualStatus,
-		&i.Note,
+		&i.OperaManualNote,
 		&i.Isdeleted,
 	)
 	return i, err
@@ -192,16 +190,16 @@ func (q *Queries) RestoreOperationManual(ctx context.Context, arg RestoreOperati
 
 const updateOperationManual = `-- name: UpdateOperationManual :exec
 UPDATE operation_manual
-SET opera_manual_title = ?, opera_manual_content = ?, opera_manual_type = ?, note = ?,
+SET opera_manual_title = ?, opera_manual_content = ?, opera_manual_type = ?, opera_manual_note = ?,
     updatedAt = NOW(), updatedBy = ?
 WHERE opera_manual_id = ? AND opera_manua_res_id = ?
 `
 
 type UpdateOperationManualParams struct {
-	OperaManualTitle   string
+	OperaManualTitle   sql.NullString
 	OperaManualContent string
 	OperaManualType    string
-	Note               sql.NullString
+	OperaManualNote    sql.NullString
 	Updatedby          sql.NullString
 	OperaManualID      string
 	OperaManuaResID    string
@@ -212,7 +210,7 @@ func (q *Queries) UpdateOperationManual(ctx context.Context, arg UpdateOperation
 		arg.OperaManualTitle,
 		arg.OperaManualContent,
 		arg.OperaManualType,
-		arg.Note,
+		arg.OperaManualNote,
 		arg.Updatedby,
 		arg.OperaManualID,
 		arg.OperaManuaResID,
