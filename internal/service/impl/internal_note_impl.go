@@ -123,6 +123,7 @@ func (s *sInternalNote) GetAllInternalNote(ctx context.Context, Limit int32, Off
 		Isdeleted_2: sql.NullInt32{Int32: isDeleted, Valid: true},
 		Limit:       Limit,
 		Offset:      Offset,
+		Column4: float64(Limit),
 		ItnNoteResID: Account.RestaurantID,
 		ItnNoteResID_2: Account.RestaurantID,
 		ItnNoteTitle:      sql.NullString{String: "%" + ItnNoteTitle + "%", Valid: true},

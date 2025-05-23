@@ -125,6 +125,7 @@ func (s *sOperationManual) GetAllOperationManual(ctx context.Context, Limit int3
 		Isdeleted:   sql.NullInt32{Int32: isDeleted, Valid: true},
 		Isdeleted_2: sql.NullInt32{Int32: isDeleted, Valid: true},
 		Limit:       Limit,
+		Column4: float64(Limit),
 		Offset:      Offset,
 		OperaManuaResID: Account.RestaurantID,
 		OperaManuaResID_2: Account.RestaurantID,

@@ -143,6 +143,7 @@ func (s *sOperationalCosts) GetAllOperationalCosts(ctx context.Context, Limit in
 		Isdeleted_2: sql.NullInt32{Int32: isDeleted, Valid: true},
 		Limit:       Limit,
 		Offset:      Offset,
+		Column4: float64(Limit),
 		OperaCostResID: Account.RestaurantID,
 		OperaCostResID_2: Account.RestaurantID,
 		OperaCostType:      "%" + OperaCostType + "%",

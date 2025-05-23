@@ -122,6 +122,7 @@ func (s *sInternalProposal) GetAllInternalProposal(ctx context.Context, Limit in
 		Isdeleted:   sql.NullInt32{Int32: isDeleted, Valid: true},
 		Isdeleted_2: sql.NullInt32{Int32: isDeleted, Valid: true},
 		Limit:       Limit,
+		Column4: float64(Limit),
 		Offset:      Offset,
 		ItnProposalResID: Account.RestaurantID,
 		ItnProposalResID_2: Account.RestaurantID,
