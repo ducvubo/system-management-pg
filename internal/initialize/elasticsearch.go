@@ -33,7 +33,7 @@ func GetElasticsearchInstance() *elasticsearch.Client {
 // initElasticsearch initializes the Elasticsearch connection
 func (e *ElasticsearchSingleton) initElasticsearch() {
 	cfg := elasticsearch.Config{
-		Addresses: []string{"https://160.187.229.179:9200"},
+		Addresses: []string{"https://160.191.243.179:9200"},
 		Username:  "elastic",
 		Password:  "Duc17052003*",
 		Transport: &http.Transport{
