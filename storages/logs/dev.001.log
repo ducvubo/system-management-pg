@@ -148,3 +148,75 @@
 {"level":"INFO","time":"2025-02-27T15:31:33.921+0700","caller":"initialize/mysqlc.go:27","msg":"Initializing MySQL Successfully sql"}
 {"level":"ERROR","time":"2025-02-27T15:31:42.676+0700","caller":"initialize/redis.go:26","msg":"Redis initialization Error:","error":"dial tcp 160.191.51.57:6379: connectex: No connection could be made because the target machine actively refused it.","stacktrace":"system-management-pg/internal/initialize.InitRedis\n\tE:/bai tap/Newfolder/backend/system-management-pg/internal/initialize/redis.go:26\nsystem-management-pg/internal/initialize.Run\n\tE:/bai tap/Newfolder/backend/system-management-pg/internal/initialize/run.go:21\nmain.main\n\tE:/bai tap/Newfolder/backend/system-management-pg/cmd/server/main.go:46\nruntime.main\n\tC:/Users/vminh/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.22.6.windows-amd64/src/runtime/proc.go:271"}
 {"level":"INFO","time":"2025-02-27T15:31:42.677+0700","caller":"initialize/redis.go:30","msg":"Initializing Redis Successfully"}
+{"level":"INFO","time":"2025-06-24T15:46:30.911+0700","caller":"initialize/run.go:18","msg":"Config Log ok!!","ok":"success"}
+{"level":"INFO","time":"2025-06-24T15:46:31.103+0700","caller":"initialize/elasticsearch.go:56","msg":"Initialized Elasticsearch successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T15:46:31.169+0700","caller":"initialize/mysqlc.go:112","msg":"Initialized MySQL successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T15:46:31.203+0700","caller":"initialize/redis.go:59","msg":"Initialized Redis successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T15:46:33.313+0700","caller":"initialize/kafka.go:40","msg":"Initialized Kafka successfully"}
+{"level":"INFO","time":"2025-06-24T15:46:33.313+0700","caller":"initialize/kafka.go:49","msg":"✅ Kafka connection established!"}
+{"level":"INFO","time":"2025-06-24T15:47:27.938+0700","caller":"initialize/run.go:18","msg":"Config Log ok!!","ok":"success"}
+{"level":"INFO","time":"2025-06-24T15:47:28.149+0700","caller":"initialize/elasticsearch.go:56","msg":"Initialized Elasticsearch successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T15:47:28.222+0700","caller":"initialize/mysqlc.go:112","msg":"Initialized MySQL successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T15:47:28.288+0700","caller":"initialize/redis.go:59","msg":"Initialized Redis successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T15:47:30.353+0700","caller":"initialize/kafka.go:40","msg":"Initialized Kafka successfully"}
+{"level":"INFO","time":"2025-06-24T15:47:30.353+0700","caller":"initialize/kafka.go:49","msg":"✅ Kafka connection established!"}
+{"level":"INFO","time":"2025-06-24T15:48:13.753+0700","caller":"initialize/run.go:18","msg":"Config Log ok!!","ok":"success"}
+{"level":"INFO","time":"2025-06-24T15:48:13.920+0700","caller":"initialize/elasticsearch.go:56","msg":"Initialized Elasticsearch successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T15:48:13.981+0700","caller":"initialize/mysqlc.go:112","msg":"Initialized MySQL successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T15:48:14.020+0700","caller":"initialize/redis.go:59","msg":"Initialized Redis successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T15:48:16.220+0700","caller":"initialize/kafka.go:40","msg":"Initialized Kafka successfully"}
+{"level":"INFO","time":"2025-06-24T15:48:16.221+0700","caller":"initialize/kafka.go:49","msg":"✅ Kafka connection established!"}
+{"level":"INFO","time":"2025-06-24T15:49:21.472+0700","caller":"initialize/run.go:18","msg":"Config Log ok!!","ok":"success"}
+{"level":"INFO","time":"2025-06-24T15:49:21.647+0700","caller":"initialize/elasticsearch.go:56","msg":"Initialized Elasticsearch successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T15:49:21.694+0700","caller":"initialize/mysqlc.go:112","msg":"Initialized MySQL successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T15:49:21.751+0700","caller":"initialize/redis.go:59","msg":"Initialized Redis successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T15:49:23.908+0700","caller":"initialize/kafka.go:40","msg":"Initialized Kafka successfully"}
+{"level":"INFO","time":"2025-06-24T15:49:23.908+0700","caller":"initialize/kafka.go:49","msg":"✅ Kafka connection established!"}
+{"level":"INFO","time":"2025-06-24T15:52:42.475+0700","caller":"initialize/run.go:18","msg":"Config Log ok!!","ok":"success"}
+{"level":"INFO","time":"2025-06-24T15:52:42.801+0700","caller":"initialize/elasticsearch.go:56","msg":"Initialized Elasticsearch successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T15:52:42.996+0700","caller":"initialize/mysqlc.go:112","msg":"Initialized MySQL successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T15:52:43.022+0700","caller":"initialize/redis.go:59","msg":"Initialized Redis successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T15:52:48.627+0700","caller":"initialize/kafka.go:40","msg":"Initialized Kafka successfully"}
+{"level":"INFO","time":"2025-06-24T15:52:48.628+0700","caller":"initialize/kafka.go:49","msg":"✅ Kafka connection established!"}
+{"level":"INFO","time":"2025-06-24T15:52:57.745+0700","caller":"initialize/run.go:18","msg":"Config Log ok!!","ok":"success"}
+{"level":"INFO","time":"2025-06-24T15:52:57.970+0700","caller":"initialize/elasticsearch.go:56","msg":"Initialized Elasticsearch successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T15:52:58.063+0700","caller":"initialize/mysqlc.go:112","msg":"Initialized MySQL successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T15:52:58.124+0700","caller":"initialize/redis.go:59","msg":"Initialized Redis successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T15:53:00.171+0700","caller":"initialize/kafka.go:40","msg":"Initialized Kafka successfully"}
+{"level":"INFO","time":"2025-06-24T15:53:00.172+0700","caller":"initialize/kafka.go:49","msg":"✅ Kafka connection established!"}
+{"level":"INFO","time":"2025-06-24T15:55:21.409+0700","caller":"initialize/run.go:18","msg":"Config Log ok!!","ok":"success"}
+{"level":"INFO","time":"2025-06-24T15:55:21.621+0700","caller":"initialize/elasticsearch.go:56","msg":"Initialized Elasticsearch successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T15:55:21.690+0700","caller":"initialize/mysqlc.go:112","msg":"Initialized MySQL successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T15:55:21.743+0700","caller":"initialize/redis.go:59","msg":"Initialized Redis successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T15:55:23.831+0700","caller":"initialize/kafka.go:40","msg":"Initialized Kafka successfully"}
+{"level":"INFO","time":"2025-06-24T15:55:23.831+0700","caller":"initialize/kafka.go:49","msg":"✅ Kafka connection established!"}
+{"level":"INFO","time":"2025-06-24T16:49:35.541+0700","caller":"initialize/run.go:18","msg":"Config Log ok!!","ok":"success"}
+{"level":"INFO","time":"2025-06-24T16:49:35.722+0700","caller":"initialize/elasticsearch.go:56","msg":"Initialized Elasticsearch successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T16:49:35.764+0700","caller":"initialize/mysqlc.go:112","msg":"Initialized MySQL successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T16:49:35.811+0700","caller":"initialize/redis.go:59","msg":"Initialized Redis successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T16:49:35.922+0700","caller":"initialize/kafka.go:84","msg":"Connected to Kafka broker","broker":"160.191.243.201:19092"}
+{"level":"INFO","time":"2025-06-24T16:49:35.922+0700","caller":"initialize/kafka.go:97","msg":"✅ Kafka Producer initialized successfully!"}
+{"level":"INFO","time":"2025-06-24T16:51:46.820+0700","caller":"initialize/run.go:18","msg":"Config Log ok!!","ok":"success"}
+{"level":"INFO","time":"2025-06-24T16:51:46.985+0700","caller":"initialize/elasticsearch.go:56","msg":"Initialized Elasticsearch successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T16:51:47.026+0700","caller":"initialize/mysqlc.go:112","msg":"Initialized MySQL successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T16:51:47.053+0700","caller":"initialize/redis.go:59","msg":"Initialized Redis successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T16:51:47.188+0700","caller":"initialize/kafka.go:84","msg":"Connected to Kafka broker","broker":"160.191.243.201:19092"}
+{"level":"INFO","time":"2025-06-24T16:51:47.189+0700","caller":"initialize/kafka.go:97","msg":"✅ Kafka Producer initialized successfully!"}
+{"level":"INFO","time":"2025-06-24T17:16:28.199+0700","caller":"initialize/run.go:18","msg":"Config Log ok!!","ok":"success"}
+{"level":"INFO","time":"2025-06-24T17:16:28.392+0700","caller":"initialize/elasticsearch.go:56","msg":"Initialized Elasticsearch successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T17:16:28.440+0700","caller":"initialize/mysqlc.go:112","msg":"Initialized MySQL successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T17:16:28.491+0700","caller":"initialize/redis.go:59","msg":"Initialized Redis successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T17:16:28.594+0700","caller":"initialize/kafka.go:84","msg":"Connected to Kafka broker","broker":"160.191.243.201:19092"}
+{"level":"INFO","time":"2025-06-24T17:16:28.594+0700","caller":"initialize/kafka.go:97","msg":"✅ Kafka Producer initialized successfully!"}
+{"level":"INFO","time":"2025-06-24T20:47:32.002+0700","caller":"initialize/run.go:18","msg":"Config Log ok!!","ok":"success"}
+{"level":"INFO","time":"2025-06-24T20:47:32.232+0700","caller":"initialize/elasticsearch.go:56","msg":"Initialized Elasticsearch successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T20:47:32.272+0700","caller":"initialize/mysqlc.go:112","msg":"Initialized MySQL successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T20:47:32.297+0700","caller":"initialize/redis.go:59","msg":"Initialized Redis successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T20:47:32.402+0700","caller":"initialize/kafka.go:84","msg":"Connected to Kafka broker","broker":"160.191.243.201:19092"}
+{"level":"INFO","time":"2025-06-24T20:47:32.402+0700","caller":"initialize/kafka.go:97","msg":"✅ Kafka Producer initialized successfully!"}
+{"level":"INFO","time":"2025-06-24T20:48:43.466+0700","caller":"initialize/run.go:18","msg":"Config Log ok!!","ok":"success"}
+{"level":"INFO","time":"2025-06-24T20:48:43.634+0700","caller":"initialize/elasticsearch.go:56","msg":"Initialized Elasticsearch successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T20:48:43.659+0700","caller":"initialize/mysqlc.go:112","msg":"Initialized MySQL successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T20:48:43.680+0700","caller":"initialize/redis.go:59","msg":"Initialized Redis successfully with Singleton pattern"}
+{"level":"INFO","time":"2025-06-24T20:48:43.769+0700","caller":"initialize/kafka.go:84","msg":"Connected to Kafka broker","broker":"160.191.243.201:19092"}
+{"level":"INFO","time":"2025-06-24T20:48:43.781+0700","caller":"initialize/kafka.go:97","msg":"✅ Kafka Producer initialized successfully!"}

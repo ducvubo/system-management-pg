@@ -29,40 +29,9 @@ func InitRouter() *gin.Engine {
 		c.Next()
 	})
 
-	// middlewares
-	// r.Use() // logging
-	// r.Use() // cross
-	// r.Use() // limiter global
-	manageRouter := routers.RouterGroupApp.Manage
-	userRouter := routers.RouterGroupApp.User
-	userManagementProfileRouter := routers.RouterGroupApp.UserManagementProfile
-	userManagementAccountRouter := routers.RouterGroupApp.UserManagementAccount
 	MainGroup := r.Group("/api/v1")
 	{
 		MainGroup.GET("/checkStatus") // tracking monitor
-	}
-	{
-		userRouter.InitUserRouter(MainGroup)
-		userRouter.InitProductRouter(MainGroup)
-	}
-	{
-		manageRouter.InitUserRouter(MainGroup)
-		manageRouter.InitAdminRouter(MainGroup)
-	}
-	{
-		userManagementProfileRouter.InitUserManagementProfileRouter(MainGroup)
-	}
-	{
-		userManagementAccountRouter.InitUserManagementAccountRouter(MainGroup)
-	}
-	{
-		routers.RouterGroupApp.SystemParameter.InitSystemParameterRouter(MainGroup)
-	}
-	{
-		routers.RouterGroupApp.Upload.InitUploadRouter(MainGroup)
-	}
-	{
-		routers.RouterGroupApp.UserPatoAccount.InitUserPatoAccountRouter(MainGroup)
 	}
 	{
 		routers.RouterGroupApp.InternalNote.InitInternalNoteRouter(MainGroup)

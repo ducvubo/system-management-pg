@@ -18,4 +18,3 @@ EXPOSE 13000
 
 ENTRYPOINT [ "/system.management.pg.com", "config/local.yaml" ]
 
-

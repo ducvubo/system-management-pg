@@ -40,21 +40,6 @@ func GetUserIdFromUUID(ctx context.Context) (uint64, error) {
 	return inforUser.UserId, nil
 }
 
-func GetUserProfileFromCtx(ctx *gin.Context) *model.UserManagementProfileOutput {
-	userProfileRaw, exists := ctx.Get("userProfile")
-	if !exists {
-		ctx.JSON(401, gin.H{"error": "User profile not found"})
-		return nil
-	}
-
-	userProfile, ok := userProfileRaw.(*model.UserManagementProfileOutput)
-	if !ok {
-		ctx.JSON(500, gin.H{"error": "Invalid user profile data"})
-		return nil
-	}
-	return userProfile
-}
-
 func GetAccoutFromCtx(c *gin.Context) *model.Account {
     account, exists := c.Get("account")
     if !exists {
