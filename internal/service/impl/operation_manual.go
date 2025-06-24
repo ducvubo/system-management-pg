@@ -117,7 +117,7 @@ func (s *sOperationManual) DeleteOperationManual(ctx context.Context, OperaManua
 	}
 	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
 		RestaurantID: Account.RestaurantID,
-		NotiContent:  fmt.Sprintf("Hướng dẫn vận hành %s vừa được xóa", operaManual.OperaManualTitle.String),
+		NotiContent:  fmt.Sprintf("Hướng dẫn vận hành %s vừa được xóa", operaManual.OperaManualTitle),
 		NotiTitle:    "Hướng dẫn vận hành",
 		NotiType:     "operation_manual",
 		NotiMetadata: `{"text":"delete operation manual"}`,
@@ -144,7 +144,7 @@ func (s *sOperationManual) RestoreOperationManual(ctx context.Context, OperaManu
 	}
 	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
 		RestaurantID: Account.RestaurantID,
-		NotiContent:  fmt.Sprintf("Hướng dẫn vận hành %s vừa được khôi phục", operaManual.OperaManualTitle.String),
+		NotiContent:  fmt.Sprintf("Hướng dẫn vận hành %s vừa được khôi phục", operaManual.OperaManualTitle),
 		NotiTitle:    "Hướng dẫn vận hành",
 		NotiType:     "operation_manual",
 		NotiMetadata: `{"text":"restore operation manual"}`,
@@ -224,7 +224,7 @@ func(s *sOperationManual) UpdateOperationManualStatus(ctx context.Context, updat
 	}
 	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
 		RestaurantID: Account.RestaurantID,
-		NotiContent:  fmt.Sprintf("Hướng dẫn vận hành %s vừa được cập nhật trạng thái", operaManual.OperaManualTitle.String),
+		NotiContent:  fmt.Sprintf("Hướng dẫn vận hành %s vừa được cập nhật trạng thái", operaManual.OperaManualTitle),
 		NotiTitle:    "Hướng dẫn vận hành",
 		NotiType:     "operation_manual",
 		NotiMetadata: `{"text":"update operation manual status"}`,

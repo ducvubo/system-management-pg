@@ -46,7 +46,7 @@ func (s *sOperationalCosts) CreateOperationalCosts(ctx context.Context, createOp
 	}
 	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
 		RestaurantID: Account.RestaurantID,
-		NotiContent:  fmt.Sprintf("Chi phí vận hành %s vừa được tạo", createOperationalCosts.OperaCostType.String),
+		NotiContent:  fmt.Sprintf("Chi phí vận hành %s vừa được tạo", createOperationalCosts.OperaCostType),
 		NotiTitle:    "Chi phí vận hành",
 		NotiType:     "operational_costs",
 		NotiMetadata: `{"text":"new operational costs"}`,
@@ -107,7 +107,7 @@ func (s *sOperationalCosts) UpdateOperationalCosts(ctx context.Context, updateOp
 	}
 	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
 		RestaurantID: Account.RestaurantID,
-		NotiContent:  fmt.Sprintf("Chi phí vận hành %s vừa được cập nhật", updateOperationalCosts.OperaCostType.String),
+		NotiContent:  fmt.Sprintf("Chi phí vận hành %s vừa được cập nhật", updateOperationalCosts.OperaCostType),
 		NotiTitle:    "Chi phí vận hành",
 		NotiType:     "operational_costs",
 		NotiMetadata: `{"text":"update operational costs"}`,
@@ -134,7 +134,7 @@ func (s *sOperationalCosts) DeleteOperationalCosts(ctx context.Context, OperaCos
 	}
 	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
 		RestaurantID: Account.RestaurantID,
-		NotiContent:  fmt.Sprintf("Chi phí vận hành %s vừa được xóa", operationalCost.OperaCostType.String),
+		NotiContent:  fmt.Sprintf("Chi phí vận hành %s vừa được xóa", operationalCost.OperaCostType),
 		NotiTitle:    "Chi phí vận hành",
 		NotiType:     "operational_costs",
 		NotiMetadata: `{"text":"delete operational costs"}`,
@@ -161,7 +161,7 @@ func (s *sOperationalCosts) RestoreOperationalCosts(ctx context.Context, OperaCo
 	}
 	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
 		RestaurantID: Account.RestaurantID,
-		NotiContent:  fmt.Sprintf("Chi phí vận hành %s vừa được khôi phục", operationalCostsParams.OperaCostType.String),
+		NotiContent:  fmt.Sprintf("Chi phí vận hành %s vừa được khôi phục", operationalCostsParams.OperaCostType),
 		NotiTitle:    "Chi phí vận hành",
 		NotiType:     "operational_costs",
 		NotiMetadata: `{"text":"restore operational costs"}`,
@@ -248,7 +248,7 @@ func(s *sOperationalCosts) UpdateOperationalCostsStatus(ctx context.Context, upd
 	}
 	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
 		RestaurantID: Account.RestaurantID,
-		NotiContent:  fmt.Sprintf("Chi phí vận hành %s vừa được cập nhật trạng thái", operationalCostsStatus.OperaCostType.String),
+		NotiContent:  fmt.Sprintf("Chi phí vận hành %s vừa được cập nhật trạng thái", operationalCostsStatus.OperaCostType),
 		NotiTitle:    "Chi phí vận hành",
 		NotiType:     "operational_costs",
 		NotiMetadata: `{"text":"update operational costs status"}`,
