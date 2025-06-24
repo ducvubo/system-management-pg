@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"system-management-pg/internal/database"
 	"system-management-pg/internal/model"
+	"system-management-pg/internal/utils/kafka"
 	"system-management-pg/pkg/response"
 
 	"github.com/google/uuid"
@@ -35,6 +36,16 @@ func (s *sInternalNote) CreateInternalNote(ctx context.Context, createInternalNo
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}
+
+	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
+		RestaurantID: Account.RestaurantID,
+		NotiContent:  fmt.Sprintf("Ghi chú nội bộ %s vừa được tạo", createInternalNote.ItnNoteTitle),
+		NotiTitle:    "Ghi chú nội bộ",
+		NotiType:     "internal_note",
+		NotiMetadata: `{"text":"new internal note"}`,
+		SendObject:   "all_account",
+	})
+
 	return nil, http.StatusCreated
 }
 
@@ -76,6 +87,14 @@ func (s *sInternalNote) UpdateInternalNote(ctx context.Context, updateInternalNo
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}
+	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
+		RestaurantID: Account.RestaurantID,
+		NotiContent:  fmt.Sprintf("Ghi chú nội bộ %s vừa được cập nhật", updateInternalNote.ItnNoteTitle),
+		NotiTitle:    "Ghi chú nội bộ",
+		NotiType:     "internal_note",
+		NotiMetadata: `{"text":"update internal note"}`,
+		SendObject:   "all_account",
+	})
 	return nil, http.StatusCreated
 }
 
@@ -95,6 +114,14 @@ func (s *sInternalNote) DeleteInternalNote(ctx context.Context, ItnNoteId string
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}
+	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
+		RestaurantID: Account.RestaurantID,
+		NotiContent:  fmt.Sprintf("Ghi chú nội bộ %s vừa được xóa", ItnNoteId),
+		NotiTitle:    "Ghi chú nội bộ",
+		NotiType:     "internal_note",
+		NotiMetadata: `{"text":"delete internal note"}`,
+		SendObject:   "all_account",
+	})
 	return nil, http.StatusCreated
 }
 
@@ -114,7 +141,15 @@ func (s *sInternalNote) RestoreInternalNote(ctx context.Context, ItnNoteId strin
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}
-	return nil, http.StatusCreated
+	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
+		RestaurantID: Account.RestaurantID,
+		NotiContent:  fmt.Sprintf("Ghi chú nội bộ %s vừa được khôi phục", ItnNoteId),
+		NotiTitle:    "Ghi chú nội bộ",
+		NotiType:     "internal_note",
+		NotiMetadata: `{"text":"restore internal note"}`,
+		SendObject:   "all_account",
+	})
+		return nil, http.StatusCreated
 }
 
 func (s *sInternalNote) GetAllInternalNote(ctx context.Context, Limit int32, Offset int32, isDeleted int32, ItnNoteTitle string, Account *model.Account) (out response.ModelPagination[[]*model.InternalNoteOutput], err error, statusCode int) {

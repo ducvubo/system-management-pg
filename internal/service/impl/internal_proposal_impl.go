@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"system-management-pg/internal/database"
 	"system-management-pg/internal/model"
+	"system-management-pg/internal/utils/kafka"
 	"system-management-pg/pkg/response"
 
 	"github.com/google/uuid"
@@ -35,6 +36,14 @@ func (s *sInternalProposal) CreateInternalProposal(ctx context.Context, createIn
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}
+	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
+		RestaurantID: Account.RestaurantID,
+		NotiContent:  fmt.Sprintf("Đề xuất nội bộ %s vừa được tạo", createInternalProposal.ItnProposalTitle),
+		NotiTitle:    "Đề xuất nội bộ",
+		NotiType:     "internal_proposal",
+		NotiMetadata: `{"text":"new internal proposal"}`,
+		SendObject:   "all_account",
+	})
 	return nil, http.StatusCreated
 }
 
@@ -76,6 +85,14 @@ func (s *sInternalProposal) UpdateInternalProposal(ctx context.Context, updateIn
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}
+	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
+		RestaurantID: Account.RestaurantID,
+		NotiContent:  fmt.Sprintf("Đề xuất nội bộ %s vừa được cập nhật", updateInternalProposal.ItnProposalTitle),
+		NotiTitle:    "Đề xuất nội bộ",
+		NotiType:     "internal_proposal",
+		NotiMetadata: `{"text":"update internal proposal"}`,
+		SendObject:   "all_account",
+	})
 	return nil, http.StatusCreated
 }
 
@@ -95,6 +112,14 @@ func (s *sInternalProposal) DeleteInternalProposal(ctx context.Context, ItnPropo
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}
+	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
+		RestaurantID: Account.RestaurantID,
+		NotiContent:  fmt.Sprintf("Đề xuất nội bộ %s vừa được xóa", ItnProposalId),
+		NotiTitle:    "Đề xuất nội bộ",
+		NotiType:     "internal_proposal",
+		NotiMetadata: `{"text":"delete internal proposal"}`,
+		SendObject:   "all_account",
+	})
 	return nil, http.StatusCreated
 }
 
@@ -114,7 +139,15 @@ func (s *sInternalProposal) RestoreInternalProposal(ctx context.Context, ItnProp
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}
-	return nil, http.StatusCreated
+	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
+		RestaurantID: Account.RestaurantID,
+		NotiContent:  fmt.Sprintf("Đề xuất nội bộ %s vừa được khôi phục", ItnProposalId),
+		NotiTitle:    "Đề xuất nội bộ",
+		NotiType:     "internal_proposal",
+		NotiMetadata: `{"text":"restore internal proposal"}`,
+		SendObject:   "all_account",
+	})
+		return nil, http.StatusCreated
 }
 
 func (s *sInternalProposal) GetAllInternalProposal(ctx context.Context, Limit int32, Offset int32, isDeleted int32, ItnProposalTitle string, Account *model.Account) (out response.ModelPagination[[]*model.InternalProposalOutput], err error, statusCode int) {
@@ -186,5 +219,13 @@ func(s *sInternalProposal) UpdateInternalProposalStatus(ctx context.Context, upd
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}
+	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
+		RestaurantID: Account.RestaurantID,
+		NotiContent:  fmt.Sprintf("Đề xuất nội bộ %s vừa được cập nhật trạng thái", updateInternalProposalStatus.ItnProposalId),
+		NotiTitle:    "Đề xuất nội bộ",
+		NotiType:     "internal_proposal",
+		NotiMetadata: `{"text":"update internal proposal status"}`,
+		SendObject:   "all_account",
+	})
 	return nil, http.StatusCreated
 }

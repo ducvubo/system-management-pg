@@ -8,9 +8,10 @@ import (
 	"strconv"
 	"system-management-pg/internal/database"
 	"system-management-pg/internal/model"
+	"system-management-pg/internal/utils/kafka"
 	"system-management-pg/pkg/response"
 	"time"
-	"system-management-pg/internal/utils/kafka"
+
 	"github.com/google/uuid"
 )
 
@@ -299,7 +300,7 @@ func(s *sEquipmentMaintenance) UpdateEquipmentMaintenanceStatus(ctx context.Cont
 
 	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
 		RestaurantID: Account.RestaurantID,
-		NotiContent:  fmt.Sprintf("Thiết bị %s vừa được cập nhật trạng thái bảo trì thành %s", equipmentMaintenance.EqpMtnName.String, updateEquipmentMaintenanceStatus.EqpMtnStatus),
+		NotiContent:  fmt.Sprintf("Thiết bị %s vừa được cập nhật trạng thái", equipmentMaintenance.EqpMtnName.String),
 		NotiTitle:    "Cập nhật trạng thái bảo trì",
 		NotiType:     "maintenance",
 		NotiMetadata: `{"text":"status updated"}`,

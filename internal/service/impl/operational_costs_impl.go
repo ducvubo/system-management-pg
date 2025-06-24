@@ -8,6 +8,7 @@ import (
 	"strconv"
 	"system-management-pg/internal/database"
 	"system-management-pg/internal/model"
+	"system-management-pg/internal/utils/kafka"
 	"system-management-pg/pkg/response"
 	"time"
 
@@ -43,6 +44,14 @@ func (s *sOperationalCosts) CreateOperationalCosts(ctx context.Context, createOp
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}
+	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
+		RestaurantID: Account.RestaurantID,
+		NotiContent:  fmt.Sprintf("Chi phí vận hành %s vừa được tạo", createOperationalCosts.OperaCostType),
+		NotiTitle:    "Chi phí vận hành",
+		NotiType:     "operational_costs",
+		NotiMetadata: `{"text":"new operational costs"}`,
+		SendObject:   "all_account",
+	})
 	return nil, http.StatusCreated
 }
 
@@ -96,6 +105,14 @@ func (s *sOperationalCosts) UpdateOperationalCosts(ctx context.Context, updateOp
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}
+	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
+		RestaurantID: Account.RestaurantID,
+		NotiContent:  fmt.Sprintf("Chi phí vận hành %s vừa được cập nhật", updateOperationalCosts.OperaCostType),
+		NotiTitle:    "Chi phí vận hành",
+		NotiType:     "operational_costs",
+		NotiMetadata: `{"text":"update operational costs"}`,
+		SendObject:   "all_account",
+	})
 	return nil, http.StatusCreated
 }
 
@@ -115,6 +132,14 @@ func (s *sOperationalCosts) DeleteOperationalCosts(ctx context.Context, OperaCos
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}
+	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
+		RestaurantID: Account.RestaurantID,
+		NotiContent:  fmt.Sprintf("Chi phí vận hành %s vừa được xóa", OperaCostID),
+		NotiTitle:    "Chi phí vận hành",
+		NotiType:     "operational_costs",
+		NotiMetadata: `{"text":"delete operational costs"}`,
+		SendObject:   "all_account",
+	})
 	return nil, http.StatusCreated
 }
 
@@ -134,6 +159,14 @@ func (s *sOperationalCosts) RestoreOperationalCosts(ctx context.Context, OperaCo
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}
+	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
+		RestaurantID: Account.RestaurantID,
+		NotiContent:  fmt.Sprintf("Chi phí vận hành %s vừa được khôi phục", OperaCostID),
+		NotiTitle:    "Chi phí vận hành",
+		NotiType:     "operational_costs",
+		NotiMetadata: `{"text":"restore operational costs"}`,
+		SendObject:   "all_account",
+	})
 	return nil, http.StatusCreated
 }
 
@@ -213,5 +246,13 @@ func(s *sOperationalCosts) UpdateOperationalCostsStatus(ctx context.Context, upd
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}
+	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
+		RestaurantID: Account.RestaurantID,
+		NotiContent:  fmt.Sprintf("Chi phí vận hành %s vừa được cập nhật trạng thái", updateOperationalCostsStatus.OperaCostID),
+		NotiTitle:    "Chi phí vận hành",
+		NotiType:     "operational_costs",
+		NotiMetadata: `{"text":"update operational costs status"}`,
+		SendObject:   "all_account",
+	})
 	return nil, http.StatusCreated
 }

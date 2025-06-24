@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"system-management-pg/internal/database"
 	"system-management-pg/internal/model"
+	"system-management-pg/internal/utils/kafka"
 	"system-management-pg/pkg/response"
 
 	"github.com/google/uuid"
@@ -36,6 +37,14 @@ func (s *sOperationManual) CreateOperationManual(ctx context.Context, createOper
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}
+	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
+		RestaurantID: Account.RestaurantID,
+		NotiContent:  fmt.Sprintf("Hướng dẫn vận hành %s vừa được tạo", createOperationManual.OperaManualTitle),
+		NotiTitle:    "Hướng dẫn vận hành",
+		NotiType:     "operation_manual",
+		NotiMetadata: `{"text":"new operation manual"}`,
+		SendObject:   "all_account",
+	})
 	return nil, http.StatusCreated
 }
 
@@ -79,6 +88,14 @@ func (s *sOperationManual) UpdateOperationManual(ctx context.Context, updateOper
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}
+	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
+		RestaurantID: Account.RestaurantID,
+		NotiContent:  fmt.Sprintf("Hướng dẫn vận hành %s vừa được cập nhật", updateOperationManual.OperaManualTitle),
+		NotiTitle:    "Hướng dẫn vận hành",
+		NotiType:     "operation_manual",
+		NotiMetadata: `{"text":"update operation manual"}`,
+		SendObject:   "all_account",
+	})
 	return nil, http.StatusCreated
 }
 
@@ -98,6 +115,14 @@ func (s *sOperationManual) DeleteOperationManual(ctx context.Context, OperaManua
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}
+	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
+		RestaurantID: Account.RestaurantID,
+		NotiContent:  fmt.Sprintf("Hướng dẫn vận hành %s vừa được xóa", OperaManualID),
+		NotiTitle:    "Hướng dẫn vận hành",
+		NotiType:     "operation_manual",
+		NotiMetadata: `{"text":"delete operation manual"}`,
+		SendObject:   "all_account",
+	})
 	return nil, http.StatusCreated
 }
 
@@ -117,6 +142,14 @@ func (s *sOperationManual) RestoreOperationManual(ctx context.Context, OperaManu
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}
+	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
+		RestaurantID: Account.RestaurantID,
+		NotiContent:  fmt.Sprintf("Hướng dẫn vận hành %s vừa được khôi phục", OperaManualID),
+		NotiTitle:    "Hướng dẫn vận hành",
+		NotiType:     "operation_manual",
+		NotiMetadata: `{"text":"restore operation manual"}`,
+		SendObject:   "all_account",
+	})
 	return nil, http.StatusCreated
 }
 
@@ -189,5 +222,13 @@ func(s *sOperationManual) UpdateOperationManualStatus(ctx context.Context, updat
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}
+	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
+		RestaurantID: Account.RestaurantID,
+		NotiContent:  fmt.Sprintf("Hướng dẫn vận hành %s vừa được cập nhật trạng thái", updateOperationManualStatus.OperaManualID),
+		NotiTitle:    "Hướng dẫn vận hành",
+		NotiType:     "operation_manual",
+		NotiMetadata: `{"text":"update operation manual status"}`,
+		SendObject:   "all_account",
+	})
 	return nil, http.StatusCreated
 }
