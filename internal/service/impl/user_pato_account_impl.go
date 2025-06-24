@@ -14,7 +14,7 @@ import (
 	"system-management-pg/internal/utils/auth"
 	"system-management-pg/internal/utils/crypto"
 	"system-management-pg/internal/utils/image"
-	"system-management-pg/internal/utils/kafka"
+	// "system-management-pg/internal/utils/kafka"
 	"system-management-pg/internal/utils/random"
 	"time"
 
@@ -145,15 +145,15 @@ func (s *sUserPatoAccount) RegisterUserPatoAccount(ctx context.Context, register
 		return nil, fmt.Errorf("lỗi lưu OTP vào cache: %v", err), http.StatusInternalServerError
 	}
 
-	message, err := BuildKafkaMessage(registerUserPatoAccount.UsPtEmail, otp, registerUserPatoAccount.UrlRedirect)
-	if err != nil {
-		return nil, fmt.Errorf("lỗi tạo message JSON gửi Kafka: %v", err), http.StatusInternalServerError
-	}
+	// message, err := BuildKafkaMessage(registerUserPatoAccount.UsPtEmail, otp, registerUserPatoAccount.UrlRedirect)
+	// if err != nil {
+	// 	return nil, fmt.Errorf("lỗi tạo message JSON gửi Kafka: %v", err), http.StatusInternalServerError
+	// }
 
-	err = kafka.SendMessageToKafka("CONFIRM_REGISTER_USER_ACCOUNT_PATO", message)
-	if err != nil {
-		return nil, fmt.Errorf("lỗi gửi OTP đến Kafka: %v", err), http.StatusInternalServerError
-	}
+	// err = kafka.SendMessageToKafka("CONFIRM_REGISTER_USER_ACCOUNT_PATO", message)
+	// if err != nil {
+	// 	return nil, fmt.Errorf("lỗi gửi OTP đến Kafka: %v", err), http.StatusInternalServerError
+	// }
 
 	return registerUserPatoAccountOutput, nil, http.StatusOK
 }
@@ -179,14 +179,14 @@ func (s *sUserPatoAccount) ResendOtp(ctx context.Context, resendOtp *model.Resen
 	if err != nil {
 		return fmt.Errorf("lỗi lưu OTP vào cache: %v", err), http.StatusInternalServerError
 	}
-	message, err := BuildKafkaMessage(resendOtp.UsPtEmail, otp, resendOtp.UrlRedirect)
-	if err != nil {
-		return fmt.Errorf("lỗi tạo message JSON gửi Kafka: %v", err), http.StatusInternalServerError
-	}
-	err = kafka.SendMessageToKafka("CONFIRM_REGISTER_USER_ACCOUNT_PATO", message)
-	if err != nil {
-		return fmt.Errorf("lỗi gửi OTP đến Kafka: %v", err), http.StatusInternalServerError
-	}
+	// message, err := BuildKafkaMessage(resendOtp.UsPtEmail, otp, resendOtp.UrlRedirect)
+	// if err != nil {
+	// 	return fmt.Errorf("lỗi tạo message JSON gửi Kafka: %v", err), http.StatusInternalServerError
+	// }
+	// err = kafka.SendMessageToKafka("CONFIRM_REGISTER_USER_ACCOUNT_PATO", message)
+	// if err != nil {
+	// 	return fmt.Errorf("lỗi gửi OTP đến Kafka: %v", err), http.StatusInternalServerError
+	// }
 	return nil, http.StatusOK
 }
 

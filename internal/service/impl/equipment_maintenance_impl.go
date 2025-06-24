@@ -59,6 +59,21 @@ func (s *sEquipmentMaintenance) CreateEquipmentMaintenance(ctx context.Context, 
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}
+
+	notification := kafka.NotificationPayload{
+		RestaurantID: Account.RestaurantID,
+		NotiContent:  fmt.Sprintf("Thiết bị %s vừa được tạo yêu cầu bảo trì", createEquipmentMaintenance.EqpMtnName),
+		NotiTitle:    "Bảo trì thiết bị",
+		NotiType:     "maintenance",
+		NotiMetadata: `{"text":"new maintenance request"}`,
+		SendObject:   "all_account",
+	}
+	message, _ := json.Marshal(notification)
+	kafka.SendMessageToKafka(ctx, kafka.KafkaMessage{
+		Topic:   "NOTIFICATION_ACCOUNT_CREATE",
+		Message: string(message),
+	})
+
 	return nil, http.StatusCreated
 }
 
@@ -139,6 +154,21 @@ func (s *sEquipmentMaintenance) UpdateEquipmentMaintenance(ctx context.Context, 
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}
+
+	notification := kafka.NotificationPayload{
+		RestaurantID: Account.RestaurantID,
+		NotiContent:  fmt.Sprintf("Thiết bị %s vừa được cập nhật thông tin bảo trì", updateEquipmentMaintenance.EqpMtnName),
+		NotiTitle:    "Cập nhật bảo trì thiết bị",
+		NotiType:     "maintenance",
+		NotiMetadata: `{"text":"maintenance updated"}`,
+		SendObject:   "all_account",
+	}
+	message, _ := json.Marshal(notification)
+	kafka.SendMessageToKafka(ctx, kafka.KafkaMessage{
+		Topic:   "NOTIFICATION_ACCOUNT_CREATE",
+		Message: string(message),
+	})
+
 	return nil, http.StatusCreated
 }
 
@@ -158,6 +188,21 @@ func (s *sEquipmentMaintenance) DeleteEquipmentMaintenance(ctx context.Context, 
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}
+
+	notification := kafka.NotificationPayload{
+		RestaurantID: Account.RestaurantID,
+		NotiContent:  fmt.Sprintf("Thiết bị %s vừa bị xóa yêu cầu bảo trì", equipmentMaintenance.EqpMtnName.String),
+		NotiTitle:    "Xóa bảo trì thiết bị",
+		NotiType:     "maintenance",
+		NotiMetadata: `{"text":"maintenance deleted"}`,
+		SendObject:   "all_account",
+	}
+	message, _ := json.Marshal(notification)
+	kafka.SendMessageToKafka(ctx, kafka.KafkaMessage{
+		Topic:   "NOTIFICATION_ACCOUNT_CREATE",
+		Message: string(message),
+	})
+
 	return nil, http.StatusCreated
 }
 
@@ -177,6 +222,21 @@ func (s *sEquipmentMaintenance) RestoreEquipmentMaintenance(ctx context.Context,
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}
+
+	notification := kafka.NotificationPayload{
+		RestaurantID: Account.RestaurantID,
+		NotiContent:  fmt.Sprintf("Thiết bị %s vừa được khôi phục yêu cầu bảo trì", equipmentMaintenance.EqpMtnName.String),
+		NotiTitle:    "Khôi phục bảo trì thiết bị",
+		NotiType:     "maintenance",
+		NotiMetadata: `{"text":"maintenance restored"}`,
+		SendObject:   "all_account",
+	}
+	message, _ := json.Marshal(notification)
+	kafka.SendMessageToKafka(ctx, kafka.KafkaMessage{
+		Topic:   "NOTIFICATION_ACCOUNT_CREATE",
+		Message: string(message),
+	})
+
 	return nil, http.StatusCreated
 }
 
@@ -254,6 +314,21 @@ func(s *sEquipmentMaintenance) UpdateEquipmentMaintenanceStatus(ctx context.Cont
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}
+
+	notification := kafka.NotificationPayload{
+		RestaurantID: Account.RestaurantID,
+		NotiContent:  fmt.Sprintf("Thiết bị %s vừa được cập nhật trạng thái bảo trì thành %s", equipmentMaintenance.EqpMtnName.String, updateEquipmentMaintenanceStatus.EqpMtnStatus),
+		NotiTitle:    "Cập nhật trạng thái bảo trì",
+		NotiType:     "maintenance",
+		NotiMetadata: `{"text":"status updated"}`,
+		SendObject:   "all_account",
+	}
+	message, _ := json.Marshal(notification)
+	kafka.SendMessageToKafka(ctx, kafka.KafkaMessage{
+		Topic:   "NOTIFICATION_ACCOUNT_CREATE",
+		Message: string(message),
+	})
+
 	return nil, http.StatusCreated
 }
 
