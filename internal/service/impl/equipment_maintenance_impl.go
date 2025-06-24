@@ -11,10 +11,6 @@ import (
 	"system-management-pg/pkg/response"
 	"time"
 	"system-management-pg/internal/utils/kafka"
-	//json
-	"encoding/json"
-
-
 	"github.com/google/uuid"
 )
 
