@@ -31,16 +31,12 @@ RUN go mod download
 
 COPY . .
 
-ENV CGO_ENABLED=0
+ENV CGO_ENABLED=0 GOOS=linux GOARCH=amd64
+RUN go build -trimpath -ldflags="-s -w" -o system.management.pg.com ./cmd/server
 
-RUN go build -o system.management.pg.com ./cmd/server
 
 FROM alpine:latest
-
-WORKDIR /
-COPY --from=builder /build/system.management.pg.com /
+COPY system.management.pg.com /
 COPY ./config /config
-
 EXPOSE 13000
-
 ENTRYPOINT ["/system.management.pg.com", "config/local.yaml"]

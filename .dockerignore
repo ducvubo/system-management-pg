@@ -1,2 +1,8 @@
 *.git
 *.md
+.idea
+*.log
+*.sh
+node_modules
+build
+tmp
