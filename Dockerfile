@@ -36,7 +36,12 @@ RUN go build -trimpath -ldflags="-s -w" -o system.management.pg.com ./cmd/server
 
 
 FROM alpine:latest
-COPY system.management.pg.com /
-COPY ./config /config
+
+WORKDIR /
+
+COPY --from=builder /build/system.management.pg.com /
+COPY --from=builder /build/config /config
+
 EXPOSE 13000
 ENTRYPOINT ["/system.management.pg.com", "config/local.yaml"]
+
