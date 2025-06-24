@@ -97,7 +97,7 @@ func (s *sInternalProposal) UpdateInternalProposal(ctx context.Context, updateIn
 }
 
 func (s *sInternalProposal) DeleteInternalProposal(ctx context.Context, ItnProposalId string, Account *model.Account) (err error, statusCode int) {
-	_, err = s.r.GetInternalProposal(ctx,database.GetInternalProposalParams{
+	internalNote, err := s.r.GetInternalProposal(ctx,database.GetInternalProposalParams{
 		ItnProposalID: ItnProposalId,
 		ItnProposalResID: Account.RestaurantID,
 	})
@@ -114,7 +114,7 @@ func (s *sInternalProposal) DeleteInternalProposal(ctx context.Context, ItnPropo
 	}
 	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
 		RestaurantID: Account.RestaurantID,
-		NotiContent:  fmt.Sprintf("Đề xuất nội bộ %s vừa được xóa", ItnProposalId),
+		NotiContent:  fmt.Sprintf("Đề xuất nội bộ %s vừa được xóa", internalNote.ItnProposalTitle.String),
 		NotiTitle:    "Đề xuất nội bộ",
 		NotiType:     "internal_proposal",
 		NotiMetadata: `{"text":"delete internal proposal"}`,
@@ -124,7 +124,7 @@ func (s *sInternalProposal) DeleteInternalProposal(ctx context.Context, ItnPropo
 }
 
 func (s *sInternalProposal) RestoreInternalProposal(ctx context.Context, ItnProposalId string, Account *model.Account) (err error, statusCode int) {
-	_, err = s.r.GetInternalProposal(ctx,database.GetInternalProposalParams{
+	internalNote, err := s.r.GetInternalProposal(ctx,database.GetInternalProposalParams{
 		ItnProposalID: ItnProposalId,
 		ItnProposalResID: Account.RestaurantID,
 	})
@@ -141,7 +141,7 @@ func (s *sInternalProposal) RestoreInternalProposal(ctx context.Context, ItnProp
 	}
 	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
 		RestaurantID: Account.RestaurantID,
-		NotiContent:  fmt.Sprintf("Đề xuất nội bộ %s vừa được khôi phục", ItnProposalId),
+		NotiContent:  fmt.Sprintf("Đề xuất nội bộ %s vừa được khôi phục", internalNote.ItnProposalTitle.String),
 		NotiTitle:    "Đề xuất nội bộ",
 		NotiType:     "internal_proposal",
 		NotiMetadata: `{"text":"restore internal proposal"}`,
@@ -195,7 +195,7 @@ func (s *sInternalProposal) GetAllInternalProposal(ctx context.Context, Limit in
 }
 
 func(s *sInternalProposal) UpdateInternalProposalStatus(ctx context.Context, updateInternalProposalStatus *model.UpdateInternalProposalStatusDto, Account *model.Account) (err error, statusCode int) {
-	_, err = s.r.GetInternalProposal(ctx,database.GetInternalProposalParams{
+	internalNote, err := s.r.GetInternalProposal(ctx,database.GetInternalProposalParams{
 		ItnProposalID: updateInternalProposalStatus.ItnProposalId,
 		ItnProposalResID: Account.RestaurantID,
 	})
@@ -221,7 +221,7 @@ func(s *sInternalProposal) UpdateInternalProposalStatus(ctx context.Context, upd
 	}
 	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
 		RestaurantID: Account.RestaurantID,
-		NotiContent:  fmt.Sprintf("Đề xuất nội bộ %s vừa được cập nhật trạng thái", updateInternalProposalStatus.ItnProposalId),
+		NotiContent:  fmt.Sprintf("Đề xuất nội bộ %s vừa được cập nhật trạng thái", internalNote.ItnProposalTitle.String),
 		NotiTitle:    "Đề xuất nội bộ",
 		NotiType:     "internal_proposal",
 		NotiMetadata: `{"text":"update internal proposal status"}`,

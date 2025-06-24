@@ -100,7 +100,7 @@ func (s *sOperationManual) UpdateOperationManual(ctx context.Context, updateOper
 }
 
 func (s *sOperationManual) DeleteOperationManual(ctx context.Context, OperaManualID string, Account *model.Account) (err error, statusCode int) {
-	_, err = s.r.GetOperationManual(ctx,database.GetOperationManualParams{
+      operaManual, err := s.r.GetOperationManual(ctx,database.GetOperationManualParams{
 		OperaManualID: OperaManualID,
 		OperaManuaResID: Account.RestaurantID,
 	})
@@ -117,7 +117,7 @@ func (s *sOperationManual) DeleteOperationManual(ctx context.Context, OperaManua
 	}
 	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
 		RestaurantID: Account.RestaurantID,
-		NotiContent:  fmt.Sprintf("Hướng dẫn vận hành %s vừa được xóa", OperaManualID),
+		NotiContent:  fmt.Sprintf("Hướng dẫn vận hành %s vừa được xóa", operaManual.OperaManualTitle.String),
 		NotiTitle:    "Hướng dẫn vận hành",
 		NotiType:     "operation_manual",
 		NotiMetadata: `{"text":"delete operation manual"}`,
@@ -127,7 +127,7 @@ func (s *sOperationManual) DeleteOperationManual(ctx context.Context, OperaManua
 }
 
 func (s *sOperationManual) RestoreOperationManual(ctx context.Context, OperaManualID string, Account *model.Account) (err error, statusCode int) {
-	_, err = s.r.GetOperationManual(ctx,database.GetOperationManualParams{
+	operaManual, err := s.r.GetOperationManual(ctx,database.GetOperationManualParams{
 		OperaManualID: OperaManualID,
 		OperaManuaResID: Account.RestaurantID,
 	})
@@ -144,7 +144,7 @@ func (s *sOperationManual) RestoreOperationManual(ctx context.Context, OperaManu
 	}
 	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
 		RestaurantID: Account.RestaurantID,
-		NotiContent:  fmt.Sprintf("Hướng dẫn vận hành %s vừa được khôi phục", OperaManualID),
+		NotiContent:  fmt.Sprintf("Hướng dẫn vận hành %s vừa được khôi phục", operaManual.OperaManualTitle.String),
 		NotiTitle:    "Hướng dẫn vận hành",
 		NotiType:     "operation_manual",
 		NotiMetadata: `{"text":"restore operation manual"}`,
@@ -198,7 +198,7 @@ func (s *sOperationManual) GetAllOperationManual(ctx context.Context, Limit int3
 }
 
 func(s *sOperationManual) UpdateOperationManualStatus(ctx context.Context, updateOperationManualStatus *model.UpdateOperationManualStatusDto, Account *model.Account) (err error, statusCode int) {
-	_, err = s.r.GetOperationManual(ctx,database.GetOperationManualParams{
+	operaManual, err := s.r.GetOperationManual(ctx,database.GetOperationManualParams{
 		OperaManualID: updateOperationManualStatus.OperaManualID,
 		OperaManuaResID: Account.RestaurantID,
 	})
@@ -224,7 +224,7 @@ func(s *sOperationManual) UpdateOperationManualStatus(ctx context.Context, updat
 	}
 	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
 		RestaurantID: Account.RestaurantID,
-		NotiContent:  fmt.Sprintf("Hướng dẫn vận hành %s vừa được cập nhật trạng thái", updateOperationManualStatus.OperaManualID),
+		NotiContent:  fmt.Sprintf("Hướng dẫn vận hành %s vừa được cập nhật trạng thái", operaManual.OperaManualTitle.String),
 		NotiTitle:    "Hướng dẫn vận hành",
 		NotiType:     "operation_manual",
 		NotiMetadata: `{"text":"update operation manual status"}`,

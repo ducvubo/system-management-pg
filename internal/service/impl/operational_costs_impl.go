@@ -46,7 +46,7 @@ func (s *sOperationalCosts) CreateOperationalCosts(ctx context.Context, createOp
 	}
 	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
 		RestaurantID: Account.RestaurantID,
-		NotiContent:  fmt.Sprintf("Chi phí vận hành %s vừa được tạo", createOperationalCosts.OperaCostType),
+		NotiContent:  fmt.Sprintf("Chi phí vận hành %s vừa được tạo", createOperationalCosts.OperaCostType.String),
 		NotiTitle:    "Chi phí vận hành",
 		NotiType:     "operational_costs",
 		NotiMetadata: `{"text":"new operational costs"}`,
@@ -107,7 +107,7 @@ func (s *sOperationalCosts) UpdateOperationalCosts(ctx context.Context, updateOp
 	}
 	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
 		RestaurantID: Account.RestaurantID,
-		NotiContent:  fmt.Sprintf("Chi phí vận hành %s vừa được cập nhật", updateOperationalCosts.OperaCostType),
+		NotiContent:  fmt.Sprintf("Chi phí vận hành %s vừa được cập nhật", updateOperationalCosts.OperaCostType.String),
 		NotiTitle:    "Chi phí vận hành",
 		NotiType:     "operational_costs",
 		NotiMetadata: `{"text":"update operational costs"}`,
@@ -117,7 +117,7 @@ func (s *sOperationalCosts) UpdateOperationalCosts(ctx context.Context, updateOp
 }
 
 func (s *sOperationalCosts) DeleteOperationalCosts(ctx context.Context, OperaCostID string, Account *model.Account) (err error, statusCode int) {
-	_, err = s.r.GetOperationalCosts(ctx,database.GetOperationalCostsParams{
+	operationalCost, err := s.r.GetOperationalCosts(ctx,database.GetOperationalCostsParams{
 		OperaCostID: OperaCostID,
 		OperaCostResID: Account.RestaurantID,
 	})
@@ -134,7 +134,7 @@ func (s *sOperationalCosts) DeleteOperationalCosts(ctx context.Context, OperaCos
 	}
 	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
 		RestaurantID: Account.RestaurantID,
-		NotiContent:  fmt.Sprintf("Chi phí vận hành %s vừa được xóa", OperaCostID),
+		NotiContent:  fmt.Sprintf("Chi phí vận hành %s vừa được xóa", operationalCost.OperaCostType.String),
 		NotiTitle:    "Chi phí vận hành",
 		NotiType:     "operational_costs",
 		NotiMetadata: `{"text":"delete operational costs"}`,
@@ -144,7 +144,7 @@ func (s *sOperationalCosts) DeleteOperationalCosts(ctx context.Context, OperaCos
 }
 
 func (s *sOperationalCosts) RestoreOperationalCosts(ctx context.Context, OperaCostID string, Account *model.Account) (err error, statusCode int) {
-	_, err = s.r.GetOperationalCosts(ctx,database.GetOperationalCostsParams{
+	operationalCostsParams, err := s.r.GetOperationalCosts(ctx,database.GetOperationalCostsParams{
 		OperaCostID: OperaCostID,
 		OperaCostResID: Account.RestaurantID,
 	})
@@ -161,7 +161,7 @@ func (s *sOperationalCosts) RestoreOperationalCosts(ctx context.Context, OperaCo
 	}
 	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
 		RestaurantID: Account.RestaurantID,
-		NotiContent:  fmt.Sprintf("Chi phí vận hành %s vừa được khôi phục", OperaCostID),
+		NotiContent:  fmt.Sprintf("Chi phí vận hành %s vừa được khôi phục", operationalCostsParams.OperaCostType.String),
 		NotiTitle:    "Chi phí vận hành",
 		NotiType:     "operational_costs",
 		NotiMetadata: `{"text":"restore operational costs"}`,
@@ -222,7 +222,7 @@ func (s *sOperationalCosts) GetAllOperationalCosts(ctx context.Context, Limit in
 }
 
 func(s *sOperationalCosts) UpdateOperationalCostsStatus(ctx context.Context, updateOperationalCostsStatus *model.UpdateOperationalCostsStatusDto, Account *model.Account) (err error, statusCode int) {
-	_, err = s.r.GetOperationalCosts(ctx,database.GetOperationalCostsParams{
+	operationalCostsStatus, err := s.r.GetOperationalCosts(ctx,database.GetOperationalCostsParams{
 		OperaCostID: updateOperationalCostsStatus.OperaCostID,
 		OperaCostResID: Account.RestaurantID,
 	})
@@ -248,7 +248,7 @@ func(s *sOperationalCosts) UpdateOperationalCostsStatus(ctx context.Context, upd
 	}
 	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
 		RestaurantID: Account.RestaurantID,
-		NotiContent:  fmt.Sprintf("Chi phí vận hành %s vừa được cập nhật trạng thái", updateOperationalCostsStatus.OperaCostID),
+		NotiContent:  fmt.Sprintf("Chi phí vận hành %s vừa được cập nhật trạng thái", operationalCostsStatus.OperaCostType.String),
 		NotiTitle:    "Chi phí vận hành",
 		NotiType:     "operational_costs",
 		NotiMetadata: `{"text":"update operational costs status"}`,
