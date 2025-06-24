@@ -11,7 +11,9 @@ type SystemParameterRouter struct{}
 
 func (pr *SystemParameterRouter) InitSystemParameterRouter(Router *gin.RouterGroup) {
 
+
 	systemParameterPublic := Router.Group("/system-parameter")
+	systemParameterPublic.Use(middlewares.LogApiMiddleware())
 	{
 		systemParameterPublic.GET("", parameter.SystemParameter.GetAllSystemParameter)
 		systemParameterPublic.GET("/:sysParaID", parameter.SystemParameter.GetSystemParameter)

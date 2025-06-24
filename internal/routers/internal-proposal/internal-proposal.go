@@ -13,6 +13,7 @@ func (pr *InternalProposalRouter) InitInternalProposalRouter(Router *gin.RouterG
 
 	internalProposalRouterPrivate := Router.Group("/internal-proposal")
 	internalProposalRouterPrivate.Use(middlewares.AuthenMiddlewareAccount())
+	internalProposalRouterPrivate.Use(middlewares.LogApiMiddleware())
 	{
 		internalProposalRouterPrivate.POST("", internalproposal.InternalProposal.CreateInternalProposal)
 		internalProposalRouterPrivate.GET("/:id", internalproposal.InternalProposal.FindInternalProposal)

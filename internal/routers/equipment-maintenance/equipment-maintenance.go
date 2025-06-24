@@ -13,6 +13,7 @@ func (pr *EquipmentMaintenanceRouter) InitEquipmentMaintenanceRouter(Router *gin
 
 	equipmentMaintenanceRouterPrivate := Router.Group("/equipment-maintenance")
 	equipmentMaintenanceRouterPrivate.Use(middlewares.AuthenMiddlewareAccount())
+	equipmentMaintenanceRouterPrivate.Use(middlewares.LogApiMiddleware())
 	{
 		equipmentMaintenanceRouterPrivate.POST("", equipmentmaintenance.EquipmentMaintenance.CreateEquipmentMaintenance)
 		equipmentMaintenanceRouterPrivate.GET("/:id", equipmentmaintenance.EquipmentMaintenance.FindEquipmentMaintenance)

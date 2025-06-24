@@ -13,6 +13,7 @@ func (pr *OperationManualRouter) InitOperationManualRouter(Router *gin.RouterGro
 
 	operationManualRouterPrivate := Router.Group("/operation-manual")
 	operationManualRouterPrivate.Use(middlewares.AuthenMiddlewareAccount())
+	operationManualRouterPrivate.Use(middlewares.LogApiMiddleware())
 	{
 		operationManualRouterPrivate.POST("", operationmanual.OperationManual.CreateOperationManual)
 		operationManualRouterPrivate.GET("/:id", operationmanual.OperationManual.FindOperationManual)

@@ -13,6 +13,7 @@ func (pr *InternalNoteRouter) InitInternalNoteRouter(Router *gin.RouterGroup) {
 
 	internalProposalRouterPrivate := Router.Group("/internal-note")
 	internalProposalRouterPrivate.Use(middlewares.AuthenMiddlewareAccount())
+	internalProposalRouterPrivate.Use(middlewares.LogApiMiddleware())
 	{
 		internalProposalRouterPrivate.POST("", internalnote.InternalNote.CreateInternalNote)
 		internalProposalRouterPrivate.GET("/:id", internalnote.InternalNote.FindInternalNote)

@@ -13,6 +13,7 @@ func (pr *OperationalCostsRouter) InitOperationalCostsRouter(Router *gin.RouterG
 
 	operationalCostsRouterPrivate := Router.Group("/operational-costs")
 	operationalCostsRouterPrivate.Use(middlewares.AuthenMiddlewareAccount())
+	operationalCostsRouterPrivate.Use(middlewares.LogApiMiddleware())
 	{
 		operationalCostsRouterPrivate.POST("", operationalcosts.OperationalCosts.CreateOperationalCosts)
 		operationalCostsRouterPrivate.GET("/:id", operationalcosts.OperationalCosts.FindOperationalCosts)
