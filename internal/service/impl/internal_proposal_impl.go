@@ -114,7 +114,7 @@ func (s *sInternalProposal) DeleteInternalProposal(ctx context.Context, ItnPropo
 	}
 	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
 		RestaurantID: Account.RestaurantID,
-		NotiContent:  fmt.Sprintf("Đề xuất nội bộ %s vừa được xóa", internalNote.ItnProposalTitle),
+		NotiContent:  fmt.Sprintf("Đề xuất nội bộ %s vừa được xóa", internalNote.ItnProposalTitle.String),
 		NotiTitle:    "Đề xuất nội bộ",
 		NotiType:     "internal_proposal",
 		NotiMetadata: `{"text":"delete internal proposal"}`,
@@ -141,7 +141,7 @@ func (s *sInternalProposal) RestoreInternalProposal(ctx context.Context, ItnProp
 	}
 	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
 		RestaurantID: Account.RestaurantID,
-		NotiContent:  fmt.Sprintf("Đề xuất nội bộ %s vừa được khôi phục", internalNote.ItnProposalTitle),
+		NotiContent:  fmt.Sprintf("Đề xuất nội bộ %s vừa được khôi phục", internalNote.ItnProposalTitle.String),
 		NotiTitle:    "Đề xuất nội bộ",
 		NotiType:     "internal_proposal",
 		NotiMetadata: `{"text":"restore internal proposal"}`,
@@ -221,7 +221,7 @@ func(s *sInternalProposal) UpdateInternalProposalStatus(ctx context.Context, upd
 	}
 	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
 		RestaurantID: Account.RestaurantID,
-		NotiContent:  fmt.Sprintf("Đề xuất nội bộ %s vừa được cập nhật trạng thái", internalNote.ItnProposalTitle),
+		NotiContent:  fmt.Sprintf("Đề xuất nội bộ %s vừa được cập nhật trạng thái", internalNote.ItnProposalTitle.String),
 		NotiTitle:    "Đề xuất nội bộ",
 		NotiType:     "internal_proposal",
 		NotiMetadata: `{"text":"update internal proposal status"}`,

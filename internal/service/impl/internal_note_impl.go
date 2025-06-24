@@ -116,7 +116,7 @@ func (s *sInternalNote) DeleteInternalNote(ctx context.Context, ItnNoteId string
 	}
 	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
 		RestaurantID: Account.RestaurantID,
-		NotiContent:  fmt.Sprintf("Ghi chú nội bộ %s vừa được xóa", internalNote.ItnNoteTitle),
+		NotiContent:  fmt.Sprintf("Ghi chú nội bộ %s vừa được xóa", internalNote.ItnNoteTitle.String),
 		NotiTitle:    "Ghi chú nội bộ",
 		NotiType:     "internal_note",
 		NotiMetadata: `{"text":"delete internal note"}`,
@@ -143,7 +143,7 @@ func (s *sInternalNote) RestoreInternalNote(ctx context.Context, ItnNoteId strin
 	}
 	kafka.SendMessageToKafka(ctx, "NOTIFICATION_ACCOUNT_CREATE", kafka.NotificationPayload{
 		RestaurantID: Account.RestaurantID,
-		NotiContent:  fmt.Sprintf("Ghi chú nội bộ %s vừa được khôi phục", internalNote.ItnNoteTitle),
+		NotiContent:  fmt.Sprintf("Ghi chú nội bộ %s vừa được khôi phục", internalNote.ItnNoteTitle.String),
 		NotiTitle:    "Ghi chú nội bộ",
 		NotiType:     "internal_note",
 		NotiMetadata: `{"text":"restore internal note"}`,
