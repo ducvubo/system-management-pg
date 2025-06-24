@@ -4,3 +4,4 @@ config/production.yaml
 tmp
 cmd/server/tmp
 dev.001.log
+storages/logs/dev.001.log

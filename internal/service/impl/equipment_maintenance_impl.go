@@ -10,6 +10,10 @@ import (
 	"system-management-pg/internal/model"
 	"system-management-pg/pkg/response"
 	"time"
+	"system-management-pg/internal/utils/kafka"
+	//json
+	"encoding/json"
+
 
 	"github.com/google/uuid"
 )
@@ -173,7 +177,7 @@ func (s *sEquipmentMaintenance) UpdateEquipmentMaintenance(ctx context.Context, 
 }
 
 func (s *sEquipmentMaintenance) DeleteEquipmentMaintenance(ctx context.Context, EqpMtnID string, Account *model.Account) (err error, statusCode int) {
-	_, err = s.r.GetEquipmentMaintenance(ctx,database.GetEquipmentMaintenanceParams{
+	equipmentMaintenance, err := s.r.GetEquipmentMaintenance(ctx,database.GetEquipmentMaintenanceParams{
 		EqpMtnID: EqpMtnID,
 		EqpMtnResID: Account.RestaurantID,
 	})
@@ -207,7 +211,7 @@ func (s *sEquipmentMaintenance) DeleteEquipmentMaintenance(ctx context.Context, 
 }
 
 func (s *sEquipmentMaintenance) RestoreEquipmentMaintenance(ctx context.Context, EqpMtnID string, Account *model.Account) (err error, statusCode int) {
-	_, err = s.r.GetEquipmentMaintenance(ctx,database.GetEquipmentMaintenanceParams{
+	equipmentMaintenance, err := s.r.GetEquipmentMaintenance(ctx,database.GetEquipmentMaintenanceParams{
 		EqpMtnID: EqpMtnID,
 		EqpMtnResID: Account.RestaurantID,
 	})
@@ -290,7 +294,7 @@ func (s *sEquipmentMaintenance) GetAllEquipmentMaintenance(ctx context.Context, 
 }
 
 func(s *sEquipmentMaintenance) UpdateEquipmentMaintenanceStatus(ctx context.Context, updateEquipmentMaintenanceStatus *model.UpdateEquipmentMaintenanceStatusDto, Account *model.Account) (err error, statusCode int) {
-	_, err = s.r.GetEquipmentMaintenance(ctx,database.GetEquipmentMaintenanceParams{
+	equipmentMaintenance, err := s.r.GetEquipmentMaintenance(ctx,database.GetEquipmentMaintenanceParams{
 		EqpMtnID: updateEquipmentMaintenanceStatus.EqpMtnID,
 		EqpMtnResID: Account.RestaurantID,
 	})
