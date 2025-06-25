@@ -235,7 +235,7 @@ definitions:
         description: HTTP status code
         type: integer
     type: object
-host: system.management.pg.taphoaictu.id.vn
+host: system.management.pg.taphoaictu.id.vn.l
 info:
   contact:
     email: vminhduc8@gmail.com

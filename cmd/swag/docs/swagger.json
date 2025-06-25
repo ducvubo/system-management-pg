@@ -15,7 +15,7 @@
         },
         "version": "1.0.0"
     },
-    "host": "system.management.pg.taphoaictu.id.vn",
+    "host": "system.management.pg.taphoaictu.id.vn.l",
     "basePath": "/api/v1",
     "paths": {
         "/equipment-maintenance": {
